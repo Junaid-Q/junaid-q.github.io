@@ -1,97 +1,77 @@
-html,
-body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    font-family: Arial, sans-serif;
-    background: #000;
-    overflow-x: hidden;
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+  background: #000;
 }
 
 #particles-js {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  z-index: 0;
 }
 
 .overlay {
-    position: relative;
-    z-index: 1;
-    color: white;
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: rgba(0, 0, 0, 0.65);
-    border-radius: 10px;
-    margin-top: 20px;
-}
-
-header {
-    text-align: center;
-    margin-bottom: 30px;
+  position: relative;
+  z-index: 1;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .profile-photo {
-    width: 140px;
-    height: 140px;
-    border-radius: 50%;
-    border: 3px solid #fff;
-    object-fit: cover;
-    box-shadow: 0 0 10px #fff;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  margin-top: 50px;
+  object-fit: cover;
+  box-shadow: 0 0 10px #fff;
 }
 
 h1 {
-    margin-top: 15px;
-    font-size: 2em;
+  font-size: 2.5em;
+  margin: 20px 0 10px;
 }
 
-.tagline {
-    font-size: 1.2em;
-    margin-top: 5px;
+p {
+  font-size: 1.2em;
 }
 
-section {
-    margin-bottom: 30px;
+.info {
+  margin-top: 30px;
+  text-align: left;
+  background-color: rgba(0,0,0,0.6);
+  padding: 20px;
+  border-radius: 10px;
 }
 
-section h2 {
-    border-bottom: 1px solid #aaa;
-    padding-bottom: 5px;
-    margin-bottom: 10px;
-    color: #80d4ff;
+.info h2 {
+  margin-top: 20px;
+  border-bottom: 1px solid #fff;
+  padding-bottom: 5px;
 }
 
-ul {
-    list-style-type: none;
-    padding-left: 0;
+.info ul {
+  list-style-type: none;
+  padding-left: 0;
 }
 
-ul li {
-    margin: 5px 0;
+.info li {
+  margin: 5px 0;
 }
 
 a {
-    color: #80d4ff;
-    text-decoration: none;
+  color: #80d4ff;
+  text-decoration: none;
 }
 
 a:hover {
-    text-decoration: underline;
-}
-
-.links a {
-    margin-right: 15px;
-}
-
-footer {
-    text-align: center;
-    margin-top: 30px;
-}
-
-.footer-logo {
-    height: 40px;
-    margin: 5px 10px;
+  text-decoration: underline;
 }
