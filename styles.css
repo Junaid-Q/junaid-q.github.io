@@ -26,6 +26,12 @@ html, body {
   pointer-events: none;
 }
 
+.overlay a,
+.overlay button {
+    pointer-events: auto;
+    /* make links and buttons still clickable */
+}
+
 .profile-photo {
   width: 160px;
   height: 160px;
