@@ -1,7 +1,7 @@
 {
     "particles": {
         "number": {
-            "value": 200
+            "value": 80
         },
         "color": {
             "value": "#ffffff"
@@ -24,7 +24,7 @@
         },
         "move": {
             "enable": true,
-            "speed": 8
+            "speed": 4
         }
     },
     "interactivity": {
@@ -37,11 +37,13 @@
             "onclick": {
                 "enable": true,
                 "mode": "push"
-            }
+            },
+            "resize": true
         },
         "modes": {
             "repulse": {
-                "distance": 100
+                "distance": 100,
+                "duration": 0.4
             },
             "push": {
                 "particles_nb": 4
