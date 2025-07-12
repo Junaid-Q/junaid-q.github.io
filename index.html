@@ -5,18 +5,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dr. Junaid Qadir</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
-    <!-- PARTICLES BACKGROUND -->
     <div id="particles-js"></div>
 
-    <!-- OVERLAY CONTENT -->
     <div class="overlay">
-        <img src="profile.jpg" alt="Dr. Junaid Qadir" class="profile-photo" />
-        <h1>Dr. Junaid Qadir</h1>
-        <p>Telecommunications Researcher & Educator</p>
+        <div class="profile-container">
+            <img src="profile.jpg" alt="Dr. Junaid Qadir" class="profile-photo" />
+            <h1>Dr. Junaid Qadir</h1>
+            <p>Telecommunications Researcher & Educator</p>
+        </div>
 
         <section class="info">
             <h2>📚 Publications</h2>
@@ -36,11 +36,10 @@
         </section>
     </div>
 
-    <!-- PARTICLES.JS FROM CDN -->
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script>
         particlesJS.load('particles-js', 'particles-config.json', function () {
-            console.log('Particles.js config loaded');
+            console.log('particles.js config loaded');
         });
     </script>
 </body>
