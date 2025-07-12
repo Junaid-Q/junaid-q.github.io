@@ -132,3 +132,23 @@ section li {
   opacity: 0.8;
   transition: opacity 0.3s;
 }
+
+
+.site-footer {
+  background-color: #222;
+  color: #ccc;
+  text-align: center;
+  padding: 15px 10px;
+  font-size: 0.9em;
+  position: relative;
+  z-index: 2;
+}
+
+.site-footer a {
+  color: #80d4ff;
+  text-decoration: none;
+}
+
+.site-footer a:hover {
+  text-decoration: underline;
+}
