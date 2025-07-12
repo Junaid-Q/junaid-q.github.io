@@ -1,70 +1,79 @@
 html,
 body {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-  background: #111;
-  color: #fff;
-}
-
-#hero {
-  position: relative;
-  height: 50vh;
-  overflow: hidden;
-  text-align: center;
-  background-color: #000;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: #000;
+    color: #fff;
+    overflow-x: hidden;
+    /* only hide horizontal overflow if needed */
 }
 
 #particles-js {
   position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
-  z-index: -1;
+  background-color: #000;
+  z-index: 0;
 }
 
-.hero-content {
+.overlay {
   position: relative;
   z-index: 1;
-  padding-top: 40px;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  pointer-events: none;
+}
+
+.overlay a,
+.overlay button {
+    pointer-events: auto;
+    /* make links and buttons still clickable */
 }
 
 .profile-photo {
-  width: 140px;
-  height: 140px;
+  width: 160px;
+  height: 160px;
   border-radius: 50%;
   border: 3px solid #fff;
+  margin-top: 50px;
   object-fit: cover;
   box-shadow: 0 0 10px #fff;
 }
 
 h1 {
-  margin: 10px 0;
-  font-size: 2em;
+  font-size: 2.5em;
+  margin: 20px 0 10px;
 }
 
-.tagline {
-  font-size: 1.1em;
-  color: #ccc;
+p {
+  font-size: 1.2em;
 }
 
-main {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 40px 20px;
-  background-color: #222;
+.info {
+  margin-top: 30px;
+  text-align: left;
+  background-color: rgba(0,0,0,0.6);
+  padding: 20px;
+  border-radius: 10px;
 }
 
-section {
-  margin-bottom: 40px;
-}
-
-section h2 {
-  color: #80d4ff;
-  border-bottom: 1px solid #80d4ff;
+.info h2 {
+  margin-top: 20px;
+  border-bottom: 1px solid #fff;
   padding-bottom: 5px;
-  margin-bottom: 10px;
+}
+
+.info ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.info li {
+  margin: 5px 0;
 }
 
 a {
@@ -76,44 +85,40 @@ a:hover {
   text-decoration: underline;
 }
 
-.profile-icons {
-  text-align: center;
-  margin-top: 15px;
+
+.profiles {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.profiles h2 {
+    border-bottom: 1px solid #80d4ff;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    color: #80d4ff;
 }
 
 .profile-icons a {
-  font-size: 28px;
-  margin: 0 8px;
-  color: #80d4ff;
-  transition: transform 0.3s, color 0.3s;
+    color: #80d4ff;
+    font-size: 30px;
+    margin: 0 10px;
+    display: inline-block;
+    transition: transform 0.3s, color 0.3s;
 }
 
 .profile-icons a:hover {
-  transform: scale(1.2);
-  color: #ffffff;
+    transform: scale(1.2);
+    color: #ffffff;
 }
 
-.cv-link {
-  display: block;
-  text-align: center;
-  margin-top: 10px;
-}
-
-.footer-logos {
-  text-align: center;
-  padding: 20px 0;
-  background-color: #111;
-}
 
 .footer-logo {
-  height: 30px;
-  margin: 0 10px;
-  object-fit: contain;
-  filter: brightness(0) invert(1);
-  opacity: 0.8;
-  transition: opacity 0.3s;
-}
-
-.footer-logo:hover {
-  opacity: 1;
+    max-height: 30px;
+    max-width: 50px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+    opacity: 0.8;
+    transition: opacity 0.3s;
 }
