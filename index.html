@@ -5,19 +5,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dr. Junaid Qadir</title>
-    <link rel="stylesheet" href="style.css" />
-    <!-- Font Awesome Brand Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 
 <body>
 
-    <!-- Background particles canvas -->
+    <!-- Particles background -->
     <div id="particles-js"></div>
 
-    <!-- All content on top of particles -->
+    <!-- Overlay content -->
     <div class="overlay">
-
         <header>
             <img src="profile.jpg" alt="Dr. Junaid Qadir" class="profile-photo" />
             <h1>Dr. Junaid Qadir</h1>
@@ -26,11 +24,13 @@
 
         <section class="bio">
             <h2>Bio</h2>
-            <p>Dr. Junaid Qadir is a researcher specializing in cybersecurity in IoT, particularly LoRaWAN networks. His
-                work includes developing secure key management mechanisms and predicting postural stability using IMU
-                data. He completed his PhD on Cybersecurity in LoRaWAN Networks, and has experience in AI, IoT &
+            <p>
+                Dr. Junaid Qadir is a researcher specializing in cybersecurity in IoT, particularly LoRaWAN networks.
+                His work includes developing secure key management mechanisms and predicting postural stability using
+                IMU data. He completed his PhD on Cybersecurity in LoRaWAN Networks, and has experience in AI, IoT &
                 Security. He has served as a Postdoctoral Researcher at CNIT Genova Unige and is an active reviewer for
-                the IEEE Internet of Things Journal.</p>
+                the IEEE Internet of Things Journal.
+            </p>
         </section>
 
         <section class="research">
@@ -57,34 +57,23 @@
             <h2>Profiles</h2>
             <div class="profile-icons">
                 <a href="https://scholar.google.com.pk/citations?user=iJI08F8AAAAJ&hl=en" target="_blank"
-                    title="Google Scholar">
-                    <i class="fa-brands fa-google"></i>
-                </a>
-                <a href="https://www.researchgate.net/profile/Junaid-Qadir" target="_blank" title="ResearchGate">
-                    <i class="fa-brands fa-researchgate"></i>
-                </a>
-                <a href="https://orcid.org/0000-0002-8456-8458" target="_blank" title="ORCID">
-                    <i class="fa-brands fa-orcid"></i>
-                </a>
-                <a href="https://www.scopus.com/authid/detail.uri?authorId=57213299572" target="_blank" title="Scopus">
-                    <i class="fa-solid fa-s"></i>
-                </a>
+                    title="Google Scholar"><i class="fa-brands fa-google"></i></a>
+                <a href="https://www.researchgate.net/profile/Junaid-Qadir" target="_blank" title="ResearchGate"><i
+                        class="fa-brands fa-researchgate"></i></a>
+                <a href="https://orcid.org/0000-0002-8456-8458" target="_blank" title="ORCID"><i
+                        class="fa-brands fa-orcid"></i></a>
+                <a href="https://www.scopus.com/authid/detail.uri?authorId=57213299572" target="_blank"
+                    title="Scopus"><i class="fa-solid fa-s"></i></a>
                 <a href="https://www.webofscience.com/wos/author/record/G-2047-2019" target="_blank"
-                    title="Web of Science">
-                    <i class="fa-solid fa-w"></i>
-                </a>
-                <a href="https://www.linkedin.com/in/junaid-qadir-ph-d-929ab4b6/" target="_blank" title="LinkedIn">
-                    <i class="fa-brands fa-linkedin"></i>
-                </a>
-                <a href="https://x.com/junaid_qadar" target="_blank" title="Twitter / X">
-                    <i class="fa-brands fa-twitter"></i>
-                </a>
-                <a href="https://www.instagram.com/junaid_italy/" target="_blank" title="Instagram">
-                    <i class="fa-brands fa-instagram"></i>
-                </a>
-                <a href="https://github.com/Junaid-Q" target="_blank" title="GitHub">
-                    <i class="fa-brands fa-github"></i>
-                </a>
+                    title="Web of Science"><i class="fa-solid fa-w"></i></a>
+                <a href="https://www.linkedin.com/in/junaid-qadir-ph-d-929ab4b6/" target="_blank" title="LinkedIn"><i
+                        class="fa-brands fa-linkedin"></i></a>
+                <a href="https://x.com/junaid_qadar" target="_blank" title="Twitter / X"><i
+                        class="fa-brands fa-twitter"></i></a>
+                <a href="https://www.instagram.com/junaid_italy/" target="_blank" title="Instagram"><i
+                        class="fa-brands fa-instagram"></i></a>
+                <a href="https://github.com/Junaid-Q" target="_blank" title="GitHub"><i
+                        class="fa-brands fa-github"></i></a>
             </div>
         </section>
 
@@ -119,14 +108,14 @@
             <img src="university_logo1.png" alt="University Logo 1" class="footer-logo" />
             <img src="university_logo2.png" alt="University Logo 2" class="footer-logo" />
         </footer>
-
     </div>
 
-    <!-- Particles.js library and init -->
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script>
-        particlesJS.load('particles-js', 'particles-config.json', function () {
-            console.log('particles.js config loaded');
+        document.addEventListener("DOMContentLoaded", function () {
+            particlesJS.load('particles-js', 'particles-config.json', function () {
+                console.log('particles.js config loaded');
+            });
         });
     </script>
 </body>
