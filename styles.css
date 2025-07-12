@@ -23,6 +23,7 @@ html, body {
   padding: 20px;
   max-width: 800px;
   margin: 0 auto;
+  pointer-events: none;
 }
 
 .profile-photo {
