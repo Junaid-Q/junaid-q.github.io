@@ -1,14 +1,10 @@
 {
     "particles": {
         "number": {
-            "value": 80
+            "value": 150
         },
         "color": {
-            "value": [
-                "#ff0000",
-                "#00ff00",
-                "#0000ff"
-            ]
+            "value": "#ffffff"
         },
         "shape": {
             "type": "circle"
@@ -28,7 +24,7 @@
         },
         "move": {
             "enable": true,
-            "speed": 4
+            "speed": 6
         }
     },
     "interactivity": {
