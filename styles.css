@@ -140,8 +140,8 @@ footer {
 }
 
 .footer-logo {
-  max-height: 60px;
-  max-width: 120px;
+  max-height: 120px;
+  max-width: 160px;
   width: auto;
   height: auto;
   object-fit: contain;
