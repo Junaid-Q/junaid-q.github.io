@@ -136,7 +136,7 @@ body {
   }
 }
 
-/* Hero Section */
+/* Hero Section with Particles, Photo, Name */
 .hero {
   position: relative;
   height: 100vh;
@@ -144,8 +144,9 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  box-sizing: border-box;
   overflow: hidden;
+  margin-left: 220px;
+  box-sizing: border-box;
 }
 
 .hero-content {
@@ -186,10 +187,24 @@ body {
   margin: 5px 0;
 }
 
+/* Responsive Hero Sidebar */
+@media (max-width: 768px) {
+  .hero {
+    margin-left: 0;
+  }
+}
+
 /* Main Content Area */
 main {
   padding: 30px 20px 100px;
   line-height: 1.6;
+  margin-left: 220px;
+}
+
+@media (max-width: 768px) {
+  main {
+    margin-left: 0;
+  }
 }
 
 /* Section Headings */
