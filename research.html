@@ -1,21 +1,58 @@
-<header class="hero">
-    <div id="particles-js"></div>
-    <div class="hero-content">
-        <h1>Research</h1>
-        <p>Overview of our postural balance evaluation pipeline using IMU and Force platform data.</p>
-    </div>
-</header>
+<!DOCTYPE html>
+<html lang="en">
 
-<main>
-    <section class="research">
-        <div class="research-item">
-            <img src="images/imu.png" alt="Postural balance pipeline figure">
-            <p>
-                This diagram illustrates our approach for evaluating postural balance using smart glasses (IMU) and a
-                force platform. IMU data is preprocessed and used to train deep learning models for force estimation.
-                The system calculates sway parameters, enabling a comparison with ground-truth force platform
-                measurements for clinical assessment and monitoring.
-            </p>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Publications - Dr. Junaid Qadir</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+
+<body>
+    <aside class="sidebar">
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="education.html">Education</a>
+            <a href="index.html#research">Research</a>
+            <a href="index.html#experience">Experience</a>
+            <a href="publications.html">Publications</a>
+            <a href="index.html#projects">Projects</a>
+            <a href="index.html#professional-activities">Professional Activities</a>
+            <a href="index.html#contact">Contact</a>
+        </nav>
+    </aside>
+
+    <header class="hero">
+        <div id="particles-js"></div>
+        <div class="hero-content">
+            <h1>Research</h1>
+            <p>Research Background</p>
         </div>
-    </section>
-</main>
+    </header>
+
+        <main>
+            <section class="research">
+                <div class="research-item">
+                    <img src="images/imu.png" alt="Postural balance pipeline figure">
+                    <p>
+                        This diagram illustrates our approach for evaluating postural balance using smart glasses (IMU) and a
+                        force platform. IMU data is preprocessed and used to train deep learning models for force estimation.
+                        The system calculates sway parameters, enabling a comparison with ground-truth force platform
+                        measurements for clinical assessment and monitoring.
+                    </p>
+                </div>
+            </section>
+        </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            particlesJS.load('particles-js', 'particles-config.json', function () {
+                console.log('particles.js config loaded');
+            });
+        });
+    </script>
+</body>
+
+</html>
