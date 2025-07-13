@@ -245,7 +245,8 @@ main, footer {
   .hero,
   main,
   footer {
-    margin-left: 0;
+    margin-left: 220px;
+    box-sizing: border-box;
   }
 
   .sidebar nav a {
@@ -360,30 +361,19 @@ footer {
   footer {
     margin-left: 180px;
   }
-
-  .sidebar {
-    width: 180px;
-  }
 }
 
+
+
 @media (max-width: 768px) {
-  .sidebar {
-    position: relative;
-    width: 100%;
-    height: auto;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    border-right: none;
-    border-bottom: 1px solid #80d4ff;
-  }
 
   .hero,
   main,
   footer {
     margin-left: 0;
-    padding-right: 0;
   }
+
+}
 
   .sidebar nav a {
     padding: 10px 15px;
@@ -394,7 +384,7 @@ footer {
   .sidebar nav a:last-child {
     border-right: none;
   }
-}
+
 
 
 .bio {
