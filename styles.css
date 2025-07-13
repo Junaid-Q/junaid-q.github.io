@@ -58,10 +58,19 @@ a:hover {
   transition: all 0.3s ease;
   border-bottom: 1px solid rgba(128, 212, 255, 0.2);
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0));
-
-  /* Add glow! */
-  text-shadow: 0 0 2px #00ffff, 0 0 5px #00ffff, 0 0 10px #00ffff;
+  border-radius: 4px;
   font-weight: bold;
+  font-size: 1.1em;
+  box-shadow: 0 0 5px rgba(128, 212, 255, 0.2);
+  padding: 10px 15px;
+  transition: color 0.3s ease, background-color 0.3s ease, border-bottom 0.3s ease;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  font-size: 1.1em;
+  font-weight: 500;
+  padding: 10px 15px;
 }
 
 .topbar nav a:hover {
