@@ -158,3 +158,20 @@ footer p {
   font-size: 0.95em;
   color: #ccc;
 }
+
+
+
+
+.footer-copy {
+  position: relative;
+  padding-top: 1rem;
+  margin-top: 1rem;
+}
+
+.footer-copy::before {
+  content: "";
+  display: block;
+  width: 100%;
+  border-top: 1px solid #80d4ff;
+  margin-bottom: 1rem;
+}
