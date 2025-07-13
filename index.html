@@ -178,10 +178,14 @@
 </main>
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            particlesJS.load('particles-js', 'particles-config.json', function () {
-                console.log('particles.js config loaded');
-            });
+       document.addEventListener("DOMContentLoaded", function () {
+            // Remove any existing particles canvas before loading new
+            const existingCanvas = document.querySelector('#particles-js canvas');
+            if (existingCanvas) {
+                existingCanvas.remove();
+            }
+
+            particlesJS.load('particles-js', 'particles-config.json');
         });
     </script>
 </body>
