@@ -165,28 +165,26 @@ footer img {
 .research {
   max-width: 900px;
   margin: 0 auto;
-  line-height: 1.6;
-  text-align: justify;
-  padding: 20px;
+  padding: 30px 20px 100px;
   background-color: transparent;
-  /* ensures particles show */
+  /* Let particles show through */
+  line-height: 1.6;
 }
 
 .research-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
-  /* subtle overlay to aid text readability */
-  padding: 20px;
-  border-radius: 8px;
+  /* semi-transparent overlay for readability */
   border: 1px solid #80d4ff;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 0 10px #80d4ff33;
 }
 
 .research-item img {
   width: 100%;
-  max-width: 500px;
-  /* controls max figure size nicely on large screens */
+  max-width: 600px;
+  /* nicely scaled on large screens */
   height: auto;
   border: 2px solid #80d4ff;
   border-radius: 6px;
@@ -199,4 +197,5 @@ footer img {
   font-size: 1.1em;
   text-align: justify;
   max-width: 800px;
+  margin: 0 auto;
 }
