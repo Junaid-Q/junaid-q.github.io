@@ -96,11 +96,12 @@ section h2 {
 }
 
 section ul {
-  list-style-type: none;
-  padding-left: 0;
+  list-style-type: disc;
+  padding-left: 20px;
 }
 
-section li {
+section ul li {
+  color: #fff;
   margin: 8px 0;
 }
 
