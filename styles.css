@@ -224,12 +224,8 @@ footer p {
   color: #ffffff;
 }
 
-/* Move the rest of the page to the right of sidebar */
 
-main, footer {
-  margin-left: 220px;
-  padding-right: 20px;
-}
+
 
 /* Responsive Option */
 @media (max-width: 768px) {
@@ -339,32 +335,12 @@ main, footer {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-left: 220px;
   box-sizing: border-box;
-}
-
-main,
-footer {
-  margin-left: 220px;
-  padding-right: 20px;
 }
 
 /* ----------------------------------------
    Responsive Sidebar + Content
 ----------------------------------------- */
-
-@media (max-width: 1024px) {
-
-  .hero,
-  main,
-  footer {
-    margin-left: 180px;
-  }
-
-  .sidebar {
-    width: 180px;
-  }
-}
 
 @media (max-width: 768px) {
   .sidebar {
@@ -411,4 +387,36 @@ footer {
   line-height: 1.6;
   text-align: justify;
   padding: 20px;
+}
+
+/* ----------------------------------------
+   Layout with Sidebar and Main Content
+----------------------------------------- */
+
+body {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+}
+
+@media (max-width: 1024px) {
+  body {
+    grid-template-columns: 180px 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: relative;
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    border-right: none;
+    border-bottom: 1px solid #80d4ff;
+  }
 }
