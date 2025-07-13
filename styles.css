@@ -403,3 +403,11 @@ footer {
   text-align: justify;
   padding: 20px;
 }
+
+.publications {
+  max-width: 900px;
+  margin: 0 auto;
+  line-height: 1.6;
+  text-align: justify;
+  padding: 20px;
+}
