@@ -145,3 +145,14 @@ footer {
   padding: 20px 10px;
   margin-top: 40px;
 }
+
+/* Footer logo images */
+footer img {
+  max-height: 120px;
+  max-width: 160px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  opacity: 0.95;
+  transition: opacity 0.3s;
+}
