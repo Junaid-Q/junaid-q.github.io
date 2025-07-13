@@ -9,26 +9,24 @@
       "value": 150
     },
     "color": {
-      "value": [
-        "#ff0000",
-        "#ff7f00",
-        "#ffff00",
-        "#00ff00",
-        "#0000ff",
-        "#4b0082",
-        "#8b00ff"
-      ]
+  "value": [
+    "#00ffff",
+    "#ff00ff",
+    "#8000ff",
+    "#00ffea",
+    "#8a2be2"
+  ]
     },
     "shape": {
       "type": "circle"
     },
     "opacity": {
-      "value": 0.8,
+      "value": 1,
       "random": true,
       "anim": {
         "enable": true,
         "speed": 1.5,
-        "opacity_min": 0.2,
+        "opacity_min": 0.3,
         "sync": false
       }
     },
@@ -38,7 +36,7 @@
       "anim": {
         "enable": true,
         "speed": 2,
-        "size_min": 0.5,
+        "size_min": 1,
         "sync": false
       }
     },
