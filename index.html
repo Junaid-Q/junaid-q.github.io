@@ -176,14 +176,30 @@
     
 
 </main>
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            particlesJS.load('particles-js', 'particles-config.json', function () {
-                console.log('particles.js config loaded');
-            });
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script>
+    // Helper to load any config
+    function loadParticlesConfig(configFile) {
+        particlesJS.load('particles-js', configFile, () => {
+            console.log('Loaded:', configFile);
         });
-    </script>
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        // Start with glow config
+        loadParticlesConfig('particles-config.json');
+
+        let counter = 0;
+        const configs = ['particles-config.json', 'particles-solid.json'];
+
+        // Switch every 20 seconds
+        setInterval(() => {
+            counter = (counter + 1) % 2;
+            loadParticlesConfig(configs[counter]);
+        }, 10000);
+    });
+</script>
+
 </body>
 
 </html>
