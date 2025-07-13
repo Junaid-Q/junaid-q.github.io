@@ -405,10 +405,17 @@ footer {
 }
 
 .publications {
-  margin-left: 900px;
+  margin-left: 220px;
   padding: 20px;
   line-height: 1.6;
   text-align: justify;
   max-width: none;
   box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .publications {
+    margin-left: 0;
+    padding: 15px;
+  }
 }
