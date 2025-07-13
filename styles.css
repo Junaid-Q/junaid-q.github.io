@@ -161,34 +161,42 @@ footer img {
 
 
 
-/* Research */
+/* Research Section */
 .research {
   max-width: 900px;
   margin: 0 auto;
   line-height: 1.6;
   text-align: justify;
   padding: 20px;
+  background-color: transparent;
+  /* ensures particles show */
 }
 
 .research-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.5);
+  /* subtle overlay to aid text readability */
   padding: 20px;
   border-radius: 8px;
+  border: 1px solid #80d4ff;
 }
 
 .research-item img {
-  max-width: 100%;
+  width: 100%;
+  max-width: 500px;
+  /* controls max figure size nicely on large screens */
   height: auto;
   border: 2px solid #80d4ff;
   border-radius: 6px;
   margin-bottom: 15px;
+  box-shadow: 0 0 10px #80d4ff66;
 }
 
 .research-item p {
   color: #ccc;
   font-size: 1.1em;
   text-align: justify;
+  max-width: 800px;
 }
