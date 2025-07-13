@@ -405,9 +405,10 @@ footer {
 }
 
 .publications {
-  max-width: 900px;
-  margin: 0 auto;
+  margin-left: 220px;
+  padding: 20px;
   line-height: 1.6;
   text-align: justify;
-  padding: 20px;
+  max-width: none;
+  box-sizing: border-box;
 }
