@@ -178,27 +178,36 @@
 </main>
 <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 <script>
-    // Helper to load any config
+    // Helper to load particle config while cleaning old canvas
     function loadParticlesConfig(configFile) {
+        const container = document.getElementById('particles-js');
+
+        // Remove any old <canvas> elements (prevents layering)
+        while (container.firstChild) {
+            container.removeChild(container.firstChild);
+        }
+
+        // Load the new config
         particlesJS.load('particles-js', configFile, () => {
             console.log('Loaded:', configFile);
         });
     }
 
     document.addEventListener("DOMContentLoaded", () => {
-        // Start with glow config
-        loadParticlesConfig('particles-config.json');
-
-        let counter = 0;
         const configs = ['particles-config.json', 'particles-solid.json'];
+        let counter = 0;
 
-        // Switch every 20 seconds
+        // Initially load the first config
+        loadParticlesConfig(configs[counter]);
+
+        // Switch every 5 seconds (adjustable)
         setInterval(() => {
-            counter = (counter + 1) % 2;
+            counter = (counter + 1) % configs.length;
             loadParticlesConfig(configs[counter]);
         }, 5000);
     });
 </script>
+
 
 </body>
 
