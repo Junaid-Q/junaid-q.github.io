@@ -435,7 +435,29 @@ h2 {
 }
 
 
+/* ===== GLOBAL TEXT JUSTIFICATION FOR ALL PAGES ===== */
+main p,
+main li,
+.bio p,
+.research p,
+.education p,
+.experience p,
+.activities p,
+.contact p {
+  text-align: justify;
+  text-justify: inter-word;
+}
 
 
 
+footer {
+  text-align: center !important;
+  padding: 20px 0 !important;
+}
 
+footer .footer-copy {
+  text-align: center;
+  width: 100%;
+  margin: 0 auto;
+  display: block;
+}
