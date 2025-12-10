@@ -1,7 +1,10 @@
 {
+    "fps_limit": 30,
+    "retina_detect": false,
+
     "particles": {
         "number": {
-            "value": 70
+            "value": 100
         },
         "color": {
             "value": "#ff0000"
@@ -20,7 +23,7 @@
             }
         },
         "size": {
-            "value": 3,
+            "value": 9,
             "random": true,
             "anim": {
                 "enable": true,
@@ -43,15 +46,15 @@
         },
         "move": {
             "enable": true,
-            "speed": 4
+            "speed": 2.2
         }
     },
     "interactivity": {
-        "detect_on": "canvas",
+        "detect_on": "window",
         "events": {
             "onhover": {
                 "enable": true,
-                "mode": "repulse"
+                "mode": "bubble" 
             },
             "onclick": {
                 "enable": true,
@@ -68,6 +71,9 @@
                 "particles_nb": 4
             }
         }
-    },
-    "retina_detect": true
+    }
+
 }
+
+
+
