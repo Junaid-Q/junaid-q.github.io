@@ -38,20 +38,46 @@
                 <a href="activities.html">Professional Activities</a>
                 <a href="contact.html">Contact</a>
                 <a href="interactive-lab.html">Interactive Lab</a>
+              
             </nav>
         </aside>
 
         <main>
 
 
-          
+                    
 
-            <!-- Postural Balance Simulator -->
+                <!-- Tic Tac Toe Game -->
             <section class="lab-section">
-                <h2>IMU Balance Simulator</h2>
-                <canvas id="balanceSim" width="900" height="300"></canvas>
-                <button id="startBalance">Start Simulation</button>
+                <h2>Tic Tac Toe</h2>
+
+                <div class="ttt-controls">
+                    <label>
+                        <input type="radio" name="mode" value="human" checked>
+                        Human vs Human
+                    </label>
+
+                    <label>
+                        <input type="radio" name="mode" value="computer">
+                        Human vs Computer
+                    </label>
+                </div>
+
+                <div id="tic-tac-toe">
+                    <div class="ttt-board" id="ttt-board"></div>
+
+                    <p id="ttt-status">Select a mode and start playing.</p>
+                    <button id="ttt-reset">Reset Game</button>
+                </div>
             </section>
+
+
+
+
+
+
+
+
 
 
 
@@ -71,6 +97,9 @@
 
     <!-- YOUR JS FILE -->
     <script src="interactive-lab.js"></script>
+    <script src="game.js"></script>
+
+
 
 </body>
 

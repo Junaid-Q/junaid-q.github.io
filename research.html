@@ -14,17 +14,17 @@
 
     <div class="hero-content">
         <header class="hero">
-    
+
             <img src="profile.jpg" alt="Dr. Junaid Qadir" class="profile-photo" />
             <h1>Junaid Qadir <span style="font-size:0.6em; font-style:italic;">(Ph.D.)</span></h1>
             <p>Postdoctoral Researcher</p>
             <p>Department of Naval, Electrical, Electronic, and Telecommunications Engineering (DITEN)</p>
             <p>University of Genoa, Italy</p>
-    
+
         </header>
     </div>
 
-  
+
     <div class="page-content">
         <aside class="topbar">
             <nav>
@@ -44,23 +44,109 @@
         <main>
             <section class="research">
                 <div class="research-item">
+
+                    <h1>Section A: AI / Deep Learning</h1>
+
+
+
                     <h2>Deep Learning for Postural Balance Evaluation</h2>
                     <img src="images/imu.jpg" alt="Postural balance pipeline figure">
                     <p>
-                        This diagram illustrates our approach for evaluating postural balance using smart glasses (IMU) and a
-                        force platform. IMU data is preprocessed and used to train deep learning models for force estimation.
+                        This diagram illustrates our approach for evaluating postural balance using smart glasses (IMU)
+                        and a
+                        force platform. IMU data is preprocessed and used to train deep learning models for force
+                        estimation.
                         The system calculates sway parameters, enabling a comparison with ground-truth force platform
-                        measurements for clinical assessment and monitoring. <a href="https://ieeexplore.ieee.org/abstract/document/10171366" target="_blank">View
+                        measurements for clinical assessment and monitoring. <a
+                            href="https://ieeexplore.ieee.org/abstract/document/" target="_blank">View
                             Paper</a>
                     </p>
+
+
+
+
+
+                    <h2> Postural Monitoring with Smart Glasses: Estimating CoP Trajectories Using Attention-Based
+                        CNN-BiLSTM</h2>
+                    <img src="images/imuacm.png" alt="Postural balance pipeline figure">
+                    <p>
+                        This figure presents the end-to-end framework for postural stability assessment using an IMU
+                        embedded in
+                        smart glasses and an attention-based deep learning model. Synchronized inertial signals and
+                        force platform
+                        measurements are preprocessed and segmented into time-series sequences for supervised model
+                        training and validation.
+                        The extracted features are fed into a neural network architecture incorporating temporal
+                        encoding and attention
+                        mechanisms to accurately estimate the center-of-pressure (CoP) trajectory. The predicted CoP is
+                        subsequently used
+                        to compute clinically relevant sway parameters, enabling quantitative evaluation of balance
+                        performance.
+                        The proposed system demonstrates a scalable and cost-effective alternative to conventional force
+                        platforms for
+                        continuous balance monitoring and rehabilitation applications. <a
+                            href="https://ieeexplore.ieee.org/abstract/document/" target="_blank">View
+                            Paper</a>
+                    </p>
+
+
+
+
+
+
+                    <h2> Sentence-Level Classification Using Parallel
+                        Fuzzy Deep Learning Classifier</h2>
+                    <img src="images/sentence.png" alt="Postural balance pipeline figure">
+                    <p>
+                        This figure illustrates the end-to-end architecture of the proposed parallel fuzzy deep learning
+                        classifier for sentence-level sentiment analysis.
+                        Raw user text is preprocessed and converted into word embeddings using Word2Vec and GloVe
+                        models. The embedded features
+                        are extracted through a convolutional neural network and refined using a feedforward neural
+                        network.
+                        Finally, a Mamdani fuzzy inference system integrates sentiment scores to generate the final
+                        classification
+                        label as positive, neutral, or negative. <a href="https://ieeexplore.ieee.org/document/9333555"
+                            target="_blank">View
+                            Paper</a>
+                    </p>
+
+
+
+                    <h2> A MapReduce Opinion Mining for COVID-19-Related Tweets Classification Using Enhanced ID3
+                        Decision</h2>
+                    <img src="images/map.png" alt="Postural balance pipeline figure">
+                    <p>
+                        This figure presents a scalable opinion mining framework built on the Hadoop ecosystem for
+                        classifying large volumes of Twitter data.
+                        Tweets are collected, split into training and testing datasets, and processed through parallel
+                        MapReduce phases including preprocessing,
+                        transformation, feature extraction, and classification. Multiple classifier mappers operate in
+                        parallel, and their outputs
+                        are fused to generate the final sentiment decision using an enhanced ID3 decision tree. The
+                        architecture highlights efficient big-data
+                        processing, distributed storage (HDFS), and high-throughput sentiment classification
+                        for social media analytics. <a href="https://ieeexplore.ieee.org/abstract/document/9404185"
+                            target="_blank">View
+                            Paper</a>
+                    </p>
+
+
+
+
+
+
+                    <h1>Section B: IOT / Cybersecurity</h1>
 
 
                     <h2>Mitigating Cyber Attacks in LoRaWAN</h2>
                     <img src="images/lora.jpg" alt="Postural balance pipeline figure">
                     <img src="images/gateway.jpg" alt="Postural balance pipeline figure">
                     <p>
-                        This diagram illustrates our approach for evaluating postural balance using smart glasses (IMU) and a
-                        force platform. IMU data is preprocessed and used to train deep learning models for force estimation.
+                        This diagram illustrates our approach for evaluating postural balance using smart glasses (IMU)
+                        and a
+                        force platform. IMU data is preprocessed and used to train deep learning models for force
+                        estimation.
                         The system calculates sway parameters, enabling a comparison with ground-truth force platform
                         measurements for clinical assessment and monitoring. <a
                             href="https://ieeexplore.ieee.org/abstract/document/10171366" target="_blank">View
@@ -68,111 +154,207 @@
                     </p>
 
 
-                    <h2>Mitigating Cyber Attacks in LoRaWAN</h2>
+                    <h2>Towards Mobile Edge Computing: Taxonomy,
+                        Challenges, Applications and Future Realms</h2>
                     <img src="images/mec.jpg" alt="Postural balance pipeline figure">
-                    <img src="images/gateway.jpg" alt="Postural balance pipeline figure">
                     <p>
-                        This diagram illustrates our approach for evaluating postural balance using smart glasses (IMU) and a
-                        force platform. IMU data is preprocessed and used to train deep learning models for force estimation.
-                        The system calculates sway parameters, enabling a comparison with ground-truth force platform
-                        measurements for clinical assessment and monitoring. <a
-                            href="https://ieeexplore.ieee.org/abstract/document/10171366" target="_blank">View
+                        This figure illustrates the network architecture of a Mobile Edge Computing (MEC) ecosystem,
+                        where heterogeneous smart devices (e.g., vehicles, sensors, smart buildings, and appliances)
+                        generate data and offload computation to nearby MEC servers over the fronthaul network.
+                        The MEC layer performs low-latency processing and intermediate storage before forwarding
+                        selected workloads to centralized cloud servers through the backhaul link for large-scale
+                        computation and long-term storage. This hierarchical architecture reduces end-to-end latency,
+                        improves resource utilization, and enables real-time applications such as smart traffic
+                        management,
+                        IoT monitoring, and intelligent urban services. <a
+                            href="https://ieeexplore.ieee.org/document/9206025" target="_blank">View
                             Paper</a>
                     </p>
 
 
 
 
-                    <h2>Deep Learning for Postural Balance Evaluation</h2>
-                    <img src="images/imu.jpg" alt="Postural balance pipeline figure">
+                    <h2>Enhancing Cyber Security of LoRaWAN Gateways under Adversarial Attacks</h2>
+                    <img src="images/gw.png" alt="Postural balance pipeline figure">
                     <p>
-                        This diagram illustrates our approach for evaluating postural balance using smart glasses (IMU) and a
-                        force platform. IMU data is preprocessed and used to train deep learning models for force estimation.
-                        The system calculates sway parameters, enabling a comparison with ground-truth force platform
-                        measurements for clinical assessment and monitoring. <a
-                            href="https://ieeexplore.ieee.org/abstract/document/10171366" target="_blank">View
+                        This figure shows the experimental gateway hardware setup using a Raspberry Pi 4 connected to an
+                        RFM96W LoRa transceiver via a
+                        breadboard and jumper wiring. The configuration represents a practical LoRaWAN gateway prototype
+                        used to evaluate secure
+                        communication and gateway authentication mechanisms under adversarial conditions, enabling
+                        controlled testing of
+                        packet forwarding, signal reliability, and cyber-attack mitigation in IoT networks.<a
+                            href="https://www.mdpi.com/1424-8220/22/9/3498" target="_blank">View
                             Paper</a>
                     </p>
 
 
-                    <h2>Mitigating Cyber Attacks in LoRaWAN</h2>
-                    <img src="images/lora.jpg" alt="Postural balance pipeline figure">
-                    <img src="images/gateway.jpg" alt="Postural balance pipeline figure">
+                    <h2>Analysis of LPWAN: Cyber-Security Vulnerabilities and Privacy Issues in LoRaWAN, Sigfox, and
+                        NB-IoT</h2>
+                    <img src="images/cyber.png" alt="Postural balance pipeline figure">
                     <p>
-                        This diagram illustrates our approach for evaluating postural balance using smart glasses (IMU) and a
-                        force platform. IMU data is preprocessed and used to train deep learning models for force estimation.
-                        The system calculates sway parameters, enabling a comparison with ground-truth force platform
-                        measurements for clinical assessment and monitoring. <a
-                            href="https://ieeexplore.ieee.org/abstract/document/10171366" target="_blank">View
+                        This figure visualizes the taxonomy of LoRaWAN security vulnerabilities classified according to
+                        the CIA triad: confidentiality, integrity, and availability. High-level threats target data
+                        confidentiality and privacy through eavesdropping and traffic analysis, medium-level threats
+                        compromise data and system integrity via bit-flipping and malware attacks, while low-level
+                        threats affect device and network availability through replay, jamming, flooding, sinkhole, and
+                        routing attacks. The diagram highlights the multi-layered risk landscape of LPWAN
+                        infrastructures and emphasizes the need for robust security mechanisms across all operational
+                        levels. <a href="https://link.springer.com/chapter/10.1007/978-3-031-32935-7_5"
+                            target="_blank">View
                             Paper</a>
                     </p>
 
 
-                    <h2>Mitigating Cyber Attacks in LoRaWAN</h2>
-                    <img src="images/nw.jpg" alt="Postural balance pipeline figure">
-                    <img src="images/model.jpg" alt="Postural balance pipeline figure">
+                    <h2>Towards Smart Sensing Systems: A New Approach to Environmental Monitoring Systems by Using
+                        LoRaWAN</h2>
+                    <img src="images/ntwrk.png" alt="Postural balance pipeline figure">
+                    
                     <p>
-                        This diagram illustrates our approach for evaluating postural balance using smart glasses (IMU) and a
-                        force platform. IMU data is preprocessed and used to train deep learning models for force estimation.
-                        The system calculates sway parameters, enabling a comparison with ground-truth force platform
-                        measurements for clinical assessment and monitoring. <a
-                            href="https://ieeexplore.ieee.org/abstract/document/10171366" target="_blank">View
+                        This figure illustrates the network architecture of a LoRaWAN-based IoT system, where
+                        distributed end devices equipped with environmental sensors transmit data to multiple gateways
+                        using LoRa radio links. The gateways forward the packets securely over IP networks to the
+                        network server and join server for device authentication, session management, and routing
+                        control, before delivering the data to the application server for storage, visualization, and
+                        analytics. The architecture enables long-range, low-power, and scalable sensing for real-time
+                        environmental monitoring applications. <a
+                            href="https://ieeexplore.ieee.org/document/9840717" target="_blank">View
                             Paper</a>
                     </p>
 
+
+
+                    <h1>Section C: Underwater Wireless Sensor Networks</h1>
+
+                    <h2>Energy-Aware and Reliability-Based Localization-Free Cooperative Acoustic WSNs</h2>
+                    <img src="images/energyaware.png" alt="Postural balance pipeline figure">
+                    <p>
+                        This figure illustrates the system model of a cooperative underwater wireless sensor network,
+                        where sensing nodes transmit data to destination nodes through energy-aware relay selection
+                        and multi-hop acoustic links. Clustered source, relay, and destination nodes cooperate to
+                        improve transmission reliability and reduce energy consumption in a dynamic underwater
+                        environment.
+                        Data collected by sink nodes is forwarded to surface gateways and relayed via satellite links to
+                        a
+                        monitoring center for centralized processing and supervision. The architecture enables robust,
+                        localization-free communication while balancing network lifetime, link reliability, and
+                        end-to-end data delivery performance. <a href="https://ieeexplore.ieee.org/document/9130704"
+                            target="_blank">View
+                            Paper</a>
+                    </p>
+
+                    <h2>Energy Balanced Localization-Free Cooperative Noise-Aware Routing Protocols for Underwater
+                        Wireless Sensor Networks</h2>
+                    <img src="images/cooperation.png" alt="Postural balance pipeline figure">
+                    <p>
+                        This figure illustrates the cooperative data forwarding mechanism in the Co-DNAR protocol for
+                        underwater wireless sensor networks. A source node transmits the same data packet directly to
+                        the destination node and simultaneously to two selected relay nodes using acoustic links.
+                        The relays amplify and forward the received signals toward the destination, resulting in
+                        multiple
+                        independent copies of the packet arriving through diverse paths. At the destination, maximum
+                        ratio
+                        combining (MRC) is applied to fuse the received signals and minimize the bit error rate, thereby
+                        improving transmission reliability in harsh underwater channel conditions while maintaining
+                        energy-aware
+                        and localization-free operation. <a href="https://www.mdpi.com/1996-1073/12/22/4263"
+                            target="_blank">View
+                            Paper</a>
+                    </p>
+
+
+                    <h2>A Stable and Reliable Short-Path Routing Scheme for Efficient Acoustic Wireless Sensor Networks
+                    </h2>
+                    <img src="images/corspr.png" alt="Postural balance pipeline figure">
+                    <p>
+                        This figure illustrates the data forwarding process of the Cooperative Reliable Short-Path
+                        Routing (CoRSPR) scheme in an
+                        underwater acoustic wireless sensor network. A source node transmits data toward an optimal
+                        destination node while
+                        simultaneously selecting a single relay node based on a weighted function of residual energy,
+                        signal-to-noise ratio (SNR), distance, and hop count. If the destination detects high bit error
+                        rate,
+                        it requests cooperation from the relay, and the received packets are combined using a
+                        diversity technique before being forwarded to the sub-sink and subsequently to the super-sink at
+                        the water
+                        surface. The hierarchical forwarding structure reduces transmission distance, improves link
+                        reliability, balances
+                        energy consumption, and ensures stable and low-latency data delivery in dynamic underwater
+                        environments. <a href="https://ieeexplore.ieee.org/document/8941135" target="_blank">View
+                            Paper</a>
+                    </p>
+
+
+                    <h2>DNAR: Depth and Noise Aware Routing for Underwater Wireless Sensor Networks</h2>
+                    <img src="images/dnar.png" alt="Postural balance pipeline figure">
+                    <p>
+                        This figure illustrates different relay selection scenarios in the DNAR protocol,
+                        where a sender node chooses the optimal forwarder based on a joint evaluation of node
+                        depth and channel noise at the receiver. The subfigures depict cases with identical
+                        depths but different noise levels, identical noise levels but different depths, and
+                        combinations of varying depth and noise conditions. Using a weighted function that
+                        favors minimum depth and minimum channel noise, the protocol consistently selects
+                        the relay that provides lower attenuation and higher link reliability, ensuring that
+                        packets progress efficiently toward the surface sink without requiring localization
+                        information. This adaptive selection mechanism improves packet delivery
+                        ratio, balances energy consumption, and enhances network lifetime in dynamic
+                        underwater environments. <a
+                            href="https://link.springer.com/chapter/10.1007/978-3-319-93659-8_21" target="_blank">View
+                            Paper</a>
+                    </p>
                 </div>
             </section>
 
 
-                <section class="code-tools">
-                    <h2>Public Code & Tools</h2>
+            <section class="code-tools">
+                <h2>Public Code & Tools</h2>
 
-                    <p>
-                        I maintain several open-source repositories related to wearable sensing, IoT security,
-                        LoRaWAN analysis, and deep learning for biomedical applications.
-                        Selected tools and models developed during my Ph.D. and postdoctoral work are listed below.
-                    </p>
+                <p>
+                    I maintain several open-source repositories related to wearable sensing, IoT security,
+                    LoRaWAN analysis, and deep learning for biomedical applications.
+                    Selected tools and models developed during my Ph.D. and postdoctoral work are listed below.
+                </p>
 
-                    <div class="tool-category">
-                        <h3>Deep Learning Models for IMU → CoP Prediction</h3>
-                        <ul>
-                            <li>LSTM, GRU, CNN–BiLSTM, and TCN–Attention neural architectures</li>
-                            <li>Dataset preprocessing pipelines for multi-sensor IMU recordings</li>
-                            <li>Explainable AI tools (Attention, SHAP, IG, fidelity masking)</li>
-                        </ul>
-                    </div>
+                <div class="tool-category">
+                    <h3>Deep Learning Models for IMU → CoP Prediction</h3>
+                    <ul>
+                        <li>LSTM, GRU, CNN–BiLSTM, and TCN–Attention neural architectures</li>
+                        <li>Dataset preprocessing pipelines for multi-sensor IMU recordings</li>
+                        <li>Explainable AI tools (Attention, SHAP, IG, fidelity masking)</li>
+                    </ul>
+                </div>
 
-                    <div class="tool-category">
-                        <h3>LoRaWAN Security & Lightweight Cryptography</h3>
-                        <ul>
-                            <li>Lightweight key-management scheme using AES-128, ECDH, and Argon2</li>
-                            <li>Scyther verification models for proving protocol security</li>
-                            <li>LoRaWAN packet analysis scripts for vulnerability testing</li>
-                        </ul>
-                    </div>
+                <div class="tool-category">
+                    <h3>LoRaWAN Security & Lightweight Cryptography</h3>
+                    <ul>
+                        <li>Lightweight key-management scheme using AES-128, ECDH, and Argon2</li>
+                        <li>Scyther verification models for proving protocol security</li>
+                        <li>LoRaWAN packet analysis scripts for vulnerability testing</li>
+                    </ul>
+                </div>
 
-                    <div class="tool-category">
-                        <h3>5G & Edge Computing Toolkit</h3>
-                        <ul>
-                            <li>Secure NFV deployment templates for industrial IoT</li>
-                            <li>Edge-client data flow analysis tools (5G-INDUCE project)</li>
-                            <li>Latency-profiling scripts for virtualized functions</li>
-                        </ul>
-                    </div>
+                <div class="tool-category">
+                    <h3>5G & Edge Computing Toolkit</h3>
+                    <ul>
+                        <li>Secure NFV deployment templates for industrial IoT</li>
+                        <li>Edge-client data flow analysis tools (5G-INDUCE project)</li>
+                        <li>Latency-profiling scripts for virtualized functions</li>
+                    </ul>
+                </div>
 
-                    <div class="tool-category">
-                        <h3>Underwater Wireless Sensor Networks (UWSNs)</h3>
-                        <ul>
-                            <li>Simulation models for delay-minimization routing</li>
-                            <li>Energy-aware cooperative communication algorithms</li>
-                        </ul>
-                    </div>
+                <div class="tool-category">
+                    <h3>Underwater Wireless Sensor Networks (UWSNs)</h3>
+                    <ul>
+                        <li>Simulation models for delay-minimization routing</li>
+                        <li>Energy-aware cooperative communication algorithms</li>
+                    </ul>
+                </div>
 
-                    <h3>GitHub Repositories</h3>
-                    <p>Below is an automatically generated list of my latest public GitHub projects:</p>
+                <h3>GitHub Repositories</h3>
+                <p>Below is an automatically generated list of my latest public GitHub projects:</p>
 
-                    <div id="github-repos" class="repo-list">Loading repositories...</div>
-                </section>
+                <div id="github-repos" class="repo-list">Loading repositories...</div>
+            </section>
 
 
 
@@ -189,26 +371,26 @@
             </div>
             <p class="footer-copy">© 2025 Dr. Junaid Qadir. All rights reserved.</p>
         </footer>
-    </div>  
-<script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
-<script>
-    function loadParticlesConfig(configFile) {
-        const container = document.getElementById('particles-js');
-        tsParticles.dom().forEach(instance => instance.destroy());
-        while (container.firstChild) container.removeChild(container.firstChild);
-        tsParticles.loadJSON('particles-js', configFile);
-    }
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
+    <script>
+        function loadParticlesConfig(configFile) {
+            const container = document.getElementById('particles-js');
+            tsParticles.dom().forEach(instance => instance.destroy());
+            while (container.firstChild) container.removeChild(container.firstChild);
+            tsParticles.loadJSON('particles-js', configFile);
+        }
 
-    document.addEventListener("DOMContentLoaded", () => {
-        const configs = ['particles-config.json', 'particles-solid.json'];
-        let counter = 0;
-        loadParticlesConfig(configs[counter]);
-        setInterval(() => {
-            counter = (counter + 1) % configs.length;
+        document.addEventListener("DOMContentLoaded", () => {
+            const configs = ['particles-config.json', 'particles-solid.json'];
+            let counter = 0;
             loadParticlesConfig(configs[counter]);
-        }, 15000);
-    });
-</script>
+            setInterval(() => {
+                counter = (counter + 1) % configs.length;
+                loadParticlesConfig(configs[counter]);
+            }, 15000);
+        });
+    </script>
 
 </body>
 

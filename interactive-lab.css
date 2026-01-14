@@ -1,0 +1,46 @@
+/* ============================
+   Tic Tac Toe Styling
+============================ */
+
+.ttt-controls {
+    margin-top: 10px;
+    display: flex;
+    gap: 20px;
+    font-weight: 600;
+}
+
+#tic-tac-toe {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.ttt-board {
+    display: grid;
+    grid-template-columns: repeat(3, 90px);
+    grid-template-rows: repeat(3, 90px);
+    gap: 8px;
+    justify-content: center;
+    margin: 20px auto;
+}
+
+.ttt-cell {
+    background: rgba(255,255,255,0.9);
+    border: 2px solid #222;
+    font-size: 2.4rem;
+    font-weight: bold;
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.ttt-cell:hover {
+    background: #e8e8e8;
+}
+
+#ttt-status {
+    margin: 10px 0;
+    font-weight: 600;
+}
