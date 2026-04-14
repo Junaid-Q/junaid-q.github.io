@@ -1,4 +1,8 @@
-<!DOCTYPE html>
+
+# Run this script once to generate the new interactive-lab.html
+# python write_new_lab.py
+
+html = r'''<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
@@ -128,7 +132,6 @@
                 <button class="lab-tab-btn" onclick="showTab('attack',this)">⚠️ Attack Simulator</button>
                 <button class="lab-tab-btn" onclick="showTab('nn',this)">🧠 Neural Network</button>
                 <button class="lab-tab-btn" onclick="showTab('robot',this)">🤖 Robot Navigator</button>
-                <button class="lab-tab-btn" onclick="showTab('humanoid',this)">🦾 Humanoid Robot</button>
                 <button class="lab-tab-btn" onclick="showTab('ttt',this)">🎮 Tic Tac Toe</button>
             </div>
             <div id="panel-quiz" class="lab-panel active">
@@ -220,27 +223,6 @@
                     </div>
                 </div>
             </div>
-            <div id="panel-humanoid" class="lab-panel">
-                <div class="lab-card">
-                    <h2>🦾 Humanoid Robot Under Cyber Attack</h2>
-                    <p style="color:#999;font-size:0.92rem;margin-bottom:14px;">This simulation shows a humanoid robot operating normally — then under different cyber attacks. Watch how sensor spoofing, communication jamming, and command injection affect the robot's behaviour. This directly represents the research challenge of cybersecurity for embodied AI.</p>
-                    <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px;">
-                        <button onclick="humanoidSetState('normal')" id="hbtn-normal" style="background:#4fc3f7;color:#000;border:none;border-radius:8px;padding:8px 18px;font-weight:700;cursor:pointer;font-size:0.88rem;">Normal Operation</button>
-                        <button onclick="humanoidSetState('sensor')" id="hbtn-sensor" style="background:rgba(244,67,54,0.15);border:1.5px solid #f44336;color:#f44336;border-radius:8px;padding:8px 18px;font-weight:700;cursor:pointer;font-size:0.88rem;">Sensor Spoofing</button>
-                        <button onclick="humanoidSetState('jamming')" id="hbtn-jamming" style="background:rgba(244,67,54,0.15);border:1.5px solid #f44336;color:#f44336;border-radius:8px;padding:8px 18px;font-weight:700;cursor:pointer;font-size:0.88rem;">Comm Jamming</button>
-                        <button onclick="humanoidSetState('injection')" id="hbtn-injection" style="background:rgba(244,67,54,0.15);border:1.5px solid #f44336;color:#f44336;border-radius:8px;padding:8px 18px;font-weight:700;cursor:pointer;font-size:0.88rem;">Command Injection</button>
-                        <button onclick="humanoidSetState('idsactive')" id="hbtn-idsactive" style="background:rgba(76,175,80,0.15);border:1.5px solid #4caf50;color:#4caf50;border-radius:8px;padding:8px 18px;font-weight:700;cursor:pointer;font-size:0.88rem;">IDS Active (Defence)</button>
-                    </div>
-                    <div id="humanoid-status" style="background:rgba(0,0,0,0.3);border-radius:8px;padding:10px 16px;font-size:0.9rem;color:#a0c4ff;margin-bottom:14px;min-height:42px;">Robot operating normally. All systems nominal.</div>
-                    <canvas id="humanoid-canvas" style="width:100%;border-radius:10px;background:#050d1a;border:1px solid rgba(79,195,247,0.2);" height="420"></canvas>
-                    <div style="display:flex;flex-wrap:wrap;gap:14px;margin-top:14px;">
-                        <div style="background:rgba(79,195,247,0.08);border-radius:8px;padding:10px 16px;"><div style="font-size:0.76rem;color:#888;">Status</div><div style="font-size:1rem;color:#4fc3f7;font-weight:700;" id="h-status-val">NOMINAL</div></div>
-                        <div style="background:rgba(79,195,247,0.08);border-radius:8px;padding:10px 16px;"><div style="font-size:0.76rem;color:#888;">Threat Level</div><div style="font-size:1rem;color:#4fc3f7;font-weight:700;" id="h-threat-val">NONE</div></div>
-                        <div style="background:rgba(79,195,247,0.08);border-radius:8px;padding:10px 16px;"><div style="font-size:0.76rem;color:#888;">IDS</div><div style="font-size:1rem;color:#4fc3f7;font-weight:700;" id="h-ids-val">PASSIVE</div></div>
-                        <div style="background:rgba(79,195,247,0.08);border-radius:8px;padding:10px 16px;"><div style="font-size:0.76rem;color:#888;">Attack Type</div><div style="font-size:1rem;color:#4fc3f7;font-weight:700;" id="h-attack-val">None</div></div>
-                    </div>
-                </div>
-            </div>
             <div id="panel-ttt" class="lab-panel">
                 <div class="lab-card">
                     <h2>🎮 Tic Tac Toe</h2>
@@ -281,7 +263,6 @@ function showTab(name,btn){
     if(name==='attack'&&!atkStarted) initAttack();
     if(name==='nn') drawNN();
     if(name==='robot'&&!robotStarted) initRobot();
-    if(name==='humanoid'&&!humanoidStarted) initHumanoid();
 }
 var topics=['IoT and LoRaWAN Security','Cybersecurity for Embodied AI','Deep Learning and Neural Networks','Signal Processing and IMU Sensors','5G and 6G Networks','Explainable AI','Robot Security and Cyber-Physical Systems','General Cybersecurity'];
 var currentTopic=topics[0],qStreak=0,qTotal=0,qCorrect=0,currentQ=null,qAnswered=false;
@@ -459,7 +440,7 @@ function drawNN(){
         positions.push(lp);
     });
     for(var li=0;li<positions.length-1;li++){
-    positions[li].forEach(function(src){positions[li+1].forEach(function(dst){ctx.beginPath();ctx.strokeStyle='rgba(79,195,247,0.35)';ctx.lineWidth=1.2;ctx.moveTo(src.x,src.y);ctx.lineTo(dst.x,dst.y);ctx.stroke();});});
+        positions[li].forEach(function(src){positions[li+1].forEach(function(dst){ctx.beginPath();ctx.strokeStyle='rgba(79,195,247,0.07)';ctx.lineWidth=0.8;ctx.moveTo(src.x,src.y);ctx.lineTo(dst.x,dst.y);ctx.stroke();});});
     }
     nnPulses.forEach(function(p){
         if(p.li>=positions.length-1||p.ni>=positions[p.li].length||p.nextNi>=positions[p.li+1].length) return;
@@ -622,235 +603,10 @@ function endGame(msg){tttRunning=false;document.getElementById('ttt-status').tex
 function updateScores(){document.getElementById('score-x').textContent=scores.X;document.getElementById('score-o').textContent=scores.O;document.getElementById('score-d').textContent=scores.D;}
 document.getElementById('ttt-reset').onclick=tttInit;
 tttInit();
-
-// ── HUMANOID ROBOT ──
-var humanoidStarted=false,humanoidAnimId=null,humanoidState='normal',humanoidT=0;
-var humanoidPackets=[];
-
-function initHumanoid(){
-    humanoidStarted=true;
-    drawHumanoid();
-}
-
-function humanoidSetState(state){
-    humanoidState=state;
-    var messages={
-        normal:'🟢 Robot operating normally. All systems nominal. Sensors calibrated, communication stable.',
-        sensor:'🔴 SENSOR SPOOFING ATTACK detected! Attacker is feeding false IMU/camera data. Robot perceives incorrect environment — balance and navigation compromised.',
-        jamming:'🔴 COMMUNICATION JAMMING active! Control signals blocked. Robot cannot receive commands from operator. Operating in degraded autonomous mode.',
-        injection:'🔴 COMMAND INJECTION attack! Malicious commands inserted into the control pipeline. Robot executing unauthorized movements — safety risk!',
-        idsactive:'🟢 IDS (Intrusion Detection System) ACTIVE. Anomalous traffic detected and filtered. Robot restored to safe operation. Attack mitigated.'
-    };
-    var threats={normal:'NONE',sensor:'HIGH',jamming:'HIGH',injection:'CRITICAL',idsactive:'LOW'};
-    var statusColors={normal:'#4fc3f7',sensor:'#f44336',jamming:'#f44336',injection:'#f44336',idsactive:'#4caf50'};
-    var attackNames={normal:'None',sensor:'Sensor Spoofing',jamming:'Comm Jamming',injection:'Command Injection',idsactive:'Mitigated'};
-    document.getElementById('humanoid-status').textContent=messages[state];
-    document.getElementById('humanoid-status').style.color=statusColors[state];
-    document.getElementById('h-status-val').textContent=state==='normal'?'NOMINAL':state==='idsactive'?'DEFENDED':'COMPROMISED';
-    document.getElementById('h-status-val').style.color=statusColors[state];
-    document.getElementById('h-threat-val').textContent=threats[state];
-    document.getElementById('h-threat-val').style.color=statusColors[state];
-    document.getElementById('h-ids-val').textContent=state==='idsactive'?'ACTIVE':'PASSIVE';
-    document.getElementById('h-ids-val').style.color=state==='idsactive'?'#4caf50':'#888';
-    document.getElementById('h-attack-val').textContent=attackNames[state];
-    document.getElementById('h-attack-val').style.color=statusColors[state];
-    humanoidPackets=[];
-}
-
-function drawHumanoid(){
-    var canvas=document.getElementById('humanoid-canvas');
-    if(!canvas) { humanoidAnimId=requestAnimationFrame(drawHumanoid); return; }
-    var W=canvas.offsetWidth; canvas.width=W; canvas.height=420;
-    var ctx=canvas.getContext('2d');
-    ctx.clearRect(0,0,W,420);
-    humanoidT+=0.04;
-    var t=humanoidT;
-    var state=humanoidState;
-    var cx=W/2, cy=210;
-    var isAttack=state==='sensor'||state==='jamming'||state==='injection';
-    var isDefended=state==='idsactive';
-
-    // Background grid
-    ctx.strokeStyle='rgba(79,195,247,0.05)'; ctx.lineWidth=1;
-    for(var gx=0;gx<W;gx+=40){ctx.beginPath();ctx.moveTo(gx,0);ctx.lineTo(gx,420);ctx.stroke();}
-    for(var gy=0;gy<420;gy+=40){ctx.beginPath();ctx.moveTo(0,gy);ctx.lineTo(W,gy);ctx.stroke();}
-
-    // Draw network communication lines from server to robot
-    var serverX=W*0.85, serverY=80;
-    var numPackets=3;
-    if(state==='jamming'){
-        // Draw jamming interference
-        for(var j=0;j<12;j++){
-            var jx=cx-80+Math.random()*160;
-            var jy=cy-100+Math.random()*200;
-            ctx.beginPath();
-            ctx.arc(jx,jy,3+Math.random()*5,0,Math.PI*2);
-            ctx.fillStyle='rgba(244,67,54,'+(0.2+Math.random()*0.4)+')';
-            ctx.fill();
-        }
-        ctx.strokeStyle='rgba(244,67,54,0.3)'; ctx.lineWidth=2; ctx.setLineDash([4,4]);
-        ctx.beginPath(); ctx.moveTo(serverX,serverY); ctx.lineTo(cx,cy-80); ctx.stroke();
-        ctx.setLineDash([]);
-        ctx.fillStyle='rgba(244,67,54,0.8)'; ctx.font='bold 11px sans-serif'; ctx.textAlign='center';
-        ctx.fillText('JAMMED',cx,cy-110);
-    } else {
-        // Normal comm line
-        ctx.strokeStyle=isAttack?'rgba(244,67,54,0.4)':isDefended?'rgba(76,175,80,0.4)':'rgba(79,195,247,0.25)';
-        ctx.lineWidth=1.5; ctx.setLineDash([6,4]);
-        ctx.beginPath(); ctx.moveTo(serverX,serverY); ctx.lineTo(cx,cy-80); ctx.stroke();
-        ctx.setLineDash([]);
-        // Animate packets
-        humanoidPackets.push({progress:0, evil:state==='injection'&&Math.random()<0.4});
-        if(humanoidPackets.length>8) humanoidPackets.shift();
-        humanoidPackets.forEach(function(p){
-            p.progress=Math.min(1,p.progress+0.015);
-            var px=serverX+(cx-serverX)*p.progress;
-            var py=serverY+(cy-80-serverY)*p.progress;
-            ctx.beginPath(); ctx.arc(px,py,5,0,Math.PI*2);
-            ctx.fillStyle=p.evil?'#f44336':isDefended?'#4caf50':'#4fc3f7'; ctx.fill();
-            if(p.evil){
-                ctx.fillStyle='#f44336'; ctx.font='9px sans-serif'; ctx.textAlign='center';
-                ctx.fillText('INJECT',px,py-10);
-            }
-        });
-    }
-
-    // Draw server box
-    ctx.fillStyle='rgba(79,195,247,0.1)'; ctx.strokeStyle=isAttack?'#f44336':isDefended?'#4caf50':'#4fc3f7'; ctx.lineWidth=2;
-    ctx.beginPath(); ctx.roundRect(serverX-30,serverY-20,60,40,6); ctx.fill(); ctx.stroke();
-    ctx.fillStyle=isAttack?'#f44336':isDefended?'#4caf50':'#4fc3f7'; ctx.font='bold 10px sans-serif'; ctx.textAlign='center';
-    ctx.fillText(state==='idsactive'?'IDS':'CTRL',serverX,serverY); ctx.fillText('SERVER',serverX,serverY+12);
-
-    // Draw attacker
-    if(isAttack){
-        var atkX=W*0.15, atkY=80;
-        ctx.fillStyle='rgba(244,67,54,0.12)'; ctx.strokeStyle='#f44336'; ctx.lineWidth=2;
-        ctx.beginPath(); ctx.roundRect(atkX-30,atkY-20,60,40,6); ctx.fill(); ctx.stroke();
-        ctx.fillStyle='#f44336'; ctx.font='bold 10px sans-serif'; ctx.textAlign='center';
-        ctx.fillText('ATTACKER',atkX,atkY); ctx.fillText('NODE',atkX,atkY+12);
-        // Attack arrow
-        ctx.strokeStyle='rgba(244,67,54,0.6)'; ctx.lineWidth=2; ctx.setLineDash([5,3]);
-        ctx.beginPath(); ctx.moveTo(atkX+30,atkY); ctx.lineTo(cx-20,cy-80); ctx.stroke();
-        ctx.setLineDash([]);
-        // Pulsing attack indicator
-        ctx.beginPath(); ctx.arc(atkX+(cx-20-atkX)*((t*0.5)%1), atkY+(cy-80-atkY)*((t*0.5)%1),5,0,Math.PI*2);
-        ctx.fillStyle='#f44336'; ctx.fill();
-    }
-
-    // ── DRAW HUMANOID ROBOT ──
-    var wobble = isAttack ? Math.sin(t*8)*8 : Math.sin(t*1.5)*2;
-    var sensorGlitch = state==='sensor' && Math.sin(t*20)>0.7;
-
-    // Body color based on state
-    var bodyColor = isAttack ? '#f44336' : isDefended ? '#4caf50' : '#4fc3f7';
-    var bodyAlpha = isAttack ? 0.3 : 0.15;
-
-    // ── Torso ──
-    ctx.fillStyle='rgba('+( isAttack?'244,67,54':isDefended?'76,175,80':'79,195,247')+','+bodyAlpha+')';
-    ctx.strokeStyle=bodyColor; ctx.lineWidth=2.5;
-    ctx.beginPath(); ctx.roundRect(cx-28+wobble*0.3,cy-70,56,80,8); ctx.fill(); ctx.stroke();
-
-    // Chest panel
-    ctx.fillStyle=isAttack?'rgba(244,67,54,0.3)':isDefended?'rgba(76,175,80,0.3)':'rgba(79,195,247,0.2)';
-    ctx.beginPath(); ctx.roundRect(cx-18+wobble*0.3,cy-60,36,30,4); ctx.fill(); ctx.stroke();
-
-    // Chest LED blinking
-    var ledOn = Math.sin(t*( isAttack?15:3))>0;
-    ctx.beginPath(); ctx.arc(cx+wobble*0.3,cy-45,5,0,Math.PI*2);
-    ctx.fillStyle=ledOn?(isAttack?'#f44336':isDefended?'#4caf50':'#4fc3f7'):'rgba(79,195,247,0.2)'; ctx.fill();
-
-    // ── Head ──
-    ctx.fillStyle='rgba('+( isAttack?'244,67,54':isDefended?'76,175,80':'79,195,247')+','+bodyAlpha+')';
-    ctx.strokeStyle=bodyColor; ctx.lineWidth=2;
-    ctx.beginPath(); ctx.roundRect(cx-22+wobble*0.5,cy-130,44,55,10); ctx.fill(); ctx.stroke();
-
-    // Eyes
-    var eyeColor = sensorGlitch ? '#ff8a65' : (isAttack?'#f44336':isDefended?'#4caf50':'#4fc3f7');
-    ctx.fillStyle=eyeColor;
-    ctx.beginPath(); ctx.ellipse(cx-10+wobble*0.5+(sensorGlitch?Math.random()*6-3:0),cy-110,5,4,0,0,Math.PI*2); ctx.fill();
-    ctx.beginPath(); ctx.ellipse(cx+10+wobble*0.5+(sensorGlitch?Math.random()*6-3:0),cy-110,5,4,0,0,Math.PI*2); ctx.fill();
-    if(sensorGlitch){
-        ctx.fillStyle='rgba(255,138,101,0.6)'; ctx.font='bold 9px sans-serif'; ctx.textAlign='center';
-        ctx.fillText('SENSOR ERR',cx+wobble*0.5,cy-140);
-    }
-
-    // Antenna
-    ctx.strokeStyle=bodyColor; ctx.lineWidth=2;
-    ctx.beginPath(); ctx.moveTo(cx+wobble*0.5,cy-130); ctx.lineTo(cx+wobble*0.5,cy-150);
-    ctx.stroke();
-    ctx.beginPath(); ctx.arc(cx+wobble*0.5,cy-152,4,0,Math.PI*2);
-    ctx.fillStyle=ledOn?bodyColor:'rgba(79,195,247,0.2)'; ctx.fill();
-
-    // ── Arms ──
-    var leftShoulder={x:cx-28+wobble*0.3, y:cy-60};
-    var rightShoulder={x:cx+28+wobble*0.3, y:cy-60};
-    var armSwing = state==='injection' ? Math.sin(t*6)*30 : Math.sin(t*1.5)*15;
-    // Left arm
-    ctx.strokeStyle=bodyColor; ctx.lineWidth=10; ctx.lineCap='round';
-    ctx.beginPath();
-    ctx.moveTo(leftShoulder.x, leftShoulder.y);
-    ctx.lineTo(leftShoulder.x-25, leftShoulder.y+40+armSwing);
-    ctx.lineTo(leftShoulder.x-20, leftShoulder.y+80+armSwing);
-    ctx.stroke();
-    // Right arm
-    ctx.beginPath();
-    ctx.moveTo(rightShoulder.x, rightShoulder.y);
-    ctx.lineTo(rightShoulder.x+25, rightShoulder.y+40-armSwing);
-    ctx.lineTo(rightShoulder.x+20, rightShoulder.y+80-armSwing);
-    ctx.stroke();
-    ctx.lineCap='butt';
-
-    // ── Legs ──
-    var legSwing = state==='injection' ? Math.sin(t*4)*20 : Math.sin(t*1.5)*10;
-    ctx.strokeStyle=bodyColor; ctx.lineWidth=12; ctx.lineCap='round';
-    // Left leg
-    ctx.beginPath();
-    ctx.moveTo(cx-14+wobble*0.3, cy+10);
-    ctx.lineTo(cx-14+wobble*0.3+legSwing, cy+60);
-    ctx.lineTo(cx-14+wobble*0.3+legSwing-5, cy+110);
-    ctx.stroke();
-    // Right leg
-    ctx.beginPath();
-    ctx.moveTo(cx+14+wobble*0.3, cy+10);
-    ctx.lineTo(cx+14+wobble*0.3-legSwing, cy+60);
-    ctx.lineTo(cx+14+wobble*0.3-legSwing+5, cy+110);
-    ctx.stroke();
-    ctx.lineCap='butt';
-
-    // Ground shadow
-    ctx.fillStyle='rgba(79,195,247,0.06)';
-    ctx.beginPath(); ctx.ellipse(cx+wobble*0.3,cy+118,40,8,0,0,Math.PI*2); ctx.fill();
-
-    // ── IDS Shield (when defended) ──
-    if(isDefended){
-        ctx.strokeStyle='rgba(76,175,80,0.5)'; ctx.lineWidth=2; ctx.setLineDash([4,4]);
-        ctx.beginPath(); ctx.arc(cx,cy-20,100+Math.sin(t*2)*5,0,Math.PI*2); ctx.stroke();
-        ctx.setLineDash([]);
-        ctx.fillStyle='rgba(76,175,80,0.7)'; ctx.font='bold 11px sans-serif'; ctx.textAlign='center';
-        ctx.fillText('IDS SHIELD ACTIVE',cx,cy-128);
-    }
-
-    // ── Attack lightning (injection) ──
-    if(state==='injection'&&Math.sin(t*12)>0.5){
-        ctx.strokeStyle='rgba(244,67,54,0.8)'; ctx.lineWidth=2;
-        for(var li=0;li<3;li++){
-            ctx.beginPath();
-            ctx.moveTo(cx+wobble,(cy-130)+(li*20));
-            ctx.lineTo(cx+wobble+( Math.random()>0.5?8:-8),(cy-120)+(li*20));
-            ctx.lineTo(cx+wobble,(cy-110)+(li*20));
-            ctx.stroke();
-        }
-    }
-
-    // Labels
-    ctx.font='bold 12px sans-serif'; ctx.textAlign='center';
-    ctx.fillStyle=isAttack?'#f44336':isDefended?'#4caf50':'#4fc3f7';
-    ctx.fillText(isAttack?'ROBOT COMPROMISED':isDefended?'ROBOT DEFENDED':'ROBOT NOMINAL',cx,cy+135);
-    ctx.font='10px sans-serif'; ctx.fillStyle='#666';
-    ctx.fillText('Embodied AI System',cx,cy+150);
-
-    humanoidAnimId=requestAnimationFrame(drawHumanoid);
-}
 </script>
 </body>
-</html>
+</html>'''
+
+with open('interactive-lab.html', 'w', encoding='utf-8') as f:
+    f.write(html)
+print("interactive-lab.html written successfully!")
