@@ -128,7 +128,6 @@
                 <button class="lab-tab-btn" onclick="showTab('attack',this)">⚠️ Attack Simulator</button>
                 <button class="lab-tab-btn" onclick="showTab('nn',this)">🧠 Neural Network</button>
                 <button class="lab-tab-btn" onclick="showTab('robot',this)">🤖 Robot Navigator</button>
-                <button class="lab-tab-btn" onclick="showTab('humanoid',this)">🦾 Humanoid Robot</button>
                 <button class="lab-tab-btn" onclick="showTab('ttt',this)">🎮 Tic Tac Toe</button>
             </div>
             <div id="panel-quiz" class="lab-panel active">
@@ -220,27 +219,6 @@
                     </div>
                 </div>
             </div>
-            <div id="panel-humanoid" class="lab-panel">
-                <div class="lab-card">
-                    <h2>🦾 Humanoid Robot Under Cyber Attack</h2>
-                    <p style="color:#999;font-size:0.92rem;margin-bottom:14px;">This simulation shows a humanoid robot operating normally — then under different cyber attacks. Watch how sensor spoofing, communication jamming, and command injection affect the robot's behaviour. This directly represents the research challenge of cybersecurity for embodied AI.</p>
-                    <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px;">
-                        <button onclick="humanoidSetState('normal')" id="hbtn-normal" style="background:#4fc3f7;color:#000;border:none;border-radius:8px;padding:8px 18px;font-weight:700;cursor:pointer;font-size:0.88rem;">Normal Operation</button>
-                        <button onclick="humanoidSetState('sensor')" id="hbtn-sensor" style="background:rgba(244,67,54,0.15);border:1.5px solid #f44336;color:#f44336;border-radius:8px;padding:8px 18px;font-weight:700;cursor:pointer;font-size:0.88rem;">Sensor Spoofing</button>
-                        <button onclick="humanoidSetState('jamming')" id="hbtn-jamming" style="background:rgba(244,67,54,0.15);border:1.5px solid #f44336;color:#f44336;border-radius:8px;padding:8px 18px;font-weight:700;cursor:pointer;font-size:0.88rem;">Comm Jamming</button>
-                        <button onclick="humanoidSetState('injection')" id="hbtn-injection" style="background:rgba(244,67,54,0.15);border:1.5px solid #f44336;color:#f44336;border-radius:8px;padding:8px 18px;font-weight:700;cursor:pointer;font-size:0.88rem;">Command Injection</button>
-                        <button onclick="humanoidSetState('idsactive')" id="hbtn-idsactive" style="background:rgba(76,175,80,0.15);border:1.5px solid #4caf50;color:#4caf50;border-radius:8px;padding:8px 18px;font-weight:700;cursor:pointer;font-size:0.88rem;">IDS Active (Defence)</button>
-                    </div>
-                    <div id="humanoid-status" style="background:rgba(0,0,0,0.3);border-radius:8px;padding:10px 16px;font-size:0.9rem;color:#a0c4ff;margin-bottom:14px;min-height:42px;">Robot operating normally. All systems nominal.</div>
-                    <canvas id="humanoid-canvas" style="width:100%;border-radius:10px;background:#050d1a;border:1px solid rgba(79,195,247,0.2);" height="420"></canvas>
-                    <div style="display:flex;flex-wrap:wrap;gap:14px;margin-top:14px;">
-                        <div style="background:rgba(79,195,247,0.08);border-radius:8px;padding:10px 16px;"><div style="font-size:0.76rem;color:#888;">Status</div><div style="font-size:1rem;color:#4fc3f7;font-weight:700;" id="h-status-val">NOMINAL</div></div>
-                        <div style="background:rgba(79,195,247,0.08);border-radius:8px;padding:10px 16px;"><div style="font-size:0.76rem;color:#888;">Threat Level</div><div style="font-size:1rem;color:#4fc3f7;font-weight:700;" id="h-threat-val">NONE</div></div>
-                        <div style="background:rgba(79,195,247,0.08);border-radius:8px;padding:10px 16px;"><div style="font-size:0.76rem;color:#888;">IDS</div><div style="font-size:1rem;color:#4fc3f7;font-weight:700;" id="h-ids-val">PASSIVE</div></div>
-                        <div style="background:rgba(79,195,247,0.08);border-radius:8px;padding:10px 16px;"><div style="font-size:0.76rem;color:#888;">Attack Type</div><div style="font-size:1rem;color:#4fc3f7;font-weight:700;" id="h-attack-val">None</div></div>
-                    </div>
-                </div>
-            </div>
             <div id="panel-ttt" class="lab-panel">
                 <div class="lab-card">
                     <h2>🎮 Tic Tac Toe</h2>
@@ -272,22 +250,15 @@
         </footer>
     </div>
 <script>
-var currentTab='quiz';
 function showTab(name,btn){
-    // Cancel running animations from previous tab
-    if(currentTab==='signal'&&sigAnimId){cancelAnimationFrame(sigAnimId);sigAnimId=null;sigStarted=false;}
-    if(currentTab==='humanoid'&&humanoidAnimId){cancelAnimationFrame(humanoidAnimId);humanoidAnimId=null;humanoidStarted=false;}
-    if(currentTab==='attack'&&atkAnimId){cancelAnimationFrame(atkAnimId);atkAnimId=null;}
-    currentTab=name;
     document.querySelectorAll('.lab-panel').forEach(function(p){p.classList.remove('active');});
     document.querySelectorAll('.lab-tab-btn').forEach(function(b){b.classList.remove('active');});
     document.getElementById('panel-'+name).classList.add('active');
     if(btn) btn.classList.add('active');
-    if(name==='signal') initSignal();
+    if(name==='signal'&&!sigStarted) initSignal();
     if(name==='attack'&&!atkStarted) initAttack();
     if(name==='nn') drawNN();
     if(name==='robot'&&!robotStarted) initRobot();
-    if(name==='humanoid') initHumanoid();
 }
 var topics=['IoT and LoRaWAN Security','Cybersecurity for Embodied AI','Deep Learning and Neural Networks','Signal Processing and IMU Sensors','5G and 6G Networks','Explainable AI','Robot Security and Cyber-Physical Systems','General Cybersecurity'];
 var currentTopic=topics[0],qStreak=0,qTotal=0,qCorrect=0,currentQ=null,qAnswered=false;
@@ -314,58 +285,16 @@ function loadQuestion(){
     }).catch(function(){currentQ=getFallback();renderQuestion(currentQ);});
 }
 function getFallback(){
-    var banks={
-        'IoT and LoRaWAN Security':[
-            {q:'What does LoRaWAN stand for?',opts:['Long Range Wide Area Network','Low Radio Wide Access Node','Local Range Wireless Area Network','Long Radio Wireless Application Node'],ans:0,exp:'LoRaWAN = Long Range Wide Area Network, a protocol for low-power IoT communication over long distances.'},
-            {q:'Which attack replays a captured LoRaWAN packet?',opts:['Sinkhole Attack','Replay Attack','Jamming Attack','MitM Attack'],ans:1,exp:'A replay attack retransmits a valid captured packet to fool the network server.'},
-            {q:'What mechanism prevents replay attacks in LoRaWAN?',opts:['Encryption only','Frame counters (FCnt)','ECDH key exchange','GPS timestamps'],ans:1,exp:'Frame counters ensure each packet has a unique sequence. Replayed packets are rejected.'},
-            {q:'What frequency band does LoRaWAN use in Europe?',opts:['2.4 GHz','5 GHz','868 MHz','433 MHz'],ans:2,exp:'LoRaWAN in Europe operates on the 868 MHz ISM band.'},
-        ],
-        'Cybersecurity for Embodied AI':[
-            {q:'What does embodied AI refer to?',opts:['AI in the cloud','AI embedded in physical systems like robots','AI with human emotions','AI trained on body language'],ans:1,exp:'Embodied AI systems interact with the physical world through sensors and actuators.'},
-            {q:'Which attack feeds false sensor data to a robot?',opts:['Replay Attack','Sensor Spoofing','Command Injection','Sinkhole Attack'],ans:1,exp:'Sensor spoofing manipulates IMU or camera inputs to make the robot perceive an incorrect environment.'},
-            {q:'What is command injection in robotics?',opts:['Physically destroying the robot','Inserting malicious commands into the control pipeline','Jamming GPS signals','Overloading the battery'],ans:1,exp:'Command injection inserts unauthorized instructions into the robot control system, causing unintended movements.'},
-            {q:'What does IDS stand for?',opts:['Internet Data System','Intrusion Detection System','Internal Defence Software','Integrated Device Security'],ans:1,exp:'An IDS monitors network activity to detect and alert on suspicious or malicious behaviour.'},
-        ],
-        'Deep Learning and Neural Networks':[
-            {q:'What does LSTM stand for?',opts:['Long Short-Term Memory','Linear Sequential Training Model','Large Scale Transfer Model','Layered Signal Transmission Module'],ans:0,exp:'LSTM is a recurrent neural network architecture designed to learn long-term dependencies in sequential data.'},
-            {q:'What is overfitting in machine learning?',opts:['Model performs well on training data but poorly on new data','Model is too simple','Model trains too slowly','Model uses too much memory'],ans:0,exp:'Overfitting means the model memorizes training data instead of learning generalizable patterns.'},
-            {q:'What is the purpose of an attention mechanism?',opts:['Speed up training','Allow the model to focus on relevant parts of input','Reduce model size','Encrypt model weights'],ans:1,exp:'Attention mechanisms let the model dynamically weight the importance of different input elements.'},
-            {q:'What does BiLSTM do differently from standard LSTM?',opts:['Uses convolutional layers','Processes sequences in both forward and backward directions','Only processes images','Requires less training data'],ans:1,exp:'BiLSTM processes sequences in both directions, capturing past and future context simultaneously.'},
-        ],
-        'Signal Processing and IMU Sensors':[
-            {q:'What does SNR stand for?',opts:['Signal Noise Ratio','System Network Response','Sensor Node Rate','Signal-to-Noise Ratio'],ans:3,exp:'SNR measures signal strength relative to background noise. Higher SNR = cleaner signal.'},
-            {q:'What does IMU stand for?',opts:['Intelligent Motion Unit','Inertial Measurement Unit','Internal Memory Unit','Integrated Motion Utility'],ans:1,exp:'An IMU measures acceleration, angular rate, and sometimes magnetic field — used in wearable sensing.'},
-            {q:'What is the Center of Pressure (CoP)?',opts:['Centre of a force platform','The point where the net ground reaction force acts','The midpoint of the body','The weight of the subject'],ans:1,exp:'CoP is the point where the net ground reaction force vector acts — a key measure of postural stability.'},
-            {q:'What is a Butterworth filter used for?',opts:['Amplify all frequencies','Remove DC offset','Remove high-frequency noise while preserving signal shape','Compress the signal'],ans:2,exp:'A Butterworth filter is a low-pass filter that smooths signals by removing unwanted high-frequency noise.'},
-        ],
-        '5G and 6G Networks':[
-            {q:'What does NFV stand for in 5G?',opts:['Network Function Virtualization','Node Frequency Validation','Network Firewall Version','Null Frame Verification'],ans:0,exp:'NFV decouples network functions from dedicated hardware, running them as software on general-purpose servers.'},
-            {q:'What is the main IoT advantage of 5G over 4G?',opts:['Cheaper devices','Much lower latency and higher device density','Longer range','Uses less power always'],ans:1,exp:'5G offers ultra-low latency and supports up to 1 million devices per km2, critical for industrial IoT.'},
-            {q:'What does MEC stand for in 5G?',opts:['Main Edge Controller','Mobile Edge Computing','Multi-Element Cluster','Managed Execution Core'],ans:1,exp:'MEC moves computation to the network edge, reducing latency for time-critical applications.'},
-            {q:'Which frequency bands does 6G aim to exploit?',opts:['Sub-1GHz only','Terahertz (THz) bands','2.4 GHz Wi-Fi bands','AM radio bands'],ans:1,exp:'6G targets terahertz frequencies to achieve terabit-per-second data rates and sub-millisecond latency.'},
-        ],
-        'Explainable AI':[
-            {q:'What is the main purpose of XAI?',opts:['Making AI faster','Making AI decisions interpretable to humans','Reducing model size','Encrypting AI models'],ans:1,exp:'XAI makes AI model decisions transparent and understandable — critical in healthcare and safety-critical domains.'},
-            {q:'What does SHAP stand for?',opts:['Shapley Additive exPlanations','Signal Heat Attribution Plot','Supervised Hierarchical Analysis Pipeline','Sparse Heuristic Approximation'],ans:0,exp:'SHAP uses Shapley values from game theory to assign each feature a contribution score to the model prediction.'},
-            {q:'What are Integrated Gradients used for?',opts:['Speed up inference','Attribute model predictions to input features','Compress neural networks','Generate synthetic data'],ans:1,exp:'Integrated Gradients compute the contribution of each input feature to the model output.'},
-            {q:'Why is XAI especially important in biomedical applications?',opts:['Biomedical data is small','Clinicians need to understand and trust model decisions','Models are always wrong','Regulations require fast inference'],ans:1,exp:'In clinical settings, clinicians must understand why a model made a decision — black-box predictions are not acceptable for patient safety.'},
-        ],
-        'Robot Security and Cyber-Physical Systems':[
-            {q:'What is a cyber-physical system (CPS)?',opts:['A purely software system','A system integrating computation with physical processes','A type of database','A cloud computing model'],ans:1,exp:'CPS tightly integrates computing, networking, and physical processes — examples include autonomous robots and smart grids.'},
-            {q:'Which algorithm is commonly used for robot path planning?',opts:['Bubble Sort','A* (A-star)','Only Dijkstra','Random Walk'],ans:1,exp:'A* is a best-first search algorithm widely used for optimal pathfinding in robotics and autonomous navigation.'},
-            {q:'What type of attack disrupts a robot by blocking its communication?',opts:['Sensor Spoofing','Command Injection','Communication Jamming','Sinkhole Attack'],ans:2,exp:'Communication jamming floods the RF channel with interference, preventing the robot from receiving control signals.'},
-            {q:'What does ROS stand for in robotics?',opts:['Robot Operating System','Rapid Object Sensing','Remote Operation Software','Robotic Output System'],ans:0,exp:'ROS (Robot Operating System) is an open-source middleware framework widely used for building robot software.'},
-        ],
-        'General Cybersecurity':[
-            {q:'What is the CIA triad?',opts:['Confidentiality Integrity Availability','Cyber Intelligence Attack','Control Identity Access','Confidentiality Interoperability Authentication'],ans:0,exp:'The CIA triad — Confidentiality, Integrity, Availability — are the three core principles of information security.'},
-            {q:'What does AES-128 refer to?',opts:['A routing protocol','A 128-bit symmetric encryption standard','An antenna specification','A network topology'],ans:1,exp:'AES-128 is a widely used symmetric encryption algorithm with a 128-bit key.'},
-            {q:'What is a Man-in-the-Middle attack?',opts:['An attacker breaking hardware','An attacker intercepting communication between two parties','An attacker crashing a server','An attacker stealing a password file'],ans:1,exp:'In a MitM attack, the attacker secretly intercepts and possibly alters communications between two parties.'},
-            {q:'What does ECDH stand for?',opts:['Elliptic Curve Diffie-Hellman','Encrypted Channel Data Handling','Extended Cryptographic Data Hash','Error-Correcting Data Header'],ans:0,exp:'ECDH is a key agreement protocol that provides strong security with small key sizes — ideal for IoT.'},
-        ],
-    };
-    var topicBank=banks[currentTopic]||banks['General Cybersecurity'];
-    return topicBank[Math.floor(Math.random()*topicBank.length)];
+    var bank=[
+        {q:"What does embodied AI mean?",opts:["AI in the cloud","AI in physical systems like robots","AI with emotions","AI trained on body data"],ans:1,exp:"Embodied AI refers to AI systems that physically interact with the world through sensors and actuators."},
+        {q:"Which protocol is most used in IoT low-power wide-area networks?",opts:["HTTP","LoRaWAN","FTP","Bluetooth Classic"],ans:1,exp:"LoRaWAN is designed for low-power, long-range IoT communication."},
+        {q:"What is a replay attack?",opts:["Crashing a server","Reusing a captured valid packet","Injecting malware","Physical destruction"],ans:1,exp:"A replay attack retransmits a valid captured packet to fool the receiver."},
+        {q:"What does LSTM stand for?",opts:["Long Short-Term Memory","Linear Sequential Training Model","Large Scale Transfer Model","Layered Signal Transmission Module"],ans:0,exp:"LSTM is a recurrent neural network architecture for learning temporal dependencies."},
+        {q:"What is the CIA triad?",opts:["Confidentiality Integrity Availability","Cyber Intelligence Attack","Control Identity Access","Confidentiality Interoperability Authentication"],ans:0,exp:"The CIA triad are the three core principles of information security."},
+        {q:"What is NFV in 5G?",opts:["Network Function Virtualization","Node Frequency Validation","Network Firewall Version","Null Frame Verification"],ans:0,exp:"NFV decouples network functions from hardware, running them as software."},
+        {q:"What is a sinkhole attack?",opts:["Flooding the network","A node attracting traffic with false routing info","Physically destroying sensors","Jamming frequencies"],ans:1,exp:"A sinkhole node falsely advertises the best route, attracting and dropping packets."},
+    ];
+    return bank[Math.floor(Math.random()*bank.length)];
 }
 function renderQuestion(q){
     var pct=qTotal>0?Math.round((qCorrect/qTotal)*100):0;
@@ -383,11 +312,9 @@ function answerQ(i){
     document.getElementById('quiz-next').style.display='inline-block';
 }
 initQuiz();
-var sigStarted=false,sigT=0,sigAnimId=null;
+var sigStarted=false,sigT=0;
 function initSignal(){
     sigStarted=true;
-    if(sigAnimId) cancelAnimationFrame(sigAnimId);
-    sigAnimId=null;
     var canvas=document.getElementById('sig-canvas');
     var ctx=canvas.getContext('2d');
     ['sig-freq','sig-amp','sig-noise','sig-comp2'].forEach(function(id){document.getElementById(id).addEventListener('input',updateSigLabels);});
@@ -411,7 +338,7 @@ function initSignal(){
         document.getElementById('snr-val').textContent=noise>0?(20*Math.log10(amp/noise)).toFixed(1)+' dB':'inf dB';
         document.getElementById('peak-val').textContent=(amp+comp2).toFixed(2);
         document.getElementById('quality-val').textContent=noise<0.2?'Excellent':noise<0.8?'Moderate':'Poor';
-        sigT+=0.02;sigAnimId=requestAnimationFrame(frame);
+        sigT+=0.02;requestAnimationFrame(frame);
     }
     frame();
 }
@@ -509,7 +436,7 @@ function drawNN(){
         positions.push(lp);
     });
     for(var li=0;li<positions.length-1;li++){
-    positions[li].forEach(function(src){positions[li+1].forEach(function(dst){ctx.beginPath();ctx.strokeStyle='rgba(79,195,247,0.35)';ctx.lineWidth=1.2;ctx.moveTo(src.x,src.y);ctx.lineTo(dst.x,dst.y);ctx.stroke();});});
+        positions[li].forEach(function(src){positions[li+1].forEach(function(dst){ctx.beginPath();ctx.strokeStyle='rgba(79,195,247,0.07)';ctx.lineWidth=0.8;ctx.moveTo(src.x,src.y);ctx.lineTo(dst.x,dst.y);ctx.stroke();});});
     }
     nnPulses.forEach(function(p){
         if(p.li>=positions.length-1||p.ni>=positions[p.li].length||p.nextNi>=positions[p.li+1].length) return;
@@ -672,235 +599,6 @@ function endGame(msg){tttRunning=false;document.getElementById('ttt-status').tex
 function updateScores(){document.getElementById('score-x').textContent=scores.X;document.getElementById('score-o').textContent=scores.O;document.getElementById('score-d').textContent=scores.D;}
 document.getElementById('ttt-reset').onclick=tttInit;
 tttInit();
-
-// ── HUMANOID ROBOT ──
-var humanoidStarted=false,humanoidAnimId=null,humanoidState='normal',humanoidT=0;
-var humanoidPackets=[];
-
-function initHumanoid(){
-    humanoidStarted=true;
-    drawHumanoid();
-}
-
-function humanoidSetState(state){
-    humanoidState=state;
-    var messages={
-        normal:'🟢 Robot operating normally. All systems nominal. Sensors calibrated, communication stable.',
-        sensor:'🔴 SENSOR SPOOFING ATTACK detected! Attacker is feeding false IMU/camera data. Robot perceives incorrect environment — balance and navigation compromised.',
-        jamming:'🔴 COMMUNICATION JAMMING active! Control signals blocked. Robot cannot receive commands from operator. Operating in degraded autonomous mode.',
-        injection:'🔴 COMMAND INJECTION attack! Malicious commands inserted into the control pipeline. Robot executing unauthorized movements — safety risk!',
-        idsactive:'🟢 IDS (Intrusion Detection System) ACTIVE. Anomalous traffic detected and filtered. Robot restored to safe operation. Attack mitigated.'
-    };
-    var threats={normal:'NONE',sensor:'HIGH',jamming:'HIGH',injection:'CRITICAL',idsactive:'LOW'};
-    var statusColors={normal:'#4fc3f7',sensor:'#f44336',jamming:'#f44336',injection:'#f44336',idsactive:'#4caf50'};
-    var attackNames={normal:'None',sensor:'Sensor Spoofing',jamming:'Comm Jamming',injection:'Command Injection',idsactive:'Mitigated'};
-    document.getElementById('humanoid-status').textContent=messages[state];
-    document.getElementById('humanoid-status').style.color=statusColors[state];
-    document.getElementById('h-status-val').textContent=state==='normal'?'NOMINAL':state==='idsactive'?'DEFENDED':'COMPROMISED';
-    document.getElementById('h-status-val').style.color=statusColors[state];
-    document.getElementById('h-threat-val').textContent=threats[state];
-    document.getElementById('h-threat-val').style.color=statusColors[state];
-    document.getElementById('h-ids-val').textContent=state==='idsactive'?'ACTIVE':'PASSIVE';
-    document.getElementById('h-ids-val').style.color=state==='idsactive'?'#4caf50':'#888';
-    document.getElementById('h-attack-val').textContent=attackNames[state];
-    document.getElementById('h-attack-val').style.color=statusColors[state];
-    humanoidPackets=[];
-}
-
-function drawHumanoid(){
-    var canvas=document.getElementById('humanoid-canvas');
-    if(!canvas) { humanoidAnimId=requestAnimationFrame(drawHumanoid); return; }
-    var W=canvas.offsetWidth; canvas.width=W; canvas.height=420;
-    var ctx=canvas.getContext('2d');
-    ctx.clearRect(0,0,W,420);
-    humanoidT+=0.04;
-    var t=humanoidT;
-    var state=humanoidState;
-    var cx=W/2, cy=210;
-    var isAttack=state==='sensor'||state==='jamming'||state==='injection';
-    var isDefended=state==='idsactive';
-
-    // Background grid
-    ctx.strokeStyle='rgba(79,195,247,0.05)'; ctx.lineWidth=1;
-    for(var gx=0;gx<W;gx+=40){ctx.beginPath();ctx.moveTo(gx,0);ctx.lineTo(gx,420);ctx.stroke();}
-    for(var gy=0;gy<420;gy+=40){ctx.beginPath();ctx.moveTo(0,gy);ctx.lineTo(W,gy);ctx.stroke();}
-
-    // Draw network communication lines from server to robot
-    var serverX=W*0.85, serverY=80;
-    var numPackets=3;
-    if(state==='jamming'){
-        // Draw jamming interference
-        for(var j=0;j<12;j++){
-            var jx=cx-80+Math.random()*160;
-            var jy=cy-100+Math.random()*200;
-            ctx.beginPath();
-            ctx.arc(jx,jy,3+Math.random()*5,0,Math.PI*2);
-            ctx.fillStyle='rgba(244,67,54,'+(0.2+Math.random()*0.4)+')';
-            ctx.fill();
-        }
-        ctx.strokeStyle='rgba(244,67,54,0.3)'; ctx.lineWidth=2; ctx.setLineDash([4,4]);
-        ctx.beginPath(); ctx.moveTo(serverX,serverY); ctx.lineTo(cx,cy-80); ctx.stroke();
-        ctx.setLineDash([]);
-        ctx.fillStyle='rgba(244,67,54,0.8)'; ctx.font='bold 11px sans-serif'; ctx.textAlign='center';
-        ctx.fillText('JAMMED',cx,cy-110);
-    } else {
-        // Normal comm line
-        ctx.strokeStyle=isAttack?'rgba(244,67,54,0.4)':isDefended?'rgba(76,175,80,0.4)':'rgba(79,195,247,0.25)';
-        ctx.lineWidth=1.5; ctx.setLineDash([6,4]);
-        ctx.beginPath(); ctx.moveTo(serverX,serverY); ctx.lineTo(cx,cy-80); ctx.stroke();
-        ctx.setLineDash([]);
-        // Animate packets
-        humanoidPackets.push({progress:0, evil:state==='injection'&&Math.random()<0.4});
-        if(humanoidPackets.length>8) humanoidPackets.shift();
-        humanoidPackets.forEach(function(p){
-            p.progress=Math.min(1,p.progress+0.015);
-            var px=serverX+(cx-serverX)*p.progress;
-            var py=serverY+(cy-80-serverY)*p.progress;
-            ctx.beginPath(); ctx.arc(px,py,5,0,Math.PI*2);
-            ctx.fillStyle=p.evil?'#f44336':isDefended?'#4caf50':'#4fc3f7'; ctx.fill();
-            if(p.evil){
-                ctx.fillStyle='#f44336'; ctx.font='9px sans-serif'; ctx.textAlign='center';
-                ctx.fillText('INJECT',px,py-10);
-            }
-        });
-    }
-
-    // Draw server box
-    ctx.fillStyle='rgba(79,195,247,0.1)'; ctx.strokeStyle=isAttack?'#f44336':isDefended?'#4caf50':'#4fc3f7'; ctx.lineWidth=2;
-    ctx.beginPath(); ctx.roundRect(serverX-30,serverY-20,60,40,6); ctx.fill(); ctx.stroke();
-    ctx.fillStyle=isAttack?'#f44336':isDefended?'#4caf50':'#4fc3f7'; ctx.font='bold 10px sans-serif'; ctx.textAlign='center';
-    ctx.fillText(state==='idsactive'?'IDS':'CTRL',serverX,serverY); ctx.fillText('SERVER',serverX,serverY+12);
-
-    // Draw attacker
-    if(isAttack){
-        var atkX=W*0.15, atkY=80;
-        ctx.fillStyle='rgba(244,67,54,0.12)'; ctx.strokeStyle='#f44336'; ctx.lineWidth=2;
-        ctx.beginPath(); ctx.roundRect(atkX-30,atkY-20,60,40,6); ctx.fill(); ctx.stroke();
-        ctx.fillStyle='#f44336'; ctx.font='bold 10px sans-serif'; ctx.textAlign='center';
-        ctx.fillText('ATTACKER',atkX,atkY); ctx.fillText('NODE',atkX,atkY+12);
-        // Attack arrow
-        ctx.strokeStyle='rgba(244,67,54,0.6)'; ctx.lineWidth=2; ctx.setLineDash([5,3]);
-        ctx.beginPath(); ctx.moveTo(atkX+30,atkY); ctx.lineTo(cx-20,cy-80); ctx.stroke();
-        ctx.setLineDash([]);
-        // Pulsing attack indicator
-        ctx.beginPath(); ctx.arc(atkX+(cx-20-atkX)*((t*0.5)%1), atkY+(cy-80-atkY)*((t*0.5)%1),5,0,Math.PI*2);
-        ctx.fillStyle='#f44336'; ctx.fill();
-    }
-
-    // ── DRAW HUMANOID ROBOT ──
-    var wobble = isAttack ? Math.sin(t*8)*8 : Math.sin(t*1.5)*2;
-    var sensorGlitch = state==='sensor' && Math.sin(t*20)>0.7;
-
-    // Body color based on state
-    var bodyColor = isAttack ? '#f44336' : isDefended ? '#4caf50' : '#4fc3f7';
-    var bodyAlpha = isAttack ? 0.3 : 0.15;
-
-    // ── Torso ──
-    ctx.fillStyle='rgba('+( isAttack?'244,67,54':isDefended?'76,175,80':'79,195,247')+','+bodyAlpha+')';
-    ctx.strokeStyle=bodyColor; ctx.lineWidth=2.5;
-    ctx.beginPath(); ctx.roundRect(cx-28+wobble*0.3,cy-70,56,80,8); ctx.fill(); ctx.stroke();
-
-    // Chest panel
-    ctx.fillStyle=isAttack?'rgba(244,67,54,0.3)':isDefended?'rgba(76,175,80,0.3)':'rgba(79,195,247,0.2)';
-    ctx.beginPath(); ctx.roundRect(cx-18+wobble*0.3,cy-60,36,30,4); ctx.fill(); ctx.stroke();
-
-    // Chest LED blinking
-    var ledOn = Math.sin(t*( isAttack?15:3))>0;
-    ctx.beginPath(); ctx.arc(cx+wobble*0.3,cy-45,5,0,Math.PI*2);
-    ctx.fillStyle=ledOn?(isAttack?'#f44336':isDefended?'#4caf50':'#4fc3f7'):'rgba(79,195,247,0.2)'; ctx.fill();
-
-    // ── Head ──
-    ctx.fillStyle='rgba('+( isAttack?'244,67,54':isDefended?'76,175,80':'79,195,247')+','+bodyAlpha+')';
-    ctx.strokeStyle=bodyColor; ctx.lineWidth=2;
-    ctx.beginPath(); ctx.roundRect(cx-22+wobble*0.5,cy-130,44,55,10); ctx.fill(); ctx.stroke();
-
-    // Eyes
-    var eyeColor = sensorGlitch ? '#ff8a65' : (isAttack?'#f44336':isDefended?'#4caf50':'#4fc3f7');
-    ctx.fillStyle=eyeColor;
-    ctx.beginPath(); ctx.ellipse(cx-10+wobble*0.5+(sensorGlitch?Math.random()*6-3:0),cy-110,5,4,0,0,Math.PI*2); ctx.fill();
-    ctx.beginPath(); ctx.ellipse(cx+10+wobble*0.5+(sensorGlitch?Math.random()*6-3:0),cy-110,5,4,0,0,Math.PI*2); ctx.fill();
-    if(sensorGlitch){
-        ctx.fillStyle='rgba(255,138,101,0.6)'; ctx.font='bold 9px sans-serif'; ctx.textAlign='center';
-        ctx.fillText('SENSOR ERR',cx+wobble*0.5,cy-140);
-    }
-
-    // Antenna
-    ctx.strokeStyle=bodyColor; ctx.lineWidth=2;
-    ctx.beginPath(); ctx.moveTo(cx+wobble*0.5,cy-130); ctx.lineTo(cx+wobble*0.5,cy-150);
-    ctx.stroke();
-    ctx.beginPath(); ctx.arc(cx+wobble*0.5,cy-152,4,0,Math.PI*2);
-    ctx.fillStyle=ledOn?bodyColor:'rgba(79,195,247,0.2)'; ctx.fill();
-
-    // ── Arms ──
-    var leftShoulder={x:cx-28+wobble*0.3, y:cy-60};
-    var rightShoulder={x:cx+28+wobble*0.3, y:cy-60};
-    var armSwing = state==='injection' ? Math.sin(t*6)*30 : Math.sin(t*1.5)*15;
-    // Left arm
-    ctx.strokeStyle=bodyColor; ctx.lineWidth=10; ctx.lineCap='round';
-    ctx.beginPath();
-    ctx.moveTo(leftShoulder.x, leftShoulder.y);
-    ctx.lineTo(leftShoulder.x-25, leftShoulder.y+40+armSwing);
-    ctx.lineTo(leftShoulder.x-20, leftShoulder.y+80+armSwing);
-    ctx.stroke();
-    // Right arm
-    ctx.beginPath();
-    ctx.moveTo(rightShoulder.x, rightShoulder.y);
-    ctx.lineTo(rightShoulder.x+25, rightShoulder.y+40-armSwing);
-    ctx.lineTo(rightShoulder.x+20, rightShoulder.y+80-armSwing);
-    ctx.stroke();
-    ctx.lineCap='butt';
-
-    // ── Legs ──
-    var legSwing = state==='injection' ? Math.sin(t*4)*20 : Math.sin(t*1.5)*10;
-    ctx.strokeStyle=bodyColor; ctx.lineWidth=12; ctx.lineCap='round';
-    // Left leg
-    ctx.beginPath();
-    ctx.moveTo(cx-14+wobble*0.3, cy+10);
-    ctx.lineTo(cx-14+wobble*0.3+legSwing, cy+60);
-    ctx.lineTo(cx-14+wobble*0.3+legSwing-5, cy+110);
-    ctx.stroke();
-    // Right leg
-    ctx.beginPath();
-    ctx.moveTo(cx+14+wobble*0.3, cy+10);
-    ctx.lineTo(cx+14+wobble*0.3-legSwing, cy+60);
-    ctx.lineTo(cx+14+wobble*0.3-legSwing+5, cy+110);
-    ctx.stroke();
-    ctx.lineCap='butt';
-
-    // Ground shadow
-    ctx.fillStyle='rgba(79,195,247,0.06)';
-    ctx.beginPath(); ctx.ellipse(cx+wobble*0.3,cy+118,40,8,0,0,Math.PI*2); ctx.fill();
-
-    // ── IDS Shield (when defended) ──
-    if(isDefended){
-        ctx.strokeStyle='rgba(76,175,80,0.5)'; ctx.lineWidth=2; ctx.setLineDash([4,4]);
-        ctx.beginPath(); ctx.arc(cx,cy-20,100+Math.sin(t*2)*5,0,Math.PI*2); ctx.stroke();
-        ctx.setLineDash([]);
-        ctx.fillStyle='rgba(76,175,80,0.7)'; ctx.font='bold 11px sans-serif'; ctx.textAlign='center';
-        ctx.fillText('IDS SHIELD ACTIVE',cx,cy-128);
-    }
-
-    // ── Attack lightning (injection) ──
-    if(state==='injection'&&Math.sin(t*12)>0.5){
-        ctx.strokeStyle='rgba(244,67,54,0.8)'; ctx.lineWidth=2;
-        for(var li=0;li<3;li++){
-            ctx.beginPath();
-            ctx.moveTo(cx+wobble,(cy-130)+(li*20));
-            ctx.lineTo(cx+wobble+( Math.random()>0.5?8:-8),(cy-120)+(li*20));
-            ctx.lineTo(cx+wobble,(cy-110)+(li*20));
-            ctx.stroke();
-        }
-    }
-
-    // Labels
-    ctx.font='bold 12px sans-serif'; ctx.textAlign='center';
-    ctx.fillStyle=isAttack?'#f44336':isDefended?'#4caf50':'#4fc3f7';
-    ctx.fillText(isAttack?'ROBOT COMPROMISED':isDefended?'ROBOT DEFENDED':'ROBOT NOMINAL',cx,cy+135);
-    ctx.font='10px sans-serif'; ctx.fillStyle='#666';
-    ctx.fillText('Embodied AI System',cx,cy+150);
-
-    humanoidAnimId=requestAnimationFrame(drawHumanoid);
-}
 </script>
 </body>
 </html>
