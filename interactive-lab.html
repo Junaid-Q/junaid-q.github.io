@@ -272,16 +272,22 @@
         </footer>
     </div>
 <script>
+var currentTab='quiz';
 function showTab(name,btn){
+    // Cancel running animations from previous tab
+    if(currentTab==='signal'&&sigAnimId){cancelAnimationFrame(sigAnimId);sigAnimId=null;sigStarted=false;}
+    if(currentTab==='humanoid'&&humanoidAnimId){cancelAnimationFrame(humanoidAnimId);humanoidAnimId=null;humanoidStarted=false;}
+    if(currentTab==='attack'&&atkAnimId){cancelAnimationFrame(atkAnimId);atkAnimId=null;}
+    currentTab=name;
     document.querySelectorAll('.lab-panel').forEach(function(p){p.classList.remove('active');});
     document.querySelectorAll('.lab-tab-btn').forEach(function(b){b.classList.remove('active');});
     document.getElementById('panel-'+name).classList.add('active');
     if(btn) btn.classList.add('active');
-    if(name==='signal'&&!sigStarted) initSignal();
+    if(name==='signal') initSignal();
     if(name==='attack'&&!atkStarted) initAttack();
     if(name==='nn') drawNN();
     if(name==='robot'&&!robotStarted) initRobot();
-    if(name==='humanoid'&&!humanoidStarted) initHumanoid();
+    if(name==='humanoid') initHumanoid();
 }
 var topics=['IoT and LoRaWAN Security','Cybersecurity for Embodied AI','Deep Learning and Neural Networks','Signal Processing and IMU Sensors','5G and 6G Networks','Explainable AI','Robot Security and Cyber-Physical Systems','General Cybersecurity'];
 var currentTopic=topics[0],qStreak=0,qTotal=0,qCorrect=0,currentQ=null,qAnswered=false;
@@ -308,16 +314,58 @@ function loadQuestion(){
     }).catch(function(){currentQ=getFallback();renderQuestion(currentQ);});
 }
 function getFallback(){
-    var bank=[
-        {q:"What does embodied AI mean?",opts:["AI in the cloud","AI in physical systems like robots","AI with emotions","AI trained on body data"],ans:1,exp:"Embodied AI refers to AI systems that physically interact with the world through sensors and actuators."},
-        {q:"Which protocol is most used in IoT low-power wide-area networks?",opts:["HTTP","LoRaWAN","FTP","Bluetooth Classic"],ans:1,exp:"LoRaWAN is designed for low-power, long-range IoT communication."},
-        {q:"What is a replay attack?",opts:["Crashing a server","Reusing a captured valid packet","Injecting malware","Physical destruction"],ans:1,exp:"A replay attack retransmits a valid captured packet to fool the receiver."},
-        {q:"What does LSTM stand for?",opts:["Long Short-Term Memory","Linear Sequential Training Model","Large Scale Transfer Model","Layered Signal Transmission Module"],ans:0,exp:"LSTM is a recurrent neural network architecture for learning temporal dependencies."},
-        {q:"What is the CIA triad?",opts:["Confidentiality Integrity Availability","Cyber Intelligence Attack","Control Identity Access","Confidentiality Interoperability Authentication"],ans:0,exp:"The CIA triad are the three core principles of information security."},
-        {q:"What is NFV in 5G?",opts:["Network Function Virtualization","Node Frequency Validation","Network Firewall Version","Null Frame Verification"],ans:0,exp:"NFV decouples network functions from hardware, running them as software."},
-        {q:"What is a sinkhole attack?",opts:["Flooding the network","A node attracting traffic with false routing info","Physically destroying sensors","Jamming frequencies"],ans:1,exp:"A sinkhole node falsely advertises the best route, attracting and dropping packets."},
-    ];
-    return bank[Math.floor(Math.random()*bank.length)];
+    var banks={
+        'IoT and LoRaWAN Security':[
+            {q:'What does LoRaWAN stand for?',opts:['Long Range Wide Area Network','Low Radio Wide Access Node','Local Range Wireless Area Network','Long Radio Wireless Application Node'],ans:0,exp:'LoRaWAN = Long Range Wide Area Network, a protocol for low-power IoT communication over long distances.'},
+            {q:'Which attack replays a captured LoRaWAN packet?',opts:['Sinkhole Attack','Replay Attack','Jamming Attack','MitM Attack'],ans:1,exp:'A replay attack retransmits a valid captured packet to fool the network server.'},
+            {q:'What mechanism prevents replay attacks in LoRaWAN?',opts:['Encryption only','Frame counters (FCnt)','ECDH key exchange','GPS timestamps'],ans:1,exp:'Frame counters ensure each packet has a unique sequence. Replayed packets are rejected.'},
+            {q:'What frequency band does LoRaWAN use in Europe?',opts:['2.4 GHz','5 GHz','868 MHz','433 MHz'],ans:2,exp:'LoRaWAN in Europe operates on the 868 MHz ISM band.'},
+        ],
+        'Cybersecurity for Embodied AI':[
+            {q:'What does embodied AI refer to?',opts:['AI in the cloud','AI embedded in physical systems like robots','AI with human emotions','AI trained on body language'],ans:1,exp:'Embodied AI systems interact with the physical world through sensors and actuators.'},
+            {q:'Which attack feeds false sensor data to a robot?',opts:['Replay Attack','Sensor Spoofing','Command Injection','Sinkhole Attack'],ans:1,exp:'Sensor spoofing manipulates IMU or camera inputs to make the robot perceive an incorrect environment.'},
+            {q:'What is command injection in robotics?',opts:['Physically destroying the robot','Inserting malicious commands into the control pipeline','Jamming GPS signals','Overloading the battery'],ans:1,exp:'Command injection inserts unauthorized instructions into the robot control system, causing unintended movements.'},
+            {q:'What does IDS stand for?',opts:['Internet Data System','Intrusion Detection System','Internal Defence Software','Integrated Device Security'],ans:1,exp:'An IDS monitors network activity to detect and alert on suspicious or malicious behaviour.'},
+        ],
+        'Deep Learning and Neural Networks':[
+            {q:'What does LSTM stand for?',opts:['Long Short-Term Memory','Linear Sequential Training Model','Large Scale Transfer Model','Layered Signal Transmission Module'],ans:0,exp:'LSTM is a recurrent neural network architecture designed to learn long-term dependencies in sequential data.'},
+            {q:'What is overfitting in machine learning?',opts:['Model performs well on training data but poorly on new data','Model is too simple','Model trains too slowly','Model uses too much memory'],ans:0,exp:'Overfitting means the model memorizes training data instead of learning generalizable patterns.'},
+            {q:'What is the purpose of an attention mechanism?',opts:['Speed up training','Allow the model to focus on relevant parts of input','Reduce model size','Encrypt model weights'],ans:1,exp:'Attention mechanisms let the model dynamically weight the importance of different input elements.'},
+            {q:'What does BiLSTM do differently from standard LSTM?',opts:['Uses convolutional layers','Processes sequences in both forward and backward directions','Only processes images','Requires less training data'],ans:1,exp:'BiLSTM processes sequences in both directions, capturing past and future context simultaneously.'},
+        ],
+        'Signal Processing and IMU Sensors':[
+            {q:'What does SNR stand for?',opts:['Signal Noise Ratio','System Network Response','Sensor Node Rate','Signal-to-Noise Ratio'],ans:3,exp:'SNR measures signal strength relative to background noise. Higher SNR = cleaner signal.'},
+            {q:'What does IMU stand for?',opts:['Intelligent Motion Unit','Inertial Measurement Unit','Internal Memory Unit','Integrated Motion Utility'],ans:1,exp:'An IMU measures acceleration, angular rate, and sometimes magnetic field — used in wearable sensing.'},
+            {q:'What is the Center of Pressure (CoP)?',opts:['Centre of a force platform','The point where the net ground reaction force acts','The midpoint of the body','The weight of the subject'],ans:1,exp:'CoP is the point where the net ground reaction force vector acts — a key measure of postural stability.'},
+            {q:'What is a Butterworth filter used for?',opts:['Amplify all frequencies','Remove DC offset','Remove high-frequency noise while preserving signal shape','Compress the signal'],ans:2,exp:'A Butterworth filter is a low-pass filter that smooths signals by removing unwanted high-frequency noise.'},
+        ],
+        '5G and 6G Networks':[
+            {q:'What does NFV stand for in 5G?',opts:['Network Function Virtualization','Node Frequency Validation','Network Firewall Version','Null Frame Verification'],ans:0,exp:'NFV decouples network functions from dedicated hardware, running them as software on general-purpose servers.'},
+            {q:'What is the main IoT advantage of 5G over 4G?',opts:['Cheaper devices','Much lower latency and higher device density','Longer range','Uses less power always'],ans:1,exp:'5G offers ultra-low latency and supports up to 1 million devices per km2, critical for industrial IoT.'},
+            {q:'What does MEC stand for in 5G?',opts:['Main Edge Controller','Mobile Edge Computing','Multi-Element Cluster','Managed Execution Core'],ans:1,exp:'MEC moves computation to the network edge, reducing latency for time-critical applications.'},
+            {q:'Which frequency bands does 6G aim to exploit?',opts:['Sub-1GHz only','Terahertz (THz) bands','2.4 GHz Wi-Fi bands','AM radio bands'],ans:1,exp:'6G targets terahertz frequencies to achieve terabit-per-second data rates and sub-millisecond latency.'},
+        ],
+        'Explainable AI':[
+            {q:'What is the main purpose of XAI?',opts:['Making AI faster','Making AI decisions interpretable to humans','Reducing model size','Encrypting AI models'],ans:1,exp:'XAI makes AI model decisions transparent and understandable — critical in healthcare and safety-critical domains.'},
+            {q:'What does SHAP stand for?',opts:['Shapley Additive exPlanations','Signal Heat Attribution Plot','Supervised Hierarchical Analysis Pipeline','Sparse Heuristic Approximation'],ans:0,exp:'SHAP uses Shapley values from game theory to assign each feature a contribution score to the model prediction.'},
+            {q:'What are Integrated Gradients used for?',opts:['Speed up inference','Attribute model predictions to input features','Compress neural networks','Generate synthetic data'],ans:1,exp:'Integrated Gradients compute the contribution of each input feature to the model output.'},
+            {q:'Why is XAI especially important in biomedical applications?',opts:['Biomedical data is small','Clinicians need to understand and trust model decisions','Models are always wrong','Regulations require fast inference'],ans:1,exp:'In clinical settings, clinicians must understand why a model made a decision — black-box predictions are not acceptable for patient safety.'},
+        ],
+        'Robot Security and Cyber-Physical Systems':[
+            {q:'What is a cyber-physical system (CPS)?',opts:['A purely software system','A system integrating computation with physical processes','A type of database','A cloud computing model'],ans:1,exp:'CPS tightly integrates computing, networking, and physical processes — examples include autonomous robots and smart grids.'},
+            {q:'Which algorithm is commonly used for robot path planning?',opts:['Bubble Sort','A* (A-star)','Only Dijkstra','Random Walk'],ans:1,exp:'A* is a best-first search algorithm widely used for optimal pathfinding in robotics and autonomous navigation.'},
+            {q:'What type of attack disrupts a robot by blocking its communication?',opts:['Sensor Spoofing','Command Injection','Communication Jamming','Sinkhole Attack'],ans:2,exp:'Communication jamming floods the RF channel with interference, preventing the robot from receiving control signals.'},
+            {q:'What does ROS stand for in robotics?',opts:['Robot Operating System','Rapid Object Sensing','Remote Operation Software','Robotic Output System'],ans:0,exp:'ROS (Robot Operating System) is an open-source middleware framework widely used for building robot software.'},
+        ],
+        'General Cybersecurity':[
+            {q:'What is the CIA triad?',opts:['Confidentiality Integrity Availability','Cyber Intelligence Attack','Control Identity Access','Confidentiality Interoperability Authentication'],ans:0,exp:'The CIA triad — Confidentiality, Integrity, Availability — are the three core principles of information security.'},
+            {q:'What does AES-128 refer to?',opts:['A routing protocol','A 128-bit symmetric encryption standard','An antenna specification','A network topology'],ans:1,exp:'AES-128 is a widely used symmetric encryption algorithm with a 128-bit key.'},
+            {q:'What is a Man-in-the-Middle attack?',opts:['An attacker breaking hardware','An attacker intercepting communication between two parties','An attacker crashing a server','An attacker stealing a password file'],ans:1,exp:'In a MitM attack, the attacker secretly intercepts and possibly alters communications between two parties.'},
+            {q:'What does ECDH stand for?',opts:['Elliptic Curve Diffie-Hellman','Encrypted Channel Data Handling','Extended Cryptographic Data Hash','Error-Correcting Data Header'],ans:0,exp:'ECDH is a key agreement protocol that provides strong security with small key sizes — ideal for IoT.'},
+        ],
+    };
+    var topicBank=banks[currentTopic]||banks['General Cybersecurity'];
+    return topicBank[Math.floor(Math.random()*topicBank.length)];
 }
 function renderQuestion(q){
     var pct=qTotal>0?Math.round((qCorrect/qTotal)*100):0;
@@ -335,9 +383,11 @@ function answerQ(i){
     document.getElementById('quiz-next').style.display='inline-block';
 }
 initQuiz();
-var sigStarted=false,sigT=0;
+var sigStarted=false,sigT=0,sigAnimId=null;
 function initSignal(){
     sigStarted=true;
+    if(sigAnimId) cancelAnimationFrame(sigAnimId);
+    sigAnimId=null;
     var canvas=document.getElementById('sig-canvas');
     var ctx=canvas.getContext('2d');
     ['sig-freq','sig-amp','sig-noise','sig-comp2'].forEach(function(id){document.getElementById(id).addEventListener('input',updateSigLabels);});
@@ -361,7 +411,7 @@ function initSignal(){
         document.getElementById('snr-val').textContent=noise>0?(20*Math.log10(amp/noise)).toFixed(1)+' dB':'inf dB';
         document.getElementById('peak-val').textContent=(amp+comp2).toFixed(2);
         document.getElementById('quality-val').textContent=noise<0.2?'Excellent':noise<0.8?'Moderate':'Poor';
-        sigT+=0.02;requestAnimationFrame(frame);
+        sigT+=0.02;sigAnimId=requestAnimationFrame(frame);
     }
     frame();
 }
