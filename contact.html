@@ -18,6 +18,7 @@
     <meta name="twitter:image" content="https://junaid-q.github.io/profile.jpg" />
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-TF0D7NJC1N"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -43,6 +44,7 @@
 
     <!-- Navigation Bar -->
     <aside class="topbar">
+        <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">☰</button>
         <nav>
             <a href="index.html">Home</a>
             <a href="education.html">Education</a>
@@ -82,9 +84,7 @@
         <!-- Map Section -->
         <section class="research">
             <h2>Find Me</h2>
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2038.123456789!2d15.2134!3d59.2753!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x465c154de5e7f3e7%3A0x1234567890abcdef!2s%C3%96rebro%20University!5e0!3m2!1sen!2sse!4v1707642124591!5m2!1sen!2sse"
-                width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            <div id="contact-map"></div>
         </section>
 
         <!-- Profile Icons -->
@@ -156,6 +156,42 @@
         });
     </script>
     <script src="theme-toggle.js"></script>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const mapEl = document.getElementById('contact-map');
+            if (!mapEl || typeof L === 'undefined') return;
+
+            const darkTiles = 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
+            const lightTiles = 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
+            const tileAttribution = '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions" target="_blank" rel="noopener">CARTO</a>';
+            const orebro = [59.2753, 15.2134];
+
+            const map = L.map('contact-map', { scrollWheelZoom: false, minZoom: 3 }).setView(orebro, 13);
+
+            let tileLayer = L.tileLayer(
+                document.body.classList.contains('light-theme') ? lightTiles : darkTiles,
+                { attribution: tileAttribution, subdomains: 'abcd', maxZoom: 18 }
+            ).addTo(map);
+
+            L.circleMarker(orebro, {
+                radius: 9,
+                fillColor: '#80d4ff',
+                color: '#00e6ff',
+                weight: 2,
+                fillOpacity: 0.85
+            }).addTo(map).bindPopup('<strong>Örebro University</strong><br>Room T2247').openPopup();
+
+            window.addEventListener('themechange', function (e) {
+                map.removeLayer(tileLayer);
+                tileLayer = L.tileLayer(
+                    e.detail.theme === 'light' ? lightTiles : darkTiles,
+                    { attribution: tileAttribution, subdomains: 'abcd', maxZoom: 18 }
+                ).addTo(map);
+            });
+        });
+    </script>
 
 </body>
 

@@ -46,6 +46,7 @@
 
     <div class="page-content">
         <aside class="topbar">
+            <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">☰</button>
             <nav>
                 <a href="index.html">Home</a>
                 <a href="education.html">Education</a>
@@ -164,12 +165,11 @@
                     <img src="images/lora.jpg" alt="LoRaWAN network architecture diagram" loading="lazy">
                     <img src="images/gateway.jpg" alt="LoRaWAN gateway hardware photo" loading="lazy">
                     <p>
-                        This diagram illustrates our approach for evaluating postural balance using smart glasses (IMU)
-                        and a
-                        force platform. IMU data is preprocessed and used to train deep learning models for force
-                        estimation.
-                        The system calculates sway parameters, enabling a comparison with ground-truth force platform
-                        measurements for clinical assessment and monitoring. <a
+                        This work proposes a lightweight AES-128 and ECDH-based key management scheme to secure
+                        LoRaWAN communications against common attacks such as replay, jamming, sinkhole, and
+                        man-in-the-middle attacks. The diagram illustrates the LoRaWAN network architecture alongside
+                        the experimental gateway hardware used to validate the proposed secure key-exchange and
+                        authentication mechanism. <a
                             href="https://ieeexplore.ieee.org/abstract/document/10171366" target="_blank">View
                             Paper</a>
                     </p>
@@ -414,6 +414,72 @@
         });
     </script>
     <script src="theme-toggle.js"></script>
+
+    <script>
+        (function () {
+            const container = document.getElementById('github-repos');
+            if (!container) return;
+
+            function makeRepoCard(repo) {
+                const card = document.createElement('div');
+                card.className = 'repo-card';
+
+                const link = document.createElement('a');
+                link.href = repo.html_url;
+                link.target = '_blank';
+                link.rel = 'noopener';
+                const strong = document.createElement('strong');
+                strong.textContent = repo.name;
+                link.appendChild(strong);
+                card.appendChild(link);
+
+                const desc = document.createElement('p');
+                desc.textContent = repo.description || 'No description provided.';
+                card.appendChild(desc);
+
+                const meta = document.createElement('div');
+                meta.className = 'repo-meta';
+                if (repo.language) {
+                    const lang = document.createElement('span');
+                    lang.textContent = '🔤 ' + repo.language;
+                    meta.appendChild(lang);
+                }
+                const stars = document.createElement('span');
+                stars.textContent = '⭐ ' + repo.stargazers_count;
+                meta.appendChild(stars);
+                card.appendChild(meta);
+
+                return card;
+            }
+
+            fetch('https://api.github.com/users/Junaid-Q/repos?sort=updated&per_page=6')
+                .then(function (r) {
+                    if (!r.ok) throw new Error('GitHub API error');
+                    return r.json();
+                })
+                .then(function (repos) {
+                    container.textContent = '';
+                    if (!Array.isArray(repos) || repos.length === 0) {
+                        container.textContent = 'No public repositories found.';
+                        return;
+                    }
+                    repos.forEach(function (repo) {
+                        container.appendChild(makeRepoCard(repo));
+                    });
+                })
+                .catch(function () {
+                    container.textContent = '';
+                    container.appendChild(document.createTextNode('Unable to load GitHub repositories right now — visit my '));
+                    const link = document.createElement('a');
+                    link.href = 'https://github.com/Junaid-Q';
+                    link.target = '_blank';
+                    link.rel = 'noopener';
+                    link.textContent = 'GitHub profile';
+                    container.appendChild(link);
+                    container.appendChild(document.createTextNode(' directly.'));
+                });
+        })();
+    </script>
 
 </body>
 

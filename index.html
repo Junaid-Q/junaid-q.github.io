@@ -68,6 +68,7 @@
 
     <!-- Navigation Bar -->
     <aside class="topbar">
+        <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">☰</button>
         <nav>
             <a href="index.html" class="active">Home</a>
             <a href="education.html">Education</a>
@@ -321,8 +322,8 @@
     <script src="theme-toggle.js"></script>
 
     <script>
-        // Animated count-up for the "By the Numbers" stats
-        document.querySelectorAll('.stat-number').forEach(function (el) {
+        // Animated count-up for the "By the Numbers" stats, triggered when scrolled into view
+        function animateStat(el) {
             const target = parseInt(el.getAttribute('data-target'), 10);
             const duration = 1200;
             const start = performance.now();
@@ -333,7 +334,22 @@
                 else el.textContent = target;
             }
             requestAnimationFrame(step);
-        });
+        }
+
+        const statEls = document.querySelectorAll('.stat-number');
+        if ('IntersectionObserver' in window) {
+            const statObserver = new IntersectionObserver(function (entries, observer) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        animateStat(entry.target);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.4 });
+            statEls.forEach(function (el) { statObserver.observe(el); });
+        } else {
+            statEls.forEach(animateStat);
+        }
 
         // Typewriter effect for the hero tagline
         (function () {
