@@ -67,6 +67,10 @@
             </a>
         </section>
 
+        <input type="text" id="pub-search" class="pub-search"
+            placeholder="🔍 Search publications by title, author, or venue..." />
+        <p id="pub-no-results" class="pub-no-results">No publications match your search.</p>
+
         <section class="publications">
             <h2> Journal Articles</h2>
             <ul>
@@ -317,6 +321,20 @@
         });
     </script>
     <script src="theme-toggle.js"></script>
+
+    <script>
+        document.getElementById('pub-search').addEventListener('input', function (e) {
+            const q = e.target.value.trim().toLowerCase();
+            const items = document.querySelectorAll('.publications ul li');
+            let anyVisible = false;
+            items.forEach(function (li) {
+                const match = li.textContent.toLowerCase().includes(q);
+                li.style.display = match ? '' : 'none';
+                if (match) anyVisible = true;
+            });
+            document.getElementById('pub-no-results').style.display = anyVisible ? 'none' : 'block';
+        });
+    </script>
 
     </body>
 

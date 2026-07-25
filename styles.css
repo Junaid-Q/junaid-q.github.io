@@ -573,4 +573,229 @@ body.light-theme .theme-toggle-btn {
   border-color: #0077b6;
 }
 
+/* ===== Stats Strip ===== */
+.stats-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 20px;
+  text-align: center;
+}
+
+.stat-tile {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid #80d4ff;
+  border-radius: 10px;
+  padding: 24px 16px;
+}
+
+.stat-number {
+  font-size: 2.4rem;
+  font-weight: bold;
+  color: #80d4ff;
+  display: block;
+  line-height: 1;
+}
+
+.stat-label {
+  color: #ccc;
+  font-size: 0.9rem;
+  margin-top: 8px;
+  display: block;
+}
+
+body.light-theme .stat-tile {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(0, 119, 182, 0.3);
+}
+
+body.light-theme .stat-number {
+  color: #0077b6;
+}
+
+body.light-theme .stat-label {
+  color: #444;
+}
+
+/* ===== Global Footprint ===== */
+.footprint-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 16px;
+}
+
+.footprint-card {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(128, 212, 255, 0.4);
+  border-radius: 10px;
+  padding: 14px 18px;
+}
+
+.footprint-flag {
+  font-size: 1.7rem;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.footprint-country {
+  color: #80d4ff;
+  font-weight: bold;
+  vertical-align: middle;
+}
+
+.footprint-detail {
+  color: #aaa;
+  font-size: 0.85rem;
+  margin-top: 6px;
+  display: block;
+}
+
+body.light-theme .footprint-card {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(0, 119, 182, 0.3);
+}
+
+body.light-theme .footprint-country {
+  color: #0077b6;
+}
+
+body.light-theme .footprint-detail {
+  color: #444;
+}
+
+/* ===== Career Timeline ===== */
+.timeline {
+  position: relative;
+  margin: 20px 0 10px;
+  padding-left: 30px;
+  border-left: 2px solid rgba(128, 212, 255, 0.4);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 22px;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -37px;
+  top: 4px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #80d4ff;
+  box-shadow: 0 0 8px #80d4ff;
+}
+
+.timeline-year {
+  color: #80d4ff;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.timeline-title {
+  color: #fff;
+  font-weight: bold;
+  margin: 2px 0;
+  text-shadow: none;
+}
+
+.timeline-desc {
+  color: #ccc;
+  font-size: 0.88rem;
+}
+
+body.light-theme .timeline {
+  border-left-color: rgba(0, 119, 182, 0.3);
+}
+
+body.light-theme .timeline-item::before {
+  background: #0077b6;
+  box-shadow: none;
+}
+
+body.light-theme .timeline-year {
+  color: #0077b6;
+}
+
+body.light-theme .timeline-title {
+  color: #1a1a1a;
+}
+
+body.light-theme .timeline-desc {
+  color: #444;
+}
+
+/* ===== Hero animated tagline ===== */
+.hero-tagline {
+  color: #80d4ff;
+  font-weight: bold;
+  min-height: 1.4em;
+}
+
+.hero-tagline .cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: #80d4ff;
+  margin-left: 2px;
+  vertical-align: middle;
+  animation: blink 0.8s step-end infinite;
+}
+
+@keyframes blink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+body.light-theme .hero-tagline {
+  color: #0077b6;
+}
+
+body.light-theme .hero-tagline .cursor {
+  background: #0077b6;
+}
+
+/* ===== Publications search ===== */
+.pub-search {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto 10px;
+  display: block;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 1px solid #80d4ff;
+  background: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  font-size: 1rem;
+}
+
+.pub-search::placeholder {
+  color: #888;
+}
+
+.pub-no-results {
+  text-align: center;
+  color: #888;
+  display: none;
+  margin-bottom: 20px;
+}
+
+body.light-theme .pub-search {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: #0077b6;
+  color: #1a1a1a;
+}
+
+body.light-theme .pub-no-results {
+  color: #666;
+}
+
 

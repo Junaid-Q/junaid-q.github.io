@@ -61,6 +61,7 @@
             <p>Postdoctoral Researcher</p>
             <p>Department of Computer Science, School of Science and Technology</p>
             <p>Örebro University, Sweden</p>
+            <p id="hero-tagline" class="hero-tagline"></p>
         </header>
     </div>
 
@@ -115,6 +116,65 @@
                 I actively serve as a reviewer for several IEEE and Elsevier journals and engage in
                 interdisciplinary collaborations integrating AI, signal processing, and communication technologies.
             </p>
+        </section>
+
+        <!-- By the Numbers -->
+        <section class="research">
+            <h2>By the Numbers</h2>
+            <div class="stats-strip">
+                <div class="stat-tile">
+                    <span class="stat-number" data-target="17">0</span>
+                    <span class="stat-label">Publications</span>
+                </div>
+                <div class="stat-tile">
+                    <span class="stat-number" data-target="10">0</span>
+                    <span class="stat-label">Countries Collaborated</span>
+                </div>
+                <div class="stat-tile">
+                    <span class="stat-number" data-target="12">0</span>
+                    <span class="stat-label">Institutions</span>
+                </div>
+                <div class="stat-tile">
+                    <span class="stat-number" data-target="1">0</span>
+                    <span class="stat-label">Best Paper Award</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Global Footprint -->
+        <section class="research">
+            <h2>Global Footprint</h2>
+            <div class="footprint-grid">
+                <div class="footprint-card"><span class="footprint-flag">🇸🇪</span><span
+                        class="footprint-country">Sweden</span><span class="footprint-detail">Örebro University ·
+                        KTH Royal Institute of Technology</span></div>
+                <div class="footprint-card"><span class="footprint-flag">🇮🇹</span><span
+                        class="footprint-country">Italy</span><span class="footprint-detail">University of Genoa ·
+                        CNIT</span></div>
+                <div class="footprint-card"><span class="footprint-flag">🇵🇰</span><span
+                        class="footprint-country">Pakistan</span><span class="footprint-detail">Quaid-i-Azam
+                        University · University of Peshawar · Abdul Wali Khan University</span></div>
+                <div class="footprint-card"><span class="footprint-flag">🇪🇸</span><span
+                        class="footprint-country">Spain</span><span class="footprint-detail">University of
+                        Valladolid</span></div>
+                <div class="footprint-card"><span class="footprint-flag">🇵🇹</span><span
+                        class="footprint-country">Portugal</span><span class="footprint-detail">Instituto de
+                        Telecomunicações</span></div>
+                <div class="footprint-card"><span class="footprint-flag">🇲🇦</span><span
+                        class="footprint-country">Morocco</span><span class="footprint-detail">Sultan Moulay Slimane
+                        University</span></div>
+                <div class="footprint-card"><span class="footprint-flag">🇷🇸</span><span
+                        class="footprint-country">Serbia</span><span class="footprint-detail">IEEE ZINC Conference —
+                        Best Paper Award</span></div>
+                <div class="footprint-card"><span class="footprint-flag">🇯🇵</span><span
+                        class="footprint-country">Japan</span><span class="footprint-detail">IEEE IWCMC 2019</span>
+                </div>
+                <div class="footprint-card"><span class="footprint-flag">🇬🇧</span><span class="footprint-country">United
+                        Kingdom</span><span class="footprint-detail">IEEE ICC 2026, Glasgow</span></div>
+                <div class="footprint-card"><span class="footprint-flag">🇦🇪</span><span class="footprint-country">United
+                        Arab Emirates</span><span class="footprint-detail">IEEE Healthcom 2025, Abu Dhabi</span>
+                </div>
+            </div>
         </section>
 
         <!-- Research Interests -->
@@ -257,6 +317,59 @@
         });
     </script>
     <script src="theme-toggle.js"></script>
+
+    <script>
+        // Animated count-up for the "By the Numbers" stats
+        document.querySelectorAll('.stat-number').forEach(function (el) {
+            const target = parseInt(el.getAttribute('data-target'), 10);
+            const duration = 1200;
+            const start = performance.now();
+            function step(now) {
+                const progress = Math.min(1, (now - start) / duration);
+                el.textContent = Math.floor(progress * target);
+                if (progress < 1) requestAnimationFrame(step);
+                else el.textContent = target;
+            }
+            requestAnimationFrame(step);
+        });
+
+        // Typewriter effect for the hero tagline
+        (function () {
+            const el = document.getElementById('hero-tagline');
+            if (!el) return;
+            const phrases = [
+                'Cybersecurity Researcher',
+                'Deep Learning for Wearable Sensing',
+                'IoT & LoRaWAN Security',
+                'Explainable AI for Healthcare'
+            ];
+            el.innerHTML = '<span class="typed-text"></span><span class="cursor"></span>';
+            const textEl = el.querySelector('.typed-text');
+            let phraseIndex = 0, charIndex = 0, deleting = false;
+
+            function tick() {
+                const phrase = phrases[phraseIndex];
+                if (!deleting) {
+                    charIndex++;
+                    textEl.textContent = phrase.substring(0, charIndex);
+                    if (charIndex === phrase.length) {
+                        deleting = true;
+                        setTimeout(tick, 1600);
+                        return;
+                    }
+                } else {
+                    charIndex--;
+                    textEl.textContent = phrase.substring(0, charIndex);
+                    if (charIndex === 0) {
+                        deleting = false;
+                        phraseIndex = (phraseIndex + 1) % phrases.length;
+                    }
+                }
+                setTimeout(tick, deleting ? 35 : 75);
+            }
+            tick();
+        })();
+    </script>
 
 </body>
 
