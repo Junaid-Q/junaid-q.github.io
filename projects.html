@@ -5,6 +5,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Projects – Dr. Junaid Qadir</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <meta name="description" content="Research and development projects led or contributed to by Dr. Junaid Qadir, including 5G edge security, IMU-based postural stability prediction, and LoRaWAN key management." />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Projects – Dr. Junaid Qadir" />
+    <meta property="og:description" content="Research and development projects led or contributed to by Dr. Junaid Qadir, including 5G edge security, IMU-based postural stability prediction, and LoRaWAN key management." />
+    <meta property="og:image" content="https://junaid-q.github.io/profile.jpg" />
+    <meta property="og:url" content="https://junaid-q.github.io/projects.html" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Projects – Dr. Junaid Qadir" />
+    <meta name="twitter:description" content="Research and development projects led or contributed to by Dr. Junaid Qadir, including 5G edge security, IMU-based postural stability prediction, and LoRaWAN key management." />
+    <meta name="twitter:image" content="https://junaid-q.github.io/profile.jpg" />
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-TF0D7NJC1N"></script>
@@ -42,6 +53,8 @@
             <a href="activities.html">Professional Activities</a>
             <a href="contact.html">Contact</a>
             <a href="interactive-lab.html">Interactive Lab</a>
+            <a href="cyber-lab.html">Cyber Lab</a>
+            <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle light and dark theme" title="Toggle light/dark theme">🌙</button>
 
         </nav>
     </aside>
@@ -51,35 +64,41 @@
         <section class="projects">
             <h2>Research and Development Projects</h2>
 
-            <ul>
-                <li>
-                    <strong>5G INDUCE Project (EU Horizon 2020)</strong> – Focused on developing a secure 5G edge
-                    architecture
-                    for industrial IoT systems, integrating virtualized network functions and low-latency communication.
-                </li>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:20px; margin-top:20px;">
+                <div class="research-item">
+                    <img src="images/mec.jpg" alt="5G edge architecture diagram" />
+                    <h3 style="color:#80d4ff;">5G INDUCE Project (EU Horizon 2020)</h3>
+                    <p>Focused on developing a secure 5G edge architecture for industrial IoT systems, integrating
+                        virtualized network functions and low-latency communication.</p>
+                </div>
 
-                <li>
-                    <strong>IMU-based Center of Pressure Prediction</strong> – Designed and trained deep learning models
-                    (LSTM, GRU, CNN-BiLSTM, and TCN-Attention) for predicting postural stability using wearable IMU
-                    data.
-                </li>
+                <div class="research-item">
+                    <img src="images/imuacm.png" alt="IMU-based Center of Pressure prediction pipeline" />
+                    <h3 style="color:#80d4ff;">IMU-based Center of Pressure Prediction</h3>
+                    <p>Designed and trained deep learning models (LSTM, GRU, CNN-BiLSTM, and TCN-Attention) for
+                        predicting postural stability using wearable IMU data.</p>
+                </div>
 
-                <li>
-                    <strong>Lightweight Key Management for LoRaWAN</strong> – Proposed an AES-128 and ECDH-based
-                    cryptographic
-                    scheme validated with Scyther to enhance IoT communication security.
-                </li>
+                <div class="research-item">
+                    <img src="images/gw.png" alt="LoRaWAN gateway hardware setup" />
+                    <h3 style="color:#80d4ff;">Lightweight Key Management for LoRaWAN</h3>
+                    <p>Proposed an AES-128 and ECDH-based cryptographic scheme validated with Scyther to enhance IoT
+                        communication security.</p>
+                </div>
 
-                <li>
-                    <strong>Smart Grid Security and Privacy</strong> – Contributed to a book chapter addressing
-                    confidentiality, integrity, and device lifecycle protection mechanisms for modern power systems.
-                </li>
+                <div class="research-item">
+                    <h3 style="color:#80d4ff; margin-top:0;">Smart Grid Security and Privacy</h3>
+                    <p>Contributed to a book chapter addressing confidentiality, integrity, and device lifecycle
+                        protection mechanisms for modern power systems.</p>
+                </div>
 
-                <li>
-                    <strong>Underwater Wireless Sensor Networks (UWSNs)</strong> – Developed routing protocols for delay
-                    minimization and energy-efficient data transmission in dense UWSNs.
-                </li>
-            </ul>
+                <div class="research-item">
+                    <img src="images/dnar.png" alt="Underwater wireless sensor network routing diagram" />
+                    <h3 style="color:#80d4ff;">Underwater Wireless Sensor Networks (UWSNs)</h3>
+                    <p>Developed routing protocols for delay minimization and energy-efficient data transmission in
+                        dense UWSNs.</p>
+                </div>
+            </div>
         </section>
     </main>
 
@@ -116,6 +135,7 @@
             }, 15000);
         });
     </script>
+    <script src="theme-toggle.js"></script>
 
 </body>
 

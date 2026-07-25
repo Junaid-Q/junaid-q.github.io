@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /Archives/
+
+Sitemap: https://junaid-q.github.io/sitemap.xml

@@ -342,22 +342,21 @@ main {
 
 /* ===== Universal Neon Glow Effects ===== */
 
-/* General glow for all text elements */
-body,
+/* General glow for headings only (kept off body text for readability) */
 h1,
 h2,
 h3,
 h4,
 h5,
-h6,
-p,
-a,
-li,
-strong {
+h6 {
   text-shadow: 0 0 5px rgba(0, 255, 255, 0.4),
     0 0 10px rgba(0, 255, 255, 0.3),
     0 0 20px rgba(0, 255, 255, 0.2);
   transition: text-shadow 0.3s ease, color 0.3s ease;
+}
+
+a {
+  transition: color 0.3s ease;
 }
 
 /* On hover, text glows stronger */
@@ -446,6 +445,23 @@ main li,
 .contact p {
   text-align: justify;
   text-justify: inter-word;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+}
+
+@media (max-width: 600px) {
+
+  main p,
+  main li,
+  .bio p,
+  .research p,
+  .education p,
+  .experience p,
+  .activities p,
+  .contact p {
+    text-align: left;
+  }
 }
 
 
@@ -460,6 +476,101 @@ footer .footer-copy {
   width: 100%;
   margin: 0 auto;
   display: block;
+}
+
+/* ===== Theme toggle button ===== */
+.theme-toggle-btn {
+  background: transparent;
+  border: 1px solid #80d4ff;
+  color: #80d4ff;
+  border-radius: 20px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+  margin-left: 4px;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle-btn:hover {
+  background: rgba(128, 212, 255, 0.15);
+}
+
+/* ===== Light Theme Override ===== */
+body.light-theme {
+  background: #f4f8fb;
+  color: #1a1a1a;
+}
+
+body.light-theme #particles-js {
+  display: none;
+}
+
+body.light-theme a {
+  color: #0077b6;
+}
+
+body.light-theme .hero-content {
+  background-color: rgba(255, 255, 255, 0.55);
+}
+
+body.light-theme .topbar {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid #0077b6;
+}
+
+body.light-theme .topbar nav a {
+  color: #0077b6;
+  text-shadow: none;
+  background: none;
+  border-bottom: 1px solid rgba(0, 119, 182, 0.2);
+}
+
+body.light-theme .topbar nav a:hover {
+  color: #023e8a;
+  background-color: rgba(0, 119, 182, 0.08);
+  border-bottom: 2px solid #0077b6;
+}
+
+body.light-theme h1,
+body.light-theme h2,
+body.light-theme h3,
+body.light-theme h4,
+body.light-theme h5,
+body.light-theme h6 {
+  color: #023e8a;
+  text-shadow: none;
+  border-bottom-color: #0077b6;
+}
+
+body.light-theme section,
+body.light-theme .card,
+body.light-theme .bio,
+body.light-theme .research,
+body.light-theme .experience,
+body.light-theme .education {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 119, 182, 0.25);
+  box-shadow: 0 0 10px rgba(0, 119, 182, 0.08);
+}
+
+body.light-theme .research-item {
+  background-color: rgba(255, 255, 255, 0.85);
+  border-color: rgba(0, 119, 182, 0.3);
+}
+
+body.light-theme section ul li {
+  color: #1a1a1a;
+}
+
+body.light-theme footer {
+  background-color: #f4f8fb;
+  color: #333;
+}
+
+body.light-theme .theme-toggle-btn {
+  color: #0077b6;
+  border-color: #0077b6;
 }
 
 

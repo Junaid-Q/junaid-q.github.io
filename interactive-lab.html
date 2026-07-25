@@ -3,7 +3,25 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Interactive Lab - Dr. Junaid Qadir</title>
+<title>Interactive Lab – Dr. Junaid Qadir</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<meta name="description" content="Interactive demos exploring cybersecurity, AI, robotics, and signal processing concepts from Dr. Junaid Qadir's research." />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Interactive Lab – Dr. Junaid Qadir" />
+<meta property="og:description" content="Interactive demos exploring cybersecurity, AI, robotics, and signal processing concepts from Dr. Junaid Qadir's research." />
+<meta property="og:image" content="https://junaid-q.github.io/profile.jpg" />
+<meta property="og:url" content="https://junaid-q.github.io/interactive-lab.html" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Interactive Lab – Dr. Junaid Qadir" />
+<meta name="twitter:description" content="Interactive demos exploring cybersecurity, AI, robotics, and signal processing concepts from Dr. Junaid Qadir's research." />
+<meta name="twitter:image" content="https://junaid-q.github.io/profile.jpg" />
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TF0D7NJC1N"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TF0D7NJC1N');
+</script>
 <link rel="stylesheet" href="styles.css"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 <style>
@@ -80,21 +98,6 @@ body.interactive-lab{background:#050d1a}
 .robot-legend-item{display:flex;align-items:center;gap:6px;font-size:.82rem;color:#ccc}
 .robot-legend-dot{width:12px;height:12px;border-radius:3px}
 #humanoid-canvas{width:100%;border-radius:10px;background:#050d1a;border:1px solid rgba(79,195,247,.2)}
-.ttt-controls{display:flex;gap:20px;font-weight:600;margin-bottom:16px;flex-wrap:wrap}
-.ttt-controls label{color:#ccc;cursor:pointer;display:flex;align-items:center;gap:6px}
-#ttt-board{display:grid;grid-template-columns:repeat(3,90px);gap:8px;justify-content:center;margin:16px auto}
-.ttt-cell{width:90px;height:90px;background:rgba(255,255,255,.08);border:2px solid rgba(79,195,247,.4);border-radius:10px;font-size:2.4rem;font-weight:bold;color:#4fc3f7;display:flex;align-items:center;justify-content:center;cursor:pointer;user-select:none;transition:all .15s}
-.ttt-cell:hover:not(.taken){background:rgba(79,195,247,.15)}
-.ttt-cell.taken{cursor:default}
-.ttt-cell.o-cell{color:#f48fb1}
-.ttt-cell.win-cell{background:rgba(79,195,247,.2);border-color:#4fc3f7}
-#ttt-status{text-align:center;font-weight:700;font-size:1.05rem;color:#a0c4ff;margin:8px 0}
-#ttt-reset{display:block;margin:12px auto 0;background:#4fc3f7;color:#000;border:none;border-radius:8px;padding:9px 28px;font-weight:700;cursor:pointer;font-size:.95rem}
-.ttt-score-board{display:flex;justify-content:center;gap:30px;margin-bottom:12px;flex-wrap:wrap}
-.ttt-score-item{text-align:center}
-.ttt-score-item .s-label{font-size:.78rem;color:#888}
-.ttt-score-item .s-value{font-size:1.5rem;font-weight:700;color:#4fc3f7}
-.ttt-score-item.o-score .s-value{color:#f48fb1}
 </style>
 </head>
 <body class="interactive-lab">
@@ -119,6 +122,8 @@ body.interactive-lab{background:#050d1a}
 <a href="activities.html">Professional Activities</a>
 <a href="contact.html">Contact</a>
 <a href="interactive-lab.html" class="active">Interactive Lab</a>
+<a href="cyber-lab.html">Cyber Lab</a>
+<button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle light and dark theme" title="Toggle light/dark theme">🌙</button>
 </nav>
 </aside>
 <main>
@@ -130,7 +135,6 @@ body.interactive-lab{background:#050d1a}
 <button class="lab-tab-btn" onclick="showTab('nn',this)">&#129504; Neural Network</button>
 <button class="lab-tab-btn" onclick="showTab('robot',this)">&#129302; Robot Navigator</button>
 <button class="lab-tab-btn" onclick="showTab('humanoid',this)">&#129470; Humanoid Robot</button>
-<button class="lab-tab-btn" onclick="showTab('ttt',this)">&#127918; Tic Tac Toe</button>
 </div>
 
 <div id="panel-quiz" class="lab-panel active">
@@ -245,24 +249,6 @@ body.interactive-lab{background:#050d1a}
 <div style="background:rgba(79,195,247,.08);border-radius:8px;padding:10px 16px"><div style="font-size:.76rem;color:#888">IDS</div><div style="font-size:1rem;font-weight:700" id="h-ids-val">PASSIVE</div></div>
 <div style="background:rgba(79,195,247,.08);border-radius:8px;padding:10px 16px"><div style="font-size:.76rem;color:#888">Attack</div><div style="font-size:1rem;font-weight:700" id="h-attack-val">None</div></div>
 </div>
-</div>
-</div>
-
-<div id="panel-ttt" class="lab-panel">
-<div class="lab-card">
-<h2>&#127918; Tic Tac Toe</h2>
-<div class="ttt-score-board">
-<div class="ttt-score-item"><div class="s-label">Player X</div><div class="s-value" id="score-x">0</div></div>
-<div class="ttt-score-item"><div class="s-label">Draws</div><div class="s-value" id="score-d">0</div></div>
-<div class="ttt-score-item o-score"><div class="s-label">Player O / AI</div><div class="s-value" id="score-o">0</div></div>
-</div>
-<div class="ttt-controls">
-<label><input type="radio" name="ttt-mode" value="human" checked> Human vs Human</label>
-<label><input type="radio" name="ttt-mode" value="computer"> Human vs AI</label>
-</div>
-<div id="ttt-board"></div>
-<p id="ttt-status">Select a mode and start playing!</p>
-<button id="ttt-reset">Reset Game</button>
 </div>
 </div>
 
@@ -694,34 +680,7 @@ ctx.fillText(isAtk?'ROBOT COMPROMISED':isDef?'ROBOT DEFENDED':'ROBOT NOMINAL',cx
 ctx.font='10px sans-serif';ctx.fillStyle='#555';ctx.fillText('Embodied AI System',cx,cy+143);
 activeAnimId=requestAnimationFrame(drawHumanoidLoop);
 }
-
-// TIC TAC TOE
-var tttBoard=Array(9).fill(null),tttTurn='X',tttRunning=false;
-var scores={X:0,O:0,D:0};
-var wins=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
-function tttInit(){tttBoard=Array(9).fill(null);tttTurn='X';tttRunning=true;renderTTT();document.getElementById('ttt-status').textContent="Player X's turn";}
-function renderTTT(){
-var board=document.getElementById('ttt-board');board.innerHTML='';
-tttBoard.forEach(function(val,i){var cell=document.createElement('div');cell.className='ttt-cell'+(val?' taken':'')+(val==='O'?' o-cell':'');cell.textContent=val||'';cell.onclick=function(){tttClick(i);};board.appendChild(cell);});
-}
-function tttClick(i){
-if(!tttRunning||tttBoard[i])return;
-tttBoard[i]=tttTurn;renderTTT();
-var w=checkWin();
-if(w){highlightWin(w);endGame(tttTurn+' wins!');scores[tttTurn]++;updateScores();return;}
-if(tttBoard.every(function(c){return c;})){endGame("It's a draw!");scores.D++;updateScores();return;}
-tttTurn=tttTurn==='X'?'O':'X';document.getElementById('ttt-status').textContent='Player '+tttTurn+"'s turn";
-if(document.querySelector('input[name="ttt-mode"]:checked').value==='computer'&&tttTurn==='O')setTimeout(aiMove,400);
-}
-function aiMove(){var best=minimax(tttBoard,'O');tttBoard[best.idx]='O';renderTTT();var w=checkWin();if(w){highlightWin(w);endGame('AI wins!');scores.O++;updateScores();return;}if(tttBoard.every(function(c){return c;})){endGame("It's a draw!");scores.D++;updateScores();return;}tttTurn='X';document.getElementById('ttt-status').textContent="Player X's turn";}
-function minimax(board,player){var w=checkWinFor(board);if(w==='O')return{score:10};if(w==='X')return{score:-10};var empty=board.map(function(v,i){return v===null?i:-1;}).filter(function(i){return i>=0;});if(!empty.length)return{score:0};var moves=empty.map(function(i){var b=board.slice();b[i]=player;var s=minimax(b,player==='O'?'X':'O').score;return{idx:i,score:s};});return player==='O'?moves.reduce(function(a,b){return b.score>a.score?b:a;}):moves.reduce(function(a,b){return b.score<a.score?b:a;});}
-function checkWin(){return wins.find(function(c){return tttBoard[c[0]]&&tttBoard[c[0]]===tttBoard[c[1]]&&tttBoard[c[0]]===tttBoard[c[2]];})||null;}
-function checkWinFor(b){var w=wins.find(function(c){return b[c[0]]&&b[c[0]]===b[c[1]]&&b[c[0]]===b[c[2]];});return w?b[w[0]]:null;}
-function highlightWin(combo){document.querySelectorAll('.ttt-cell').forEach(function(c,i){if(combo.indexOf(i)>=0)c.classList.add('win-cell');});}
-function endGame(msg){tttRunning=false;document.getElementById('ttt-status').textContent=msg;}
-function updateScores(){document.getElementById('score-x').textContent=scores.X;document.getElementById('score-o').textContent=scores.O;document.getElementById('score-d').textContent=scores.D;}
-document.getElementById('ttt-reset').onclick=tttInit;
-tttInit();
 </script>
+<script src="theme-toggle.js"></script>
 </body>
 </html>

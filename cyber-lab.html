@@ -4,7 +4,25 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cyber Research Lab - Dr. Junaid Qadir</title>
+    <title>Cyber Research Lab – Dr. Junaid Qadir</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <meta name="description" content="A 3D interactive walkthrough of Dr. Junaid Qadir's research areas in cybersecurity, IoT, and embodied AI." />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Cyber Research Lab – Dr. Junaid Qadir" />
+    <meta property="og:description" content="A 3D interactive walkthrough of Dr. Junaid Qadir's research areas in cybersecurity, IoT, and embodied AI." />
+    <meta property="og:image" content="https://junaid-q.github.io/profile.jpg" />
+    <meta property="og:url" content="https://junaid-q.github.io/cyber-lab.html" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Cyber Research Lab – Dr. Junaid Qadir" />
+    <meta name="twitter:description" content="A 3D interactive walkthrough of Dr. Junaid Qadir's research areas in cybersecurity, IoT, and embodied AI." />
+    <meta name="twitter:image" content="https://junaid-q.github.io/profile.jpg" />
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TF0D7NJC1N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-TF0D7NJC1N');
+    </script>
 
     <style>
         body {
@@ -39,6 +57,10 @@
 </head>
 
 <body>
+
+    <a href="index.html" id="backLink"
+        style="position:fixed;top:20px;right:20px;z-index:20;background:rgba(0,0,0,.65);color:cyan;padding:8px 14px;border:1px solid cyan;border-radius:8px;font-family:Arial;text-decoration:none;">←
+        Back to Site</a>
 
     <div id="infoPanel">
         <span id="closeBtn">X</span>
@@ -127,7 +149,8 @@
         ------------------------------------------------------- */
         const controls = new THREE.PointerLockControls(camera, document.body);
 
-        document.body.addEventListener('click', () => {
+        document.body.addEventListener('click', (e) => {
+            if (e.target.closest && e.target.closest('#backLink')) return;
             controls.lock();
         });
 
