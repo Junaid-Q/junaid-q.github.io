@@ -880,4 +880,86 @@ body.light-theme .leaflet-control-attribution {
   color: #333 !important;
 }
 
+/* ===== Keyboard focus visibility ===== */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+.lab-tab-btn:focus-visible,
+.theme-toggle-btn:focus-visible {
+  outline: 2px solid #00e6ff;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+body.light-theme a:focus-visible,
+body.light-theme button:focus-visible,
+body.light-theme input:focus-visible {
+  outline-color: #0077b6;
+}
+
+/* ===== Print styles ===== */
+@media print {
+
+  #particles-js,
+  .topbar,
+  footer,
+  .theme-toggle-btn,
+  .profile-icons,
+  #world-map,
+  .footprint-grid,
+  .stats-strip {
+    display: none !important;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  a,
+  li,
+  strong {
+    text-shadow: none !important;
+    color: #000 !important;
+  }
+
+  section,
+  .card,
+  .bio,
+  .research,
+  .experience,
+  .education,
+  .research-item {
+    background: none !important;
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
+  }
+
+  img {
+    box-shadow: none !important;
+  }
+
+  main {
+    max-width: 100% !important;
+    padding-top: 20px !important;
+  }
+
+  a {
+    text-decoration: underline !important;
+  }
+
+  a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    color: #555;
+  }
+}
 
