@@ -14,8 +14,10 @@
         if (!btn) return;
         btn.addEventListener('click', function () {
             document.body.classList.toggle('light-theme');
-            localStorage.setItem('theme', document.body.classList.contains('light-theme') ? 'light' : 'dark');
+            var theme = document.body.classList.contains('light-theme') ? 'light' : 'dark';
+            localStorage.setItem('theme', theme);
             updateIcon();
+            window.dispatchEvent(new CustomEvent('themechange', { detail: { theme: theme } }));
         });
     });
 })();

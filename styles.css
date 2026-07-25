@@ -798,4 +798,86 @@ body.light-theme .pub-no-results {
   color: #666;
 }
 
+/* ===== World Map ===== */
+#world-map {
+  width: 100%;
+  height: 380px;
+  border-radius: 10px;
+  border: 1px solid #80d4ff;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.15);
+  margin-bottom: 20px;
+  background: #0a1628;
+}
+
+/* Reset the site-wide image glow/hover-zoom for map tiles, which would
+   otherwise fragment the tile grid with per-tile rounding and scaling */
+#world-map img {
+  border-radius: 0;
+  box-shadow: none;
+}
+
+#world-map img:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.leaflet-popup-content-wrapper {
+  background: rgba(0, 0, 0, 0.9);
+  color: #fff;
+  border: 1px solid #80d4ff;
+  border-radius: 8px;
+}
+
+.leaflet-popup-tip {
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.leaflet-popup-content {
+  margin: 10px 14px;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.leaflet-popup-content strong {
+  color: #80d4ff;
+  text-shadow: none;
+}
+
+.leaflet-container a.leaflet-popup-close-button {
+  color: #80d4ff;
+}
+
+.leaflet-control-attribution {
+  background: rgba(0, 0, 0, 0.6) !important;
+  color: #aaa !important;
+}
+
+.leaflet-control-attribution a {
+  color: #80d4ff !important;
+}
+
+body.light-theme #world-map {
+  border-color: rgba(0, 119, 182, 0.4);
+  background: #eaf3fa;
+}
+
+body.light-theme .leaflet-popup-content-wrapper {
+  background: rgba(255, 255, 255, 0.95);
+  color: #1a1a1a;
+  border-color: #0077b6;
+}
+
+body.light-theme .leaflet-popup-tip {
+  background: rgba(255, 255, 255, 0.95);
+}
+
+body.light-theme .leaflet-popup-content strong {
+  color: #0077b6;
+}
+
+body.light-theme .leaflet-control-attribution {
+  background: rgba(255, 255, 255, 0.7) !important;
+  color: #333 !important;
+}
+
 

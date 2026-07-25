@@ -18,6 +18,7 @@
     <meta name="twitter:image" content="https://junaid-q.github.io/profile.jpg" />
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-TF0D7NJC1N"></script>
     <script>
@@ -144,6 +145,7 @@
         <!-- Global Footprint -->
         <section class="research">
             <h2>Global Footprint</h2>
+            <div id="world-map"></div>
             <div class="footprint-grid">
                 <div class="footprint-card"><span class="footprint-flag">🇸🇪</span><span
                         class="footprint-country">Sweden</span><span class="footprint-detail">Örebro University ·
@@ -369,6 +371,60 @@
             }
             tick();
         })();
+    </script>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const mapEl = document.getElementById('world-map');
+            if (!mapEl || typeof L === 'undefined') return;
+
+            const locations = [
+                { lat: 59.2753, lng: 15.2134, flag: '🇸🇪', country: 'Sweden', detail: 'Örebro University · KTH Royal Institute of Technology' },
+                { lat: 44.4056, lng: 8.9463, flag: '🇮🇹', country: 'Italy', detail: 'University of Genoa · CNIT' },
+                { lat: 33.6844, lng: 73.0479, flag: '🇵🇰', country: 'Pakistan', detail: 'Quaid-i-Azam University · University of Peshawar · Abdul Wali Khan University' },
+                { lat: 41.6523, lng: -4.7245, flag: '🇪🇸', country: 'Spain', detail: 'University of Valladolid' },
+                { lat: 40.2795, lng: -7.5079, flag: '🇵🇹', country: 'Portugal', detail: 'Instituto de Telecomunicações' },
+                { lat: 32.3373, lng: -6.3498, flag: '🇲🇦', country: 'Morocco', detail: 'Sultan Moulay Slimane University' },
+                { lat: 45.2671, lng: 19.8335, flag: '🇷🇸', country: 'Serbia', detail: 'IEEE ZINC Conference — Best Paper Award' },
+                { lat: 35.6762, lng: 139.6503, flag: '🇯🇵', country: 'Japan', detail: 'IEEE IWCMC 2019' },
+                { lat: 55.8642, lng: -4.2518, flag: '🇬🇧', country: 'United Kingdom', detail: 'IEEE ICC 2026, Glasgow' },
+                { lat: 24.4539, lng: 54.3773, flag: '🇦🇪', country: 'United Arab Emirates', detail: 'IEEE Healthcom 2025, Abu Dhabi' }
+            ];
+
+            const darkTiles = 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
+            const lightTiles = 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
+            const tileAttribution = '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions" target="_blank" rel="noopener">CARTO</a>';
+
+            const map = L.map('world-map', { scrollWheelZoom: false, minZoom: 1, worldCopyJump: true });
+
+            let tileLayer = L.tileLayer(
+                document.body.classList.contains('light-theme') ? lightTiles : darkTiles,
+                { attribution: tileAttribution, subdomains: 'abcd', maxZoom: 8 }
+            ).addTo(map);
+
+            const markers = locations.map(function (loc) {
+                const marker = L.circleMarker([loc.lat, loc.lng], {
+                    radius: 8,
+                    fillColor: '#80d4ff',
+                    color: '#00e6ff',
+                    weight: 2,
+                    fillOpacity: 0.85
+                }).addTo(map);
+                marker.bindPopup('<strong>' + loc.flag + ' ' + loc.country + '</strong><br>' + loc.detail);
+                return marker;
+            });
+
+            map.fitBounds(L.featureGroup(markers).getBounds(), { padding: [30, 30] });
+
+            window.addEventListener('themechange', function (e) {
+                map.removeLayer(tileLayer);
+                tileLayer = L.tileLayer(
+                    e.detail.theme === 'light' ? lightTiles : darkTiles,
+                    { attribution: tileAttribution, subdomains: 'abcd', maxZoom: 8 }
+                ).addTo(map);
+            });
+        });
     </script>
 
 </body>
