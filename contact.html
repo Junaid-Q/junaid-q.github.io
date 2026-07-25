@@ -18,7 +18,6 @@
     <meta name="twitter:image" content="https://junaid-q.github.io/profile.jpg" />
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-TF0D7NJC1N"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -84,7 +83,9 @@
         <!-- Map Section -->
         <section class="research">
             <h2>Find Me</h2>
-            <div id="contact-map"></div>
+            <iframe class="contact-map-frame"
+                src="https://www.google.com/maps?q=%C3%96rebro%20University%2C%20SE-701%2082%20%C3%96rebro%2C%20Sweden&output=embed"
+                width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
         </section>
 
         <!-- Profile Icons -->
@@ -156,42 +157,6 @@
         });
     </script>
     <script src="theme-toggle.js"></script>
-
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const mapEl = document.getElementById('contact-map');
-            if (!mapEl || typeof L === 'undefined') return;
-
-            const darkTiles = 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
-            const lightTiles = 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
-            const tileAttribution = '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions" target="_blank" rel="noopener">CARTO</a>';
-            const orebro = [59.2753, 15.2134];
-
-            const map = L.map('contact-map', { scrollWheelZoom: false, minZoom: 3 }).setView(orebro, 13);
-
-            let tileLayer = L.tileLayer(
-                document.body.classList.contains('light-theme') ? lightTiles : darkTiles,
-                { attribution: tileAttribution, subdomains: 'abcd', maxZoom: 18 }
-            ).addTo(map);
-
-            L.circleMarker(orebro, {
-                radius: 9,
-                fillColor: '#80d4ff',
-                color: '#00e6ff',
-                weight: 2,
-                fillOpacity: 0.85
-            }).addTo(map).bindPopup('<strong>Örebro University</strong><br>Room T2247').openPopup();
-
-            window.addEventListener('themechange', function (e) {
-                map.removeLayer(tileLayer);
-                tileLayer = L.tileLayer(
-                    e.detail.theme === 'light' ? lightTiles : darkTiles,
-                    { attribution: tileAttribution, subdomains: 'abcd', maxZoom: 18 }
-                ).addTo(map);
-            });
-        });
-    </script>
 
 </body>
 
