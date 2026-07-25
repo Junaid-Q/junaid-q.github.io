@@ -4,17 +4,17 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cyber Research Lab – Dr. Junaid Qadir</title>
+    <title>Cyber Lab – Dr. Junaid Qadir</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-    <meta name="description" content="A 3D interactive walkthrough of Dr. Junaid Qadir's research areas in cybersecurity, IoT, and embodied AI." />
+    <meta name="description" content="Play with cybersecurity concepts hands-on: run a replay attack yourself, then build an IDS/IPS to defend a server, from Dr. Junaid Qadir's research." />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Cyber Research Lab – Dr. Junaid Qadir" />
-    <meta property="og:description" content="A 3D interactive walkthrough of Dr. Junaid Qadir's research areas in cybersecurity, IoT, and embodied AI." />
+    <meta property="og:title" content="Cyber Lab – Dr. Junaid Qadir" />
+    <meta property="og:description" content="Play with cybersecurity concepts hands-on: run a replay attack yourself, then build an IDS/IPS to defend a server." />
     <meta property="og:image" content="https://junaid-q.github.io/profile.jpg" />
     <meta property="og:url" content="https://junaid-q.github.io/cyber-lab.html" />
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="Cyber Research Lab – Dr. Junaid Qadir" />
-    <meta name="twitter:description" content="A 3D interactive walkthrough of Dr. Junaid Qadir's research areas in cybersecurity, IoT, and embodied AI." />
+    <meta name="twitter:title" content="Cyber Lab – Dr. Junaid Qadir" />
+    <meta name="twitter:description" content="Play with cybersecurity concepts hands-on: run a replay attack yourself, then build an IDS/IPS to defend a server." />
     <meta name="twitter:image" content="https://junaid-q.github.io/profile.jpg" />
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-TF0D7NJC1N"></script>
     <script>
@@ -24,463 +24,471 @@
       gtag('config', 'G-TF0D7NJC1N');
     </script>
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
     <style>
-        body {
-            margin: 0;
-            background: #000;
-            font-family: Arial, sans-serif;
-        }
+        .lab-intro { text-align: center; padding: 18px 20px 6px; color: #a0c4ff; font-size: 1.05rem; }
+        .lab-tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 18px auto 28px; max-width: 1100px; }
+        .lab-tab-btn { background: rgba(255,255,255,.07); border: 1.5px solid #4fc3f7; color: #4fc3f7; border-radius: 30px; padding: 9px 20px; font-size: .9rem; font-weight: 600; cursor: pointer; transition: all .2s; }
+        .lab-tab-btn:hover, .lab-tab-btn.active { background: #4fc3f7; color: #000; }
+        .lab-panel { display: none; max-width: 960px; margin: 0 auto 40px; }
+        .lab-panel.active { display: block; }
+        .lab-card { background: rgba(255,255,255,.05); border: 1px solid rgba(79,195,247,.25); border-radius: 14px; padding: 28px 32px; margin-bottom: 22px; }
+        .lab-card h2 { color: #4fc3f7; margin-top: 0; font-size: 1.35rem; border-bottom: 1px solid rgba(79,195,247,.2); padding-bottom: 10px; margin-bottom: 18px; }
+        .game-desc { color: #ccc; font-size: .95rem; margin-bottom: 18px; }
+        .game-log { background: rgba(0,0,0,.3); border-radius: 8px; padding: 12px 16px; font-size: .88rem; color: #a0c4ff; min-height: 70px; max-height: 140px; overflow-y: auto; margin-top: 14px; line-height: 1.6; }
 
-        body.lab-3d-active {
-            overflow: hidden;
-        }
+        /* Replay Attack game */
+        .replay-toggle { margin-bottom: 14px; font-size: .92rem; color: #ccc; }
+        .replay-toggle input { accent-color: #4fc3f7; margin-right: 6px; }
+        #replay-canvas { width: 100%; border-radius: 10px; background: #050d1a; border: 1px solid rgba(79,195,247,.2); }
+        .replay-controls { display: flex; gap: 12px; margin-top: 14px; flex-wrap: wrap; }
+        .replay-controls button { background: #4fc3f7; color: #000; border: none; border-radius: 8px; padding: 10px 20px; font-weight: 700; cursor: pointer; font-size: .92rem; }
+        .replay-controls button:disabled { background: #33475a; color: #888; cursor: not-allowed; }
+        .replay-score { display: flex; gap: 24px; margin-top: 14px; font-size: .92rem; color: #ccc; flex-wrap: wrap; }
 
-        #backLink {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 50;
-            background: rgba(0, 0, 0, .65);
-            color: cyan;
-            padding: 8px 14px;
-            border: 1px solid cyan;
-            border-radius: 8px;
-            text-decoration: none;
-        }
-
-        #infoPanel {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            max-width: 340px;
-            padding: 16px 18px;
-            background: rgba(0, 0, 0, 0.75);
-            border: 1px solid cyan;
-            color: white;
-            border-radius: 10px;
-            display: none;
-            z-index: 25;
-        }
-
-        #closeBtn {
-            float: right;
-            cursor: pointer;
-            color: cyan;
-            font-weight: bold;
-        }
-
-        #panelLink {
-            display: inline-block;
-            margin-top: 10px;
-            color: #00e6ff;
-            font-weight: bold;
-        }
-
-        #hud {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 15;
-            background: rgba(0, 0, 0, .55);
-            color: cyan;
-            border: 1px solid rgba(0, 255, 255, .4);
-            border-radius: 8px;
-            padding: 8px 14px;
-            font-size: .9rem;
-            display: none;
-        }
-
-        #crosshair {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            width: 8px;
-            height: 8px;
-            margin: -4px 0 0 -4px;
-            border: 2px solid cyan;
-            border-radius: 50%;
-            z-index: 15;
-            display: none;
-            pointer-events: none;
-        }
-
-        #hoverLabel {
-            position: fixed;
-            top: calc(50% + 16px);
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 15;
-            color: #00e6ff;
-            background: rgba(0, 0, 0, .55);
-            padding: 3px 10px;
-            border-radius: 6px;
-            font-size: .85rem;
-            display: none;
-            pointer-events: none;
-        }
-
-        #introOverlay {
-            position: fixed;
-            inset: 0;
-            z-index: 40;
-            background: rgba(0, 0, 0, .88);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 20px;
-        }
-
-        #introOverlay .box {
-            max-width: 480px;
-            border: 1px solid cyan;
-            border-radius: 12px;
-            padding: 30px 28px;
-            background: rgba(0, 20, 25, .5);
-        }
-
-        #introOverlay h1 {
-            color: #80d4ff;
-            margin-top: 0;
-        }
-
-        #introOverlay p {
-            color: #ccc;
-            line-height: 1.6;
-            text-align: left;
-        }
-
-        #enterBtn {
-            margin-top: 12px;
-            background: cyan;
-            color: #000;
-            border: none;
-            border-radius: 8px;
-            padding: 12px 26px;
-            font-weight: bold;
-            font-size: 1rem;
-            cursor: pointer;
-        }
-
-        #mobileFallback {
-            display: none;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 110px 20px 60px;
-            color: #fff;
-        }
-
-        #mobileFallback h1 {
-            color: #80d4ff;
-        }
-
-        #mobileFallback .station-card {
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid #80d4ff;
-            border-radius: 10px;
-            padding: 18px 20px;
-            margin-bottom: 16px;
-        }
-
-        #mobileFallback .station-card h3 {
-            margin-top: 0;
-            color: #80d4ff;
-        }
-
-        #mobileFallback .station-card a {
-            color: #00e6ff;
-            font-weight: bold;
-        }
+        /* IDS/IPS game */
+        .ids-legend { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; font-size: .85rem; }
+        .legend-benign { color: #81c784; }
+        .legend-malicious { color: #ef9a9a; }
+        .ids-hud { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 12px; color: #ccc; font-size: .92rem; }
+        .health-bar { width: 160px; height: 14px; background: rgba(255,255,255,.1); border-radius: 7px; overflow: hidden; display: inline-block; vertical-align: middle; margin-left: 8px; }
+        .health-fill { height: 100%; width: 100%; background: linear-gradient(90deg, #4caf50, #81c784); transition: width .3s ease, background .3s ease; }
+        #ids-canvas { width: 100%; border-radius: 10px; background: #050d1a; border: 1px solid rgba(79,195,247,.2); cursor: crosshair; }
+        #ids-start-btn { margin-top: 14px; background: #4fc3f7; color: #000; border: none; border-radius: 8px; padding: 10px 24px; font-weight: 700; cursor: pointer; font-size: .95rem; }
     </style>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/PointerLockControls.js"></script>
 </head>
 
-<body>
+<body data-page="cyber-lab">
+    <div id="particles-js"></div>
 
-    <a href="index.html" id="backLink">← Back to Site</a>
+    <div class="hero-content">
+        <header class="hero">
+            <img src="profile.jpg" alt="Dr. Junaid Qadir" class="profile-photo" />
+            <h1>Junaid Qadir <span style="font-size:0.6em; font-style:italic;">(Ph.D.)</span></h1>
+            <p>Postdoctoral Researcher</p>
+            <p>Department of Computer Science, School of Science and Technology</p>
+            <p>Örebro University, Sweden</p>
+        </header>
+    </div>
 
-    <!-- Onboarding overlay (desktop / mouse+keyboard only) -->
-    <div id="introOverlay">
-        <div class="box">
-            <h1>🧪 Cyber Research Lab</h1>
-            <p>This is an interactive 3D walkthrough of my research areas — think of it as a virtual lab you can
-                walk through. Five glowing stations represent five different research projects.</p>
-            <p><strong>How to explore:</strong><br>
-                • Click "Enter the Lab" to lock your mouse<br>
-                • Move with <strong>W A S D</strong><br>
-                • Look at a glowing station and click it to read about that research<br>
-                • Press <strong>Esc</strong> anytime to pause and see this menu again</p>
-            <button id="enterBtn">🔓 Enter the Lab</button>
+    <aside class="topbar">
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="education.html">Education</a>
+            <a href="research.html">Research</a>
+            <a href="experience.html">Experience</a>
+            <a href="publications.html">Publications</a>
+            <a href="projects.html">Projects</a>
+            <a href="activities.html">Professional Activities</a>
+            <a href="contact.html">Contact</a>
+            <a href="interactive-lab.html">Interactive Lab</a>
+            <a href="cyber-lab.html" class="active">Cyber Lab</a>
+            <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle light and dark theme" title="Toggle light/dark theme">🌙</button>
+        </nav>
+    </aside>
+
+    <main>
+        <p class="lab-intro">Two hands-on cybersecurity games: run a replay attack yourself, then defend a server by
+            building your own IDS/IPS.</p>
+
+        <div class="lab-tabs">
+            <button class="lab-tab-btn active" onclick="showLabTab('replay', this)">🔁 Replay Attack</button>
+            <button class="lab-tab-btn" onclick="showLabTab('ids', this)">🛡️ Build Your IDS/IPS</button>
         </div>
-    </div>
 
-    <!-- Fallback for touch / no-keyboard devices -->
-    <div id="mobileFallback">
-        <h1>🧪 Cyber Research Lab</h1>
-        <p>This is normally an explorable 3D room (mouse + keyboard required to walk around), so here are the same
-            five research stations as simple cards instead:</p>
-        <div id="fallbackCards"></div>
-    </div>
+        <div id="panel-replay" class="lab-panel active">
+            <div class="lab-card">
+                <h2>🔁 Replay Attack Simulator</h2>
+                <p class="game-desc">A <strong>replay attack</strong> is when an attacker captures a legitimate
+                    message and resends it later to trick a system into accepting it again. Intercept a live packet
+                    below, then try replaying it — with the real-world defense on, and then off — to see why it
+                    matters.</p>
 
-    <div id="hud">Stations explored: 0 / 5</div>
-    <div id="crosshair"></div>
-    <div id="hoverLabel"></div>
+                <label class="replay-toggle"><input type="checkbox" id="fcnt-defense" checked /> Frame Counter
+                    Defense (blocks already-used packets)</label>
 
-    <div id="infoPanel">
-        <span id="closeBtn">✕</span>
-        <h3 id="panelTitle"></h3>
-        <p id="panelText"></p>
-        <a id="panelLink" href="#" target="_blank" rel="noopener"></a>
-    </div>
+                <canvas id="replay-canvas" height="150"></canvas>
+
+                <div class="replay-controls">
+                    <button id="intercept-btn">🕵️ Intercept Latest Packet</button>
+                    <button id="replay-btn" disabled>🔁 Replay Captured Packet</button>
+                </div>
+
+                <div class="replay-score">
+                    <span>🚫 Replays Blocked: <strong id="blocked-count">0</strong></span>
+                    <span>⚠️ Replays Succeeded: <strong id="succeeded-count">0</strong></span>
+                </div>
+
+                <div id="replay-log" class="game-log">Watch the wire — legitimate packets are sent automatically
+                    every few seconds. Intercept one, then try to replay it!</div>
+            </div>
+        </div>
+
+        <div id="panel-ids" class="lab-panel">
+            <div class="lab-card">
+                <h2>🛡️ Build Your IDS/IPS</h2>
+                <p class="game-desc">Packets are heading for your server. <strong>Click a packet to block it</strong>
+                    before it arrives. Block wisely — blocking real traffic frustrates users, but letting an attack
+                    through damages your server!</p>
+
+                <div class="ids-legend">
+                    <span class="legend-benign">✅ Benign: HTTP Request, DNS Query, Software Update, Normal
+                        Login</span>
+                    <span class="legend-malicious">⚠️ Malicious: SYN Flood, Brute Force, SQL Injection, Port
+                        Scan</span>
+                </div>
+
+                <div class="ids-hud">
+                    <div>Score: <strong id="ids-score">0</strong></div>
+                    <div>Server Health:
+                        <span class="health-bar"><span id="health-fill" class="health-fill"></span></span>
+                    </div>
+                </div>
+
+                <canvas id="ids-canvas" height="340"></canvas>
+
+                <button id="ids-start-btn">▶️ Start Game</button>
+                <div id="ids-status" class="game-log">Click "Start Game" to begin defending your server!</div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-logos">
+            <img src="university_logo_orebro.png" alt="Örebro University Logo" class="footer-logo" />
+            <img src="university_logo1.png" alt="University of Genoa Logo" class="footer-logo" />
+            <img src="university_logo2.png" alt="CNIT Logo" class="footer-logo" />
+            <img src="university_logo3.png" alt="COSMIC Lab Logo" class="footer-logo" />
+            <img src="university_logo4.png" alt="DITEN Logo" class="footer-logo" />
+            <img src="university_logo5.png" alt="KTH Royal Institute Logo" class="footer-logo" />
+        </div>
+        <p class="footer-copy">© 2026 Dr. Junaid Qadir. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
+    <script>
+        function loadParticlesConfig(configFile) {
+            const container = document.getElementById('particles-js');
+            tsParticles.dom().forEach(instance => instance.destroy());
+            while (container.firstChild) container.removeChild(container.firstChild);
+            tsParticles.loadJSON('particles-js', configFile);
+        }
+        document.addEventListener("DOMContentLoaded", () => {
+            const configs = ['particles-config.json', 'particles-solid.json'];
+            let counter = 0;
+            loadParticlesConfig(configs[counter]);
+            setInterval(() => {
+                counter = (counter + 1) % configs.length;
+                loadParticlesConfig(configs[counter]);
+            }, 15000);
+        });
+    </script>
+    <script src="theme-toggle.js"></script>
 
     <script>
-        /* -------------------------------------------------------
-           Station data (single source of truth for 3D + fallback)
-        ------------------------------------------------------- */
-        const stations = [
-            {
-                x: -5, z: -5, color: 0x00ffff,
-                name: "IMU Sensor Table",
-                info: "Estimates Center-of-Pressure (CoP) trajectories from IMU-equipped smart glasses using deep learning models such as CNN–BiLSTM–Attention — a low-cost alternative to force-platform balance assessment.",
-                linkText: "View the published paper →",
-                link: "https://ieeexplore.ieee.org/abstract/document/11343554"
-            },
-            {
-                x: 5, z: -5, color: 0xff00ff,
-                name: "LoRaWAN Gateway Rack",
-                info: "Covers LoRaWAN security: replay, jamming, sinkhole and man-in-the-middle attacks, and a lightweight AES-128/ECDH-based key-management scheme to secure IoT gateways.",
-                linkText: "View the published paper →",
-                link: "https://ieeexplore.ieee.org/abstract/document/10171366"
-            },
-            {
-                x: -5, z: 5, color: 0x00ff88,
-                name: "Deep Learning Hologram",
-                info: "Explores how CNNs, BiLSTMs, and attention mechanisms process sensor data, and how explainability methods like SHAP and Integrated Gradients reveal what these models actually learn.",
-                linkText: "Try the live Neural Network Visualizer →",
-                link: "interactive-lab.html"
-            },
-            {
-                x: 5, z: 5, color: 0xffff00,
-                name: "5G Edge Server",
-                info: "Demonstrates Mobile Edge Computing: pushing computation closer to devices to cut latency for industrial IoT and smart infrastructure, part of research on 5G/6G network function virtualization.",
-                linkText: "View the published paper →",
-                link: "https://ieeexplore.ieee.org/document/9206025"
-            },
-            {
-                x: 0, z: 0, color: 0x3399ff,
-                name: "UWSN Capsule",
-                info: "Routing protocols for underwater wireless sensor networks, balancing energy efficiency, node depth, and acoustic channel noise to reliably deliver data in harsh underwater environments.",
-                linkText: "View the published paper →",
-                link: "https://ieeexplore.ieee.org/document/9130704"
-            }
-        ];
-
-        const visited = new Set();
-
-        function updateHud() {
-            const hud = document.getElementById('hud');
-            hud.textContent = 'Stations explored: ' + visited.size + ' / ' + stations.length;
-            if (visited.size === stations.length) {
-                hud.textContent += ' 🎉 All explored!';
-            }
+        function showLabTab(name, btn) {
+            document.querySelectorAll('.lab-panel').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.lab-tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('panel-' + name).classList.add('active');
+            if (btn) btn.classList.add('active');
+            // canvases inside a display:none panel report 0 width; re-measure now that it's visible
+            window.dispatchEvent(new Event('resize'));
         }
 
-        function openPanel(station) {
-            document.getElementById("panelTitle").textContent = station.name;
-            document.getElementById("panelText").textContent = station.info;
-            const link = document.getElementById("panelLink");
-            link.textContent = station.linkText;
-            link.href = station.link;
-            document.getElementById("infoPanel").style.display = "block";
-            visited.add(station.name);
-            updateHud();
-        }
+        /* =====================================================
+           REPLAY ATTACK GAME
+        ===================================================== */
+        (function () {
+            const canvas = document.getElementById('replay-canvas');
+            const ctx = canvas.getContext('2d');
+            const logEl = document.getElementById('replay-log');
+            const interceptBtn = document.getElementById('intercept-btn');
+            const replayBtn = document.getElementById('replay-btn');
+            const defenseCheckbox = document.getElementById('fcnt-defense');
+            const blockedCountEl = document.getElementById('blocked-count');
+            const succeededCountEl = document.getElementById('succeeded-count');
 
-        document.getElementById("closeBtn").onclick = () => {
-            document.getElementById("infoPanel").style.display = "none";
-        };
+            let fcnt = 0;
+            let lastAcceptedFcnt = -1;
+            let capturedFcnt = null;
+            let blockedCount = 0;
+            let succeededCount = 0;
+            let packets = []; // {start, duration, fcnt, kind, result}
 
-        /* -------------------------------------------------------
-           Device capability check: 3D room needs mouse + keyboard
-        ------------------------------------------------------- */
-        const canUseLab3D = window.matchMedia('(pointer: fine)').matches &&
-            ('requestPointerLock' in document.body || 'requestPointerLock' in Element.prototype);
-
-        if (!canUseLab3D) {
-            document.getElementById('introOverlay').style.display = 'none';
-            document.getElementById('mobileFallback').style.display = 'block';
-            const container = document.getElementById('fallbackCards');
-            stations.forEach(function (s) {
-                const card = document.createElement('div');
-                card.className = 'station-card';
-                card.innerHTML = '<h3>' + s.name + '</h3><p>' + s.info + '</p><a href="' + s.link +
-                    '" target="_blank" rel="noopener">' + s.linkText + '</a>';
-                container.appendChild(card);
-            });
-        } else {
-            initLab3D();
-        }
-
-        /* -------------------------------------------------------
-           3D Lab (desktop with mouse + keyboard)
-        ------------------------------------------------------- */
-        function initLab3D() {
-            document.body.classList.add('lab-3d-active');
-
-            const scene = new THREE.Scene();
-            scene.background = new THREE.Color(0x000000);
-            scene.fog = new THREE.Fog(0x000000, 10, 28);
-
-            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            camera.position.set(0, 1.6, 8);
-
-            const renderer = new THREE.WebGLRenderer({ antialias: true });
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            document.body.appendChild(renderer.domElement);
-
-            const ambient = new THREE.AmbientLight(0x66ffff, 0.6);
-            scene.add(ambient);
-
-            const spot = new THREE.SpotLight(0x00ffff, 2);
-            spot.position.set(5, 10, 5);
-            scene.add(spot);
-
-            const floorGeo = new THREE.PlaneGeometry(30, 30);
-            const floorMat = new THREE.MeshStandardMaterial({ color: 0x001a1a, emissive: 0x004040 });
-            const floor = new THREE.Mesh(floorGeo, floorMat);
-            floor.rotation.x = -Math.PI / 2;
-            scene.add(floor);
-
-            const grid = new THREE.GridHelper(30, 30, 0x00ffff, 0x003333);
-            grid.position.y = 0.01;
-            scene.add(grid);
-
-            const wallMat = new THREE.MeshStandardMaterial({ color: 0x001020 });
-            const wallGeo = new THREE.BoxGeometry(30, 10, 1);
-            const backWall = new THREE.Mesh(wallGeo, wallMat);
-            backWall.position.set(0, 5, -15);
-            scene.add(backWall);
-            const frontWall = new THREE.Mesh(wallGeo, wallMat);
-            frontWall.position.set(0, 5, 15);
-            scene.add(frontWall);
-
-            function makeLabelSprite(text) {
-                const canvas = document.createElement('canvas');
-                canvas.width = 512;
-                canvas.height = 96;
-                const ctx = canvas.getContext('2d');
-                ctx.font = 'bold 40px Arial';
-                ctx.fillStyle = '#00e6ff';
-                ctx.textAlign = 'center';
-                ctx.fillText(text, 256, 60);
-                const tex = new THREE.CanvasTexture(canvas);
-                const mat = new THREE.SpriteMaterial({ map: tex, transparent: true, depthTest: false });
-                const sprite = new THREE.Sprite(mat);
-                sprite.scale.set(3, 0.6, 1);
-                return sprite;
+            function log(msg) {
+                const line = document.createElement('div');
+                line.textContent = msg;
+                logEl.appendChild(line);
+                logEl.scrollTop = logEl.scrollHeight;
             }
 
-            const objects = [];
-            stations.forEach(function (s) {
-                const geo = new THREE.BoxGeometry(1, 1, 1);
-                const mat = new THREE.MeshStandardMaterial({ color: s.color, emissive: 0x000000 });
-                const obj = new THREE.Mesh(geo, mat);
-                obj.position.set(s.x, 1, s.z);
-                obj.userData = s;
-                scene.add(obj);
-                objects.push(obj);
+            function resizeCanvas() {
+                canvas.width = canvas.offsetWidth;
+                canvas.height = 150;
+            }
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
 
-                const label = makeLabelSprite(s.name);
-                label.position.set(s.x, 1.9, s.z);
-                scene.add(label);
-            });
+            function sendLegitPacket() {
+                fcnt++;
+                const thisFcnt = fcnt;
+                packets.push({ start: performance.now(), duration: 1400, fcnt: thisFcnt, kind: 'legit', result: null });
+                setTimeout(() => {
+                    lastAcceptedFcnt = thisFcnt;
+                    log('📦 Packet #' + thisFcnt + ' delivered normally.');
+                }, 1400);
+            }
 
-            const controls = new THREE.PointerLockControls(camera, document.body);
+            interceptBtn.onclick = function () {
+                if (lastAcceptedFcnt < 0) {
+                    log('⏳ No packet has been delivered yet — wait a moment.');
+                    return;
+                }
+                capturedFcnt = lastAcceptedFcnt;
+                replayBtn.disabled = false;
+                log('🕵️ Intercepted a copy of packet #' + capturedFcnt + '.');
+            };
 
-            const overlay = document.getElementById('introOverlay');
-            const hud = document.getElementById('hud');
-            const crosshair = document.getElementById('crosshair');
-            const hoverLabel = document.getElementById('hoverLabel');
-
-            document.getElementById('enterBtn').addEventListener('click', () => controls.lock());
-
-            controls.addEventListener('lock', () => {
-                overlay.style.display = 'none';
-                hud.style.display = 'block';
-                crosshair.style.display = 'block';
-            });
-
-            controls.addEventListener('unlock', () => {
-                overlay.style.display = 'flex';
-                crosshair.style.display = 'none';
-                hoverLabel.style.display = 'none';
-            });
-
-            let move = { forward: false, back: false, left: false, right: false };
-            document.addEventListener('keydown', e => {
-                if (e.code === 'KeyW') move.forward = true;
-                if (e.code === 'KeyS') move.back = true;
-                if (e.code === 'KeyA') move.left = true;
-                if (e.code === 'KeyD') move.right = true;
-            });
-            document.addEventListener('keyup', e => {
-                if (e.code === 'KeyW') move.forward = false;
-                if (e.code === 'KeyS') move.back = false;
-                if (e.code === 'KeyA') move.left = false;
-                if (e.code === 'KeyD') move.right = false;
-            });
-
-            const raycaster = new THREE.Raycaster();
-            let hovered = null;
-
-            function updateHover() {
-                raycaster.setFromCamera(new THREE.Vector2(0, 0), camera);
-                const hits = raycaster.intersectObjects(objects);
-                const hit = hits.length > 0 ? hits[0].object : null;
-
-                if (hit !== hovered) {
-                    if (hovered) hovered.material.emissive.setHex(0x000000);
-                    hovered = hit;
-                    if (hovered) {
-                        hovered.material.emissive.setHex(0x333333);
-                        hoverLabel.textContent = hovered.userData.name + ' (click to view)';
-                        hoverLabel.style.display = 'block';
+            replayBtn.onclick = function () {
+                if (capturedFcnt === null) return;
+                const thisFcnt = capturedFcnt;
+                const defenseOn = defenseCheckbox.checked;
+                packets.push({ start: performance.now(), duration: 1400, fcnt: thisFcnt, kind: 'replay', result: null });
+                replayBtn.disabled = true;
+                setTimeout(() => {
+                    const blocked = defenseOn && thisFcnt <= lastAcceptedFcnt;
+                    const pkt = packets[packets.length - 1];
+                    if (pkt) pkt.result = blocked ? 'blocked' : 'accepted';
+                    if (blocked) {
+                        blockedCount++;
+                        blockedCountEl.textContent = blockedCount;
+                        log('🚫 REJECTED — frame counter #' + thisFcnt + ' was already used. Replay blocked!');
                     } else {
-                        hoverLabel.style.display = 'none';
+                        succeededCount++;
+                        succeededCountEl.textContent = succeededCount;
+                        log('⚠️ ACCEPTED — replay got through! ' + (defenseOn ? '' : 'Frame counter defense was OFF.'));
+                    }
+                }, 1400);
+            };
+
+            setInterval(sendLegitPacket, 3000);
+            sendLegitPacket();
+
+            function draw() {
+                requestAnimationFrame(draw);
+                const W = canvas.width, H = canvas.height;
+                ctx.clearRect(0, 0, W, H);
+
+                const deviceX = 60, gwX = W - 60, midY = H / 2;
+                ctx.strokeStyle = 'rgba(79,195,247,.3)';
+                ctx.lineWidth = 2;
+                ctx.beginPath(); ctx.moveTo(deviceX, midY); ctx.lineTo(gwX, midY); ctx.stroke();
+
+                [['Device', deviceX], ['Gateway', gwX]].forEach(([label, x]) => {
+                    ctx.beginPath(); ctx.arc(x, midY, 22, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(79,195,247,.12)'; ctx.strokeStyle = '#4fc3f7'; ctx.lineWidth = 2;
+                    ctx.fill(); ctx.stroke();
+                    ctx.fillStyle = '#4fc3f7'; ctx.font = '10px sans-serif'; ctx.textAlign = 'center';
+                    ctx.fillText(label, x, midY + 40);
+                });
+
+                const now = performance.now();
+                packets = packets.filter(p => now - p.start < p.duration + 400);
+                packets.forEach(p => {
+                    const t = Math.min(1, (now - p.start) / p.duration);
+                    const x = deviceX + (gwX - deviceX) * t;
+                    const color = p.kind === 'legit' ? '#4fc3f7' : (p.result === 'blocked' ? '#f44336' : '#ffb300');
+                    ctx.beginPath(); ctx.arc(x, midY, 7, 0, Math.PI * 2);
+                    ctx.fillStyle = color; ctx.fill();
+                    ctx.fillStyle = '#888'; ctx.font = '9px sans-serif'; ctx.textAlign = 'center';
+                    ctx.fillText('#' + p.fcnt + (p.kind === 'replay' ? ' (replay)' : ''), x, midY - 16);
+
+                    if (t >= 1 && p.result) {
+                        ctx.font = 'bold 16px sans-serif';
+                        ctx.fillStyle = p.result === 'blocked' ? '#f44336' : '#ffb300';
+                        ctx.fillText(p.result === 'blocked' ? '✕' : '✓', gwX, midY - 34);
+                    }
+                });
+            }
+            draw();
+        })();
+
+        /* =====================================================
+           IDS / IPS DEFENSE GAME
+        ===================================================== */
+        (function () {
+            const canvas = document.getElementById('ids-canvas');
+            const ctx = canvas.getContext('2d');
+            const startBtn = document.getElementById('ids-start-btn');
+            const statusEl = document.getElementById('ids-status');
+            const scoreEl = document.getElementById('ids-score');
+            const healthFill = document.getElementById('health-fill');
+
+            const malicious = [
+                { label: 'SYN Flood', bad: true },
+                { label: 'Brute Force', bad: true },
+                { label: 'SQL Injection', bad: true },
+                { label: 'Port Scan', bad: true }
+            ];
+            const benign = [
+                { label: 'HTTP Request', bad: false },
+                { label: 'DNS Query', bad: false },
+                { label: 'Software Update', bad: false },
+                { label: 'Normal Login', bad: false }
+            ];
+
+            let running = false;
+            let score = 0;
+            let health = 100;
+            let packets = [];
+            let spawnTimer = null;
+            let floatTexts = [];
+
+            function resizeCanvas() {
+                canvas.width = canvas.offsetWidth;
+                canvas.height = 340;
+            }
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+
+            function setStatus(msg) { statusEl.textContent = msg; }
+
+            function updateHealthBar() {
+                healthFill.style.width = Math.max(0, health) + '%';
+                healthFill.style.background = health > 50
+                    ? 'linear-gradient(90deg,#4caf50,#81c784)'
+                    : (health > 20 ? 'linear-gradient(90deg,#ffb300,#ffd54f)' : 'linear-gradient(90deg,#f44336,#ef9a9a)');
+            }
+
+            function spawnPacket() {
+                const isBad = Math.random() < 0.45;
+                const pool = isBad ? malicious : benign;
+                const def = pool[Math.floor(Math.random() * pool.length)];
+                const speed = 0.35 + Math.min(0.5, score / 200);
+                packets.push({
+                    x: 10,
+                    y: 30 + Math.random() * (canvas.height - 60),
+                    speed: speed,
+                    label: def.label,
+                    bad: def.bad,
+                    hit: false
+                });
+            }
+
+            function scheduleSpawn() {
+                spawnTimer = setTimeout(function () {
+                    if (!running) return;
+                    spawnPacket();
+                    scheduleSpawn();
+                }, Math.max(550, 1300 - score * 8));
+            }
+
+            function startGame() {
+                running = true;
+                score = 0;
+                health = 100;
+                packets = [];
+                floatTexts = [];
+                scoreEl.textContent = score;
+                updateHealthBar();
+                setStatus('Defend your server — click malicious packets before they arrive!');
+                startBtn.textContent = '⏸️ Restart';
+                clearTimeout(spawnTimer);
+                scheduleSpawn();
+            }
+
+            startBtn.onclick = startGame;
+
+            canvas.addEventListener('click', function (e) {
+                if (!running) return;
+                const rect = canvas.getBoundingClientRect();
+                const mx = (e.clientX - rect.left) * (canvas.width / rect.width);
+                const my = (e.clientY - rect.top) * (canvas.height / rect.height);
+                for (let i = packets.length - 1; i >= 0; i--) {
+                    const p = packets[i];
+                    if (p.hit) continue;
+                    const dx = mx - p.x, dy = my - p.y;
+                    if (Math.sqrt(dx * dx + dy * dy) < 34) {
+                        p.hit = true;
+                        if (p.bad) {
+                            score += 10;
+                            floatTexts.push({ x: p.x, y: p.y, text: '+10 Blocked!', color: '#81c784', start: performance.now() });
+                        } else {
+                            score = Math.max(0, score - 5);
+                            floatTexts.push({ x: p.x, y: p.y, text: '-5 False Positive', color: '#ef9a9a', start: performance.now() });
+                        }
+                        scoreEl.textContent = score;
+                        packets.splice(i, 1);
+                        break;
                     }
                 }
-            }
-
-            document.addEventListener("click", () => {
-                if (!controls.isLocked) return;
-                if (hovered) openPanel(hovered.userData);
             });
 
-            function animate() {
-                requestAnimationFrame(animate);
-                const speed = 0.10;
-                if (controls.isLocked) {
-                    if (move.forward) controls.moveForward(speed);
-                    if (move.back) controls.moveForward(-speed);
-                    if (move.left) controls.moveRight(-speed);
-                    if (move.right) controls.moveRight(speed);
-                    updateHover();
+            function endGame() {
+                running = false;
+                clearTimeout(spawnTimer);
+                setStatus('💥 Server compromised! Final score: ' + score + '. Click "Restart" to try again.');
+                startBtn.textContent = '▶️ Start Game';
+            }
+
+            function loop() {
+                requestAnimationFrame(loop);
+                const W = canvas.width, H = canvas.height;
+                ctx.clearRect(0, 0, W, H);
+
+                const serverX = W - 50;
+                ctx.strokeStyle = 'rgba(79,195,247,.25)'; ctx.lineWidth = 1;
+                ctx.beginPath(); ctx.moveTo(serverX, 0); ctx.lineTo(serverX, H); ctx.stroke();
+                ctx.fillStyle = 'rgba(79,195,247,.12)'; ctx.strokeStyle = '#4fc3f7'; ctx.lineWidth = 2;
+                ctx.beginPath(); ctx.roundRect ? ctx.roundRect(serverX - 20, H / 2 - 30, 40, 60, 8) : ctx.rect(serverX - 20, H / 2 - 30, 40, 60);
+                ctx.fill(); ctx.stroke();
+                ctx.fillStyle = '#4fc3f7'; ctx.font = 'bold 10px sans-serif'; ctx.textAlign = 'center';
+                ctx.fillText('SERVER', serverX, H / 2 + 46);
+
+                if (running) {
+                    for (let i = packets.length - 1; i >= 0; i--) {
+                        const p = packets[i];
+                        p.x += p.speed;
+                        if (p.x >= serverX - 20) {
+                            packets.splice(i, 1);
+                            if (p.bad) {
+                                health -= 20;
+                                updateHealthBar();
+                                floatTexts.push({ x: serverX - 60, y: p.y, text: '💥 Intrusion!', color: '#f44336', start: performance.now() });
+                                if (health <= 0) { endGame(); }
+                            } else {
+                                score += 2;
+                                scoreEl.textContent = score;
+                            }
+                            continue;
+                        }
+                        ctx.beginPath();
+                        ctx.fillStyle = p.bad ? 'rgba(244,67,54,.85)' : 'rgba(79,195,247,.8)';
+                        ctx.strokeStyle = p.bad ? '#ef9a9a' : '#4fc3f7';
+                        ctx.lineWidth = 1.5;
+                        if (ctx.roundRect) { ctx.roundRect(p.x - 32, p.y - 12, 64, 24, 6); } else { ctx.rect(p.x - 32, p.y - 12, 64, 24); }
+                        ctx.fill(); ctx.stroke();
+                        ctx.fillStyle = '#fff'; ctx.font = '9px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                        ctx.fillText(p.label, p.x, p.y);
+                    }
                 }
-                renderer.render(scene, camera);
+
+                const now = performance.now();
+                floatTexts = floatTexts.filter(f => now - f.start < 900);
+                floatTexts.forEach(f => {
+                    const t = (now - f.start) / 900;
+                    ctx.globalAlpha = 1 - t;
+                    ctx.fillStyle = f.color;
+                    ctx.font = 'bold 12px sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(f.text, f.x, f.y - t * 30);
+                    ctx.globalAlpha = 1;
+                });
             }
-            animate();
-
-            window.addEventListener("resize", () => {
-                camera.aspect = window.innerWidth / window.innerHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(window.innerWidth, window.innerHeight);
-            });
-        }
+            loop();
+        })();
     </script>
-
 </body>
 
 </html>
