@@ -687,9 +687,17 @@ body.light-theme .stat-label {
 }
 
 .footprint-flag {
-  font-size: 1.7rem;
+  width: 24px;
+  height: auto;
   margin-right: 8px;
   vertical-align: middle;
+  border-radius: 3px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+}
+
+.footprint-flag:hover {
+  transform: none;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
 }
 
 .footprint-country {

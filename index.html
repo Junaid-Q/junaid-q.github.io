@@ -148,33 +148,43 @@
             <h2>Global Footprint</h2>
             <div id="world-map"></div>
             <div class="footprint-grid">
-                <div class="footprint-card"><span class="footprint-flag">🇸🇪</span><span
+                <div class="footprint-card"><img class="footprint-flag" src="https://flagcdn.com/w40/se.png"
+                        alt="Sweden flag" width="24" /><span
                         class="footprint-country">Sweden</span><span class="footprint-detail">Örebro University ·
                         KTH Royal Institute of Technology</span></div>
-                <div class="footprint-card"><span class="footprint-flag">🇮🇹</span><span
+                <div class="footprint-card"><img class="footprint-flag" src="https://flagcdn.com/w40/it.png"
+                        alt="Italy flag" width="24" /><span
                         class="footprint-country">Italy</span><span class="footprint-detail">University of Genoa ·
                         CNIT</span></div>
-                <div class="footprint-card"><span class="footprint-flag">🇵🇰</span><span
+                <div class="footprint-card"><img class="footprint-flag" src="https://flagcdn.com/w40/pk.png"
+                        alt="Pakistan flag" width="24" /><span
                         class="footprint-country">Pakistan</span><span class="footprint-detail">Quaid-i-Azam
                         University · University of Peshawar · Abdul Wali Khan University</span></div>
-                <div class="footprint-card"><span class="footprint-flag">🇪🇸</span><span
+                <div class="footprint-card"><img class="footprint-flag" src="https://flagcdn.com/w40/es.png"
+                        alt="Spain flag" width="24" /><span
                         class="footprint-country">Spain</span><span class="footprint-detail">University of
                         Valladolid</span></div>
-                <div class="footprint-card"><span class="footprint-flag">🇵🇹</span><span
+                <div class="footprint-card"><img class="footprint-flag" src="https://flagcdn.com/w40/pt.png"
+                        alt="Portugal flag" width="24" /><span
                         class="footprint-country">Portugal</span><span class="footprint-detail">Instituto de
                         Telecomunicações</span></div>
-                <div class="footprint-card"><span class="footprint-flag">🇲🇦</span><span
+                <div class="footprint-card"><img class="footprint-flag" src="https://flagcdn.com/w40/ma.png"
+                        alt="Morocco flag" width="24" /><span
                         class="footprint-country">Morocco</span><span class="footprint-detail">Sultan Moulay Slimane
                         University</span></div>
-                <div class="footprint-card"><span class="footprint-flag">🇷🇸</span><span
+                <div class="footprint-card"><img class="footprint-flag" src="https://flagcdn.com/w40/rs.png"
+                        alt="Serbia flag" width="24" /><span
                         class="footprint-country">Serbia</span><span class="footprint-detail">IEEE ZINC Conference —
                         Best Paper Award</span></div>
-                <div class="footprint-card"><span class="footprint-flag">🇯🇵</span><span
+                <div class="footprint-card"><img class="footprint-flag" src="https://flagcdn.com/w40/jp.png"
+                        alt="Japan flag" width="24" /><span
                         class="footprint-country">Japan</span><span class="footprint-detail">IEEE IWCMC 2019</span>
                 </div>
-                <div class="footprint-card"><span class="footprint-flag">🇬🇧</span><span class="footprint-country">United
+                <div class="footprint-card"><img class="footprint-flag" src="https://flagcdn.com/w40/gb.png"
+                        alt="United Kingdom flag" width="24" /><span class="footprint-country">United
                         Kingdom</span><span class="footprint-detail">IEEE ICC 2026, Glasgow</span></div>
-                <div class="footprint-card"><span class="footprint-flag">🇦🇪</span><span class="footprint-country">United
+                <div class="footprint-card"><img class="footprint-flag" src="https://flagcdn.com/w40/ae.png"
+                        alt="United Arab Emirates flag" width="24" /><span class="footprint-country">United
                         Arab Emirates</span><span class="footprint-detail">IEEE Healthcom 2025, Abu Dhabi</span>
                 </div>
             </div>
@@ -396,16 +406,16 @@
             if (!mapEl || typeof L === 'undefined') return;
 
             const locations = [
-                { lat: 59.2753, lng: 15.2134, flag: '🇸🇪', country: 'Sweden', detail: 'Örebro University · KTH Royal Institute of Technology' },
-                { lat: 44.4056, lng: 8.9463, flag: '🇮🇹', country: 'Italy', detail: 'University of Genoa · CNIT' },
-                { lat: 33.6844, lng: 73.0479, flag: '🇵🇰', country: 'Pakistan', detail: 'Quaid-i-Azam University · University of Peshawar · Abdul Wali Khan University' },
-                { lat: 41.6523, lng: -4.7245, flag: '🇪🇸', country: 'Spain', detail: 'University of Valladolid' },
-                { lat: 40.2795, lng: -7.5079, flag: '🇵🇹', country: 'Portugal', detail: 'Instituto de Telecomunicações' },
-                { lat: 32.3373, lng: -6.3498, flag: '🇲🇦', country: 'Morocco', detail: 'Sultan Moulay Slimane University' },
-                { lat: 45.2671, lng: 19.8335, flag: '🇷🇸', country: 'Serbia', detail: 'IEEE ZINC Conference — Best Paper Award' },
-                { lat: 35.6762, lng: 139.6503, flag: '🇯🇵', country: 'Japan', detail: 'IEEE IWCMC 2019' },
-                { lat: 55.8642, lng: -4.2518, flag: '🇬🇧', country: 'United Kingdom', detail: 'IEEE ICC 2026, Glasgow' },
-                { lat: 24.4539, lng: 54.3773, flag: '🇦🇪', country: 'United Arab Emirates', detail: 'IEEE Healthcom 2025, Abu Dhabi' }
+                { lat: 59.2753, lng: 15.2134, code: 'se', country: 'Sweden', detail: 'Örebro University · KTH Royal Institute of Technology' },
+                { lat: 44.4056, lng: 8.9463, code: 'it', country: 'Italy', detail: 'University of Genoa · CNIT' },
+                { lat: 33.6844, lng: 73.0479, code: 'pk', country: 'Pakistan', detail: 'Quaid-i-Azam University · University of Peshawar · Abdul Wali Khan University' },
+                { lat: 41.6523, lng: -4.7245, code: 'es', country: 'Spain', detail: 'University of Valladolid' },
+                { lat: 40.2795, lng: -7.5079, code: 'pt', country: 'Portugal', detail: 'Instituto de Telecomunicações' },
+                { lat: 32.3373, lng: -6.3498, code: 'ma', country: 'Morocco', detail: 'Sultan Moulay Slimane University' },
+                { lat: 45.2671, lng: 19.8335, code: 'rs', country: 'Serbia', detail: 'IEEE ZINC Conference — Best Paper Award' },
+                { lat: 35.6762, lng: 139.6503, code: 'jp', country: 'Japan', detail: 'IEEE IWCMC 2019' },
+                { lat: 55.8642, lng: -4.2518, code: 'gb', country: 'United Kingdom', detail: 'IEEE ICC 2026, Glasgow' },
+                { lat: 24.4539, lng: 54.3773, code: 'ae', country: 'United Arab Emirates', detail: 'IEEE Healthcom 2025, Abu Dhabi' }
             ];
 
             const darkTiles = 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
@@ -427,7 +437,10 @@
                     weight: 2,
                     fillOpacity: 0.85
                 }).addTo(map);
-                marker.bindPopup('<strong>' + loc.flag + ' ' + loc.country + '</strong><br>' + loc.detail);
+                marker.bindPopup(
+                    '<strong><img src="https://flagcdn.com/w40/' + loc.code + '.png" alt="" width="18" style="vertical-align:middle;margin-right:6px;border-radius:2px;" /> ' +
+                    loc.country + '</strong><br>' + loc.detail
+                );
                 return marker;
             });
 
