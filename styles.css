@@ -489,6 +489,13 @@ h2 {
   filter: drop-shadow(0 0 12px rgba(0, 255, 255, 0.8));
 }
 
+/* WASP logo is dark grey and needs a light backdrop to stay legible on the black footer */
+.footer-logo-wasp {
+  background: rgba(255, 255, 255, 0.85);
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+
 
 /* ===== GLOBAL TEXT JUSTIFICATION FOR ALL PAGES ===== */
 main p,
